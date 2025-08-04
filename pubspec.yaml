@@ -115,6 +115,7 @@ dev_dependencies:
   build_runner: ^2.4.15
   ffi: ^2.0.1
   flutter_gen_runner: ^5.11.0
+  flutter_launcher_icons: ^0.14.4
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
@@ -196,7 +197,7 @@ flutter:
           style: italic
     - family: ProtestGuerrilla
       fonts:
-        - asset: assets/fonts/ProtestGuerrilla-Regular.ttf
+        - asset: assets/fonts/Protest_Guerrilla/ProtestGuerrilla-Regular.ttf
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto-Regular.ttf
