@@ -206,3 +206,15 @@ flutter:
     - family: MxcIcons
       fonts:
         - asset: assets/icons/mxc-icons.ttf
+
+
+flutter_gen:
+  assets:
+    exclude:
+      - assets/flutter_i18n/**
+      - assets/icons/**
+      - assets/js/**
+    outputs:
+      # package_parameter_enabled: true
+      directory_path_enabled: true 
+  # parse_metadata: true

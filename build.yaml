@@ -5,14 +5,6 @@ targets:
   $default:
     builders:
       flutter_gen_runner: # or flutter_gen
-        assets:
-          exclude:
-            - flutter_i18n/**
-            - specified-asset.jpg
-          outputs:
-            # package_parameter_enabled: true
-            directory_path_enabled: true 
-        # parse_metadata: true
         options:
           output: lib/common/ # Optional (default: lib/gen/)
           # line_length: 120 # Optional
