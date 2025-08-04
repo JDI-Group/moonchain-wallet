@@ -53,29 +53,92 @@ class $AssetsPdfGen {
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
+  /// File path: assets/svg/add_image.svg
+  String get addImage => 'assets/svg/add_image.svg';
+
+  /// File path: assets/svg/ai_black.svg
+  String get aiBlack => 'assets/svg/ai_black.svg';
+
+  /// File path: assets/svg/ai_market_overview.svg
+  String get aiMarketOverview => 'assets/svg/ai_market_overview.svg';
+
+  /// File path: assets/svg/ai_pending.svg
+  String get aiPending => 'assets/svg/ai_pending.svg';
+
+  /// File path: assets/svg/ai_porfolio.svg
+  String get aiPorfolio => 'assets/svg/ai_porfolio.svg';
+
   /// File path: assets/svg/blueberryring.svg
   String get blueberryring => 'assets/svg/blueberryring.svg';
+
+  /// File path: assets/svg/bridge.svg
+  String get bridge => 'assets/svg/bridge.svg';
+
+  /// File path: assets/svg/governance.svg
+  String get governance => 'assets/svg/governance.svg';
 
   /// File path: assets/svg/ic_contact.svg
   String get icContact => 'assets/svg/ic_contact.svg';
 
+  /// File path: assets/svg/index_gary.svg
+  String get indexGary => 'assets/svg/index_gary.svg';
+
+  /// File path: assets/svg/index_white.svg
+  String get indexWhite => 'assets/svg/index_white.svg';
+
   /// Directory path: assets/svg/networks
   $AssetsSvgNetworksGen get networks => const $AssetsSvgNetworksGen();
+
+  /// File path: assets/svg/portfilio.svg
+  String get portfilio => 'assets/svg/portfilio.svg';
 
   /// Directory path: assets/svg/security
   $AssetsSvgSecurityGen get security => const $AssetsSvgSecurityGen();
 
+  /// File path: assets/svg/send.svg
+  String get send => 'assets/svg/send.svg';
+
   /// Directory path: assets/svg/settings
   $AssetsSvgSettingsGen get settings => const $AssetsSvgSettingsGen();
 
+  /// File path: assets/svg/settings.svg
+  String get settingsSvg => 'assets/svg/settings.svg';
+
   /// Directory path: assets/svg/splash
   $AssetsSvgSplashGen get splash => const $AssetsSvgSplashGen();
+
+  /// File path: assets/svg/token.svg
+  String get token => 'assets/svg/token.svg';
+
+  /// File path: assets/svg/wallet_gary.svg
+  String get walletGary => 'assets/svg/wallet_gary.svg';
+
+  /// File path: assets/svg/wallet_white.svg
+  String get walletWhite => 'assets/svg/wallet_white.svg';
 
   /// Directory path: assets/svg
   String get path => 'assets/svg';
 
   /// List of all assets
-  List<String> get values => [blueberryring, icContact];
+  List<String> get values => [
+        addImage,
+        aiBlack,
+        aiMarketOverview,
+        aiPending,
+        aiPorfolio,
+        blueberryring,
+        bridge,
+        governance,
+        icContact,
+        indexGary,
+        indexWhite,
+        portfilio,
+        send,
+        settingsSvg,
+        token,
+        walletGary,
+        walletWhite
+      ];
 }
 
 class $AssetsImageMinersGen {
