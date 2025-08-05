@@ -1,4 +1,3 @@
-import 'package:moonchain_wallet/common/bottom_sheets/bottom_sheets.dart';
 import 'package:moonchain_wallet/common/ui_config.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +38,6 @@ Future<bool?> showPermissionUseCasesBottomSheet(
         title: translate('ok_allow'),
         onTap: () => Navigator.of(context).pop(true),
         size: MXCWalletButtonSize.xl,
-        edgeType: UIConfig.permissionsBottomSheetEdgeType,
       ),
     ],
   );

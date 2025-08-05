@@ -78,7 +78,7 @@ Future<bool?> showAddNetworkDialog(
         title: translate('cancel'),
         onTap: () => Navigator.of(context).pop(false),
         size: MXCWalletButtonSize.xl,
-        edgeType: MXCWalletButtonEdgeType.hard,
+        edgeType: UIConfig.chainConfigurationEdgeType,
       ),
       const SizedBox(
         height: Sizes.spaceNormal,
@@ -86,12 +86,12 @@ Future<bool?> showAddNetworkDialog(
       MxcButton.primary(
         key: const ValueKey('approveButton'),
         title: translate('approve'),
+        edgeType: UIConfig.chainConfigurationEdgeType,
         onTap: () {
           final updatedNetwork = approveFunction(network);
           Navigator.of(context).pop(updatedNetwork != null);
         },
         size: MXCWalletButtonSize.xl,
-        edgeType: MXCWalletButtonEdgeType.hard,
       ),
     ],
   );

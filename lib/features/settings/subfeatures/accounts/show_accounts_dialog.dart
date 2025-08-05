@@ -1,4 +1,3 @@
-import 'package:moonchain_wallet/common/bottom_sheets/bottom_sheets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mxc_logic/mxc_logic.dart';
@@ -42,6 +41,7 @@ void showAccountsDialog(
             context, isLoading ? 'adding_account' : 'add_new_account',),
         onTap: onAdd,
         size: MXCWalletButtonSize.xl,
+        edgeType: MXCWalletButtonEdgeType.hard,
       ),
       const SizedBox(height: Sizes.spaceXSmall),
       MxcButton.plainWhite(

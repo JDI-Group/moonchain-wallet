@@ -1,3 +1,4 @@
+import 'package:moonchain_wallet/common/common.dart';
 import 'package:moonchain_wallet/features/portfolio/subfeatures/nft/nft_list/widgets/nft_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -63,6 +64,7 @@ class TransactionInfo extends StatelessWidget {
       size: MXCWalletButtonSize.xl,
       title: FlutterI18n.translate(context, titleText),
       type: type,
+      edgeType: UIConfig.sendCryptoProcessEdgeType,
       onTap: () {
         if (onTap != null) onTap!();
         Navigator.of(context).pop(true);

@@ -44,6 +44,7 @@ class SendNftPage extends HookConsumerWidget {
               return MxcButton.primary(
                 key: const ValueKey('nextButton'),
                 title: FlutterI18n.translate(context, 'next'),
+                      edgeType: UIConfig.sendCryptoProcessEdgeType,
                 onTap: null,
                 // recipientValue.text.isNotEmpty
                 //     ? () {

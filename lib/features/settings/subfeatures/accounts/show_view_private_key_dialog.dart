@@ -32,6 +32,7 @@ void showViewPrivateKeyDialog(
         title: FlutterI18n.translate(context, 'done'),
         onTap: () => Navigator.of(context).pop(false),
         size: MXCWalletButtonSize.xl,
+        edgeType: UIConfig.settingsScreensButtonsEdgeType,
       ),
     ],
   );
