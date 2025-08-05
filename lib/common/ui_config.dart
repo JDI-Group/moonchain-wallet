@@ -8,6 +8,10 @@ class UIConfig {
       MXCWalletButtonEdgeType.hard;
   static MXCWalletButtonEdgeType get settingsScreensButtonsEdgeType =>
       MXCWalletButtonEdgeType.hard;
+  static MXCWalletButtonEdgeType get sendCryptoProcessEdgeType =>
+      MXCWalletButtonEdgeType.hard;
+  static MXCWalletButtonEdgeType get permissionsBottomSheetEdgeType =>
+      MXCWalletButtonEdgeType.hard;
   static LinearGradient gradientBackground(BuildContext context) =>
       LinearGradient(
         colors: [
