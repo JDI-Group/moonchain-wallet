@@ -146,6 +146,7 @@ class DeleteCustomNetworkPage extends HookConsumerWidget {
                             BottomFlowDialog.of(context).close();
                           },
                           size: MXCWalletButtonSize.xl,
+                          edgeType: UIConfig.settingsScreensButtonsEdgeType,
                         ),
                       ],
                     )
@@ -153,10 +154,11 @@ class DeleteCustomNetworkPage extends HookConsumerWidget {
               const SizedBox(
                 height: Sizes.spaceXLarge,
               ),
-              MxcButton.secondaryWarning(
+              MxcButton.primaryWarning(
                 key: const ValueKey('delete_custom_network'),
                 title:
                     "${translate('delete')} ${translate('network').toLowerCase()}",
+                titleColor: ColorsTheme.of(context).textBlack200,
                 onTap: () {
                   presenter.deleteNetwork();
                   BottomFlowDialog.of(context).close();
