@@ -54,7 +54,7 @@ class MoonchainWalletNotification {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('moonchain_logo');
+    AndroidInitializationSettings('moonbase_logo');
 
     const InitializationSettings initializationSettings =
         InitializationSettings(android: initializationSettingsAndroid, iOS: DarwinInitializationSettings());
@@ -115,7 +115,7 @@ class MoonchainWalletNotification {
             priority: Priority.high,
             playSound: true,
             visibility: NotificationVisibility.public,
-            icon: 'moonchain_logo',
+            icon: 'moonbase_logo',
             color: Colors.black,
             largeIcon: largeImage,
           ),
@@ -144,7 +144,7 @@ class MoonchainWalletNotification {
               priority: Priority.high,
               playSound: true,
               visibility: NotificationVisibility.public,
-              icon: 'moonchain_logo',
+              icon: 'moonbase_logo',
               color: Colors.black,
               largeIcon: null,
               styleInformation: bigTextStyleInformation),
@@ -172,7 +172,7 @@ class MoonchainWalletNotification {
               priority: Priority.low,
               playSound: true,
               visibility: NotificationVisibility.public,
-              icon: 'moonchain_logo',
+              icon: 'moonbase_logo',
               color: Colors.black,
               largeIcon: null,
               styleInformation: bigTextStyleInformation),
