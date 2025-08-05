@@ -49,6 +49,7 @@ class SendCryptoPage extends HookConsumerWidget {
           key: const ValueKey('nextButton'),
           title: FlutterI18n.translate(context, 'next'),
           size: MXCWalletButtonSize.xxl,
+          edgeType: UIConfig.sendCryptoProcessEdgeType,
           onTap: ref.watch(state).valid
               ? () {
                   FocusManager.instance.primaryFocus?.unfocus();

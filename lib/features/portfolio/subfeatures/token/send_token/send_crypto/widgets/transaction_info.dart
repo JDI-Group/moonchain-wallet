@@ -141,6 +141,7 @@ class _TransactionInfoState extends State<TransactionInfo> {
       key: const ValueKey('transactionButton'),
       size: MXCWalletButtonSize.xl,
       title: FlutterI18n.translate(context, titleText),
+      edgeType: UIConfig.sendCryptoProcessEdgeType,
       type: type,
       onTap: () async {
         if (processType != TransactionProcessType.done) {
