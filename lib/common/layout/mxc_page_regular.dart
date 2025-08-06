@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' show FloatingActionButtonLocation;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:moonchain_wallet/core/core.dart';
 
@@ -22,6 +23,8 @@ class MxcPageRegular extends MxcPage {
     ScrollController? scrollController,
     bool fixedFooter = false,
     Widget? floatingActionButton,
+    FloatingActionButtonLocation floatingActionButtonLocation =
+        FloatingActionButtonLocation.miniCenterFloat,
     Color? backgroundColor,
     Gradient? backgroundGradient,
     bool useFooterPadding = true,
@@ -46,6 +49,7 @@ class MxcPageRegular extends MxcPage {
           scrollController: scrollController,
           fixedFooter: fixedFooter,
           floatingActionButton: floatingActionButton,
+          floatingActionButtonLocation: floatingActionButtonLocation,
           backgroundColor: backgroundColor,
           backgroundGradient: backgroundGradient,
           useFooterPadding: useFooterPadding,

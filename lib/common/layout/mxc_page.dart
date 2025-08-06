@@ -30,6 +30,7 @@ abstract class MxcPage extends HookConsumerWidget {
     this.scrollController,
     this.fixedFooter = false,
     this.floatingActionButton,
+    this.floatingActionButtonLocation = FloatingActionButtonLocation.miniCenterFloat,
     this.backgroundColor,
     this.backgroundGradient,
     this.useFooterPadding = true,
@@ -56,6 +57,7 @@ abstract class MxcPage extends HookConsumerWidget {
     ScrollController? scrollController,
     bool fixedFooter,
     Widget? floatingActionButton,
+    FloatingActionButtonLocation floatingActionButtonLocation,
     Color? backgroundColor,
     Gradient? backgroundGradient,
     bool useFooterPadding,
@@ -82,6 +84,7 @@ abstract class MxcPage extends HookConsumerWidget {
     ScrollController? scrollController,
     bool fixedFooter,
     Widget? floatingActionButton,
+    FloatingActionButtonLocation floatingActionButtonLocation,
     Color? backgroundColor,
     bool useFooterPadding,
     bool resizeToAvoidBottomInset,
@@ -108,6 +111,7 @@ abstract class MxcPage extends HookConsumerWidget {
   final ScrollController? scrollController;
   final bool fixedFooter;
   final Widget? floatingActionButton;
+  final FloatingActionButtonLocation floatingActionButtonLocation;
   final Color? backgroundColor;
   final Gradient? backgroundGradient;
   final bool resizeToAvoidBottomInset;
@@ -255,7 +259,7 @@ abstract class MxcPage extends HookConsumerWidget {
             floatingActionButton: floatingActionButton,
             bottomNavigationBar: buildBottomNavigation(context, ref),
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.miniCenterFloat,
+                floatingActionButtonLocation,
             body: PresenterHooks(
               presenter: presenter,
               child: paintBackground(
