@@ -89,7 +89,7 @@ class HomePage extends HookConsumerWidget {
       children: [
         Expanded(
           child: IndexedStack(
-            index: homeState.pageIndex,
+            index: homeState.bottomNavigationCurrentIndex,
             children: const [DAppsPage(), WalletPage()],
           ),
         ),

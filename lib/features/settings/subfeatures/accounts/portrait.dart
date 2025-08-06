@@ -12,11 +12,18 @@ class Portrait extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: 14,
-      child: SvgPicture.string(
-        Jdenticon.toSvg(name),
-        fit: BoxFit.contain,
+    return Container(
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: Colors.black, width: 2)),
+      child: CircleAvatar(
+        radius: 14,
+        child: SvgPicture.string(
+          Jdenticon.toSvg(name),
+          fit: BoxFit.contain,
+          height: 28,
+          width: 28,
+        ),
       ),
     );
   }

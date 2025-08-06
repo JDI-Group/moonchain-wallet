@@ -16,45 +16,40 @@ class AccountsDropdown extends HookConsumerWidget {
     final presenter = ref.read(appNavBarContainer.actions);
     final state = ref.watch(appNavBarContainer.state);
     
-    return Container(
-      padding: const EdgeInsets.all(Sizes.space2XSmall),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-        color: ColorsTheme.of(context).iconPrimary,
-      ),
-      child: GestureDetector(
-        onTap: () => showAccountsDialog(
-          context: context,
-          currentAccount: state.account!,
-          accounts: state.accounts,
-          isLoading: state.isLoading,
-          onImport: () => Navigator.of(context).push(
-            route.featureDialog(
-              const ImportAccountPage(),
-            ),
+    return GestureDetector(
+      onTap: () => showAccountsDialog(
+        context: context,
+        currentAccount: state.account!,
+        accounts: state.accounts,
+        isLoading: state.isLoading,
+        onImport: () => Navigator.of(context).push(
+          route.featureDialog(
+            const ImportAccountPage(),
           ),
-          onAdd: () => presenter.addNewAccount(),
-          onSelect: (item) => presenter.changeAccount(item),
-          onRemove: (item) => presenter.removeAccount(item),
         ),
-        onDoubleTap: () => presenter.copy(),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Portrait(
-              name: state.account?.address ?? '',
-            ),
-            const SizedBox(width: Sizes.space2XSmall),
-            Text(
-              state.account?.mns ??
-                  MXCFormatter.formatWalletAddress(
-                      state.account?.address ?? ''),
-              style: FontTheme.of(context).subtitle1().copyWith(
-                    color: ColorsTheme.of(context).screenBackground,
-                  ),
-            )
-          ],
-        ),
+        onAdd: () => presenter.addNewAccount(),
+        onSelect: (item) => presenter.changeAccount(item),
+        onRemove: (item) => presenter.removeAccount(item),
+      ),
+      onDoubleTap: () => presenter.copy(),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Portrait(
+            name: state.account?.address ?? '',
+          ),
+          const SizedBox(width: Sizes.space2XSmall),
+          Text(
+            state.account?.mns ??
+                MXCFormatter.formatWalletAddress(
+                    state.account?.address ?? ''),
+            style: FontTheme.of(context).subtitle1().copyWith(
+                  color: Colors.black,
+                ),
+          ),
+          const SizedBox(width: Sizes.space3XSmall),
+          const Icon(Icons.arrow_drop_down_rounded, color: Colors.black,),
+        ],
       ),
     );
   }

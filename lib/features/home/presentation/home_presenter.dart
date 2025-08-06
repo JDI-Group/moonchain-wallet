@@ -31,13 +31,11 @@ class HomePagePresenter extends CompletePresenter<HomeState> {
   @override
   void initState() {
     super.initState();
-
-
   }
 
 
-  changeBottomNavigationIndex(index) => notify(
-        () => state.bottomNavigationCurrentIndex == index,
+  changeBottomNavigationIndex(int index) => notify(
+        () => state.bottomNavigationCurrentIndex = index,
       );
 
   @override
