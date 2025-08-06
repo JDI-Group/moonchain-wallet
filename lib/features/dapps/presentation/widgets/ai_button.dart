@@ -9,13 +9,22 @@ class AiButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+        foregroundColor: ColorsTheme.of(context).backgroundGrey,
         backgroundColor: ColorsTheme.of(context).backgroundGrey,
         onPressed: () {},
-        shape: const CircleBorder(),
-        child: SvgPicture.asset(
-          Assets.svg.aiBlack,
-          height: 30,
-          width: 30,
+        splashColor: Colors.transparent,
+        elevation: 0,
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: ColorsTheme.of(context).primary,
+          ),
+          child: SvgPicture.asset(
+            Assets.svg.aiBlack,
+            height: 30,
+            width: 30,
+          ),
         ));
   }
 }

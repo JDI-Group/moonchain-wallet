@@ -22,6 +22,7 @@ class DAppsPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dappsPresenter = ref.watch(presenter);
+    final dappsState = ref.watch(state);
     return MxcPage(
       layout: LayoutType.column,
       useContentPadding: false,
