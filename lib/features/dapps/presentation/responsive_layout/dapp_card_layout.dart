@@ -1,8 +1,14 @@
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:moonchain_wallet/common/assets.gen.dart' show Assets;
+import 'package:moonchain_wallet/core/src/routing/route.dart';
 import 'package:moonchain_wallet/features/dapps/presentation/dapps_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mxc_logic/mxc_logic.dart';
+import 'package:moonchain_wallet/features/portfolio/presentation/portfolio_page.dart';
+import 'package:mxc_logic/mxc_logic.dart' show Dapp;
+
+import 'package:mxc_ui/mxc_ui.dart';
 
 import 'dapp_loading.dart';
 import 'dapp_utils.dart';
@@ -60,20 +66,175 @@ class DappCardLayout extends HookConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ...buildDAppProviderSection(
-              '${translate('native')} ${translate('dapps')}',
-              nativeDapps,
-              2,
-              2,
-              mainAxisCount),
-          ...buildDAppProviderSection(
-              '${translate('partner')} ${translate('dapps')}',
-              partnerDapps,
-              2,
-              2,
-              mainAxisCount),
-          ...buildDAppProviderSection(
-              translate('bookmark'), bookmarksDapps, 1, 1, mainAxisCount),
+          Expanded(
+              child: Container(
+            padding: const EdgeInsets.only(
+                left: Sizes.spaceXLarge,
+                right: Sizes.spaceXLarge,
+                bottom: Sizes.spaceXLarge,
+                top: Sizes.spaceSmall),
+            decoration: BoxDecoration(
+              color: ColorsTheme.of(context).primary,
+            ),
+            child: Column(
+              children: [
+                MxcTextField(
+                  key: const Key('AITextField'),
+                  controller: TextEditingController(),
+                  hint: translate('ask_moonchain_ai_anything'),
+                  suffixButton: MxcTextFieldButton.svg(
+                    svg: Assets.svg.aiBlack,
+                    color: Colors.black,
+                    onTap: () {},
+                  ),
+                  readOnly: true,
+                  hasClearButton: false,
+                ),
+                const SizedBox(
+                  height: Sizes.spaceXLarge,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: getMostUsedButtons(context, translate),
+                )
+              ],
+            ),
+          )),
+          Expanded(
+              child: Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: Sizes.spaceXLarge, vertical: Sizes.space4XLarge),
+            decoration: BoxDecoration(
+              color: ColorsTheme.of(context).black,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ...buildDAppProviderSection(
+                      '${translate('native')} ${translate('dapps')}',
+                      nativeDapps,
+                      2,
+                      2,
+                      mainAxisCount),
+                ],
+              ),
+            ),
+          ))
+
+          // ...buildDAppProviderSection(
+          //     '${translate('partner')} ${translate('dapps')}',
+          //     partnerDapps,
+          //     2,
+          //     2,
+          //     mainAxisCount),
+          // ...buildDAppProviderSection(
+          //     translate('bookmark'), bookmarksDapps, 1, 1, mainAxisCount),
+        ],
+      ),
+    );
+  }
+}
+
+List<Widget> getMostUsedButtons(
+        BuildContext context, String Function(String key) translate) =>
+    [
+      // const SizedBox(
+      //   width: Sizes.space2XSmall,
+      // ),
+      // Fixed
+      MostUsedSectionsButton(
+        title: translate('my_x').replaceFirst('{0}', translate('portfolio')),
+        icon: Assets.svg.portfilio,
+        onTap: () {
+          Navigator.of(context).push(
+            route(
+              const PortfolioPage(),
+            ),
+          );
+        },
+      ),
+      // Most used dapps
+      MostUsedSectionsButton(
+        title: translate('portfolio'),
+        icon: Assets.svg.portfilio,
+        onTap: () {
+          Navigator.of(context).push(
+            route(
+              const PortfolioPage(),
+            ),
+          );
+        },
+      ),
+      MostUsedSectionsButton(
+        title: translate('portfolio'),
+        icon: Assets.svg.portfilio,
+        onTap: () {
+          Navigator.of(context).push(
+            route(
+              const PortfolioPage(),
+            ),
+          );
+        },
+      ),
+      // Fixed
+      MostUsedSectionsButton(
+        title: translate('track_x').replaceFirst('{0}', translate('tokens')),
+        icon: Assets.svg.token,
+        onTap: () {
+          Navigator.of(context).push(
+            route(
+              const PortfolioPage(),
+            ),
+          );
+        },
+      ),
+      // const SizedBox(
+      //   width: Sizes.space2XSmall,
+      // ),
+    ];
+
+class MostUsedSectionsButton extends StatelessWidget {
+  final String title;
+  final String icon;
+  final void Function() onTap;
+  const MostUsedSectionsButton(
+      {super.key,
+      required this.icon,
+      required this.onTap,
+      required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(Sizes.spaceNormal),
+            decoration: const BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Color(0XFF1E1F24),
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
+            ),
+            child: SvgPicture.asset(
+              icon,
+              height: 24,
+              width: 24,
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+          const SizedBox(height: Sizes.spaceXSmall),
+          Text(
+            title,
+            style: FontTheme.of(context).body1().copyWith(
+                color: ColorsTheme.of(context).textBlack,
+                fontWeight: FontWeight.w600),
+          )
         ],
       ),
     );
