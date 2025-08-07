@@ -30,12 +30,15 @@ abstract class MxcPage extends HookConsumerWidget {
     this.scrollController,
     this.fixedFooter = false,
     this.floatingActionButton,
-    this.floatingActionButtonLocation = FloatingActionButtonLocation.miniCenterFloat,
+    this.floatingActionButtonLocation =
+        FloatingActionButtonLocation.miniCenterFloat,
     this.backgroundColor,
     this.backgroundGradient,
     this.useFooterPadding = true,
     this.resizeToAvoidBottomInset = true,
     this.useSplashBackground = false,
+    this.useBlackBackground = false,
+    this.extendBodyBehindAppBar = false,
     this.useGradientBackground = false,
   })  : assert(scrollController == null || layout != LayoutType.column),
         super(key: key);
@@ -62,7 +65,9 @@ abstract class MxcPage extends HookConsumerWidget {
     Gradient? backgroundGradient,
     bool useFooterPadding,
     bool resizeToAvoidBottomInset,
+    bool extendBodyBehindAppBar,
     bool useSplashBackground,
+    bool useBlackBackground,
     bool useGradientBackground,
     bool useAppBar,
   }) = MxcPageRegular;
@@ -88,7 +93,9 @@ abstract class MxcPage extends HookConsumerWidget {
     Color? backgroundColor,
     bool useFooterPadding,
     bool resizeToAvoidBottomInset,
+    bool extendBodyBehindAppBar,
     bool useSplashBackground,
+    bool useBlackBackground,
     bool useGradientBackground,
     Color? upperBackgroundColor,
   }) = MxcPageLayer;
@@ -115,8 +122,10 @@ abstract class MxcPage extends HookConsumerWidget {
   final Color? backgroundColor;
   final Gradient? backgroundGradient;
   final bool resizeToAvoidBottomInset;
+  final bool extendBodyBehindAppBar;
 
   final bool useSplashBackground;
+  final bool useBlackBackground;
   final bool useGradientBackground;
 
   Widget buildChildrenAsSliver(BoxConstraints? constraints) {
@@ -193,6 +202,7 @@ abstract class MxcPage extends HookConsumerWidget {
   Widget paintBackground({
     Widget? child,
     bool splashBackgroundVisible = true,
+    bool useBlackBackground = false,
     bool gradientBackgroundVisible = false,
     required BuildContext context,
   }) {
@@ -215,6 +225,14 @@ abstract class MxcPage extends HookConsumerWidget {
       return Container(
         decoration: BoxDecoration(
           gradient: UIConfig.gradientBackground(context),
+        ),
+        child: child,
+      );
+    }
+    if (useBlackBackground) {
+      return Container(
+        decoration: const BoxDecoration(
+          color: Colors.black,
         ),
         child: child,
       );
@@ -252,19 +270,19 @@ abstract class MxcPage extends HookConsumerWidget {
           ),
           child: Scaffold(
             backgroundColor: resolveBackgroundColor(context),
-            extendBodyBehindAppBar: false,
+            extendBodyBehindAppBar: extendBodyBehindAppBar,
             drawer: drawer,
             key: scaffoldKey,
             resizeToAvoidBottomInset: false,
             floatingActionButton: floatingActionButton,
             bottomNavigationBar: buildBottomNavigation(context, ref),
-            floatingActionButtonLocation:
-                floatingActionButtonLocation,
+            floatingActionButtonLocation: floatingActionButtonLocation,
             body: PresenterHooks(
               presenter: presenter,
               child: paintBackground(
                 context: context,
                 splashBackgroundVisible: useSplashBackground,
+                useBlackBackground: useBlackBackground,
                 gradientBackgroundVisible: useGradientBackground,
                 child: SafeArea(
                   bottom: maintainBottomSafeArea,

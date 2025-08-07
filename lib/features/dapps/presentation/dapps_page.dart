@@ -26,17 +26,14 @@ class DAppsPage extends HookConsumerWidget {
     return MxcPage(
       layout: LayoutType.column,
       useContentPadding: false,
-      childrenPadding: const EdgeInsets.symmetric(
-          horizontal: Sizes.spaceSmall, vertical: Sizes.spaceNormal),
-      useGradientBackground: true,
+      extendBodyBehindAppBar: true,
+      // childrenPadding: const EdgeInsets.symmetric(
+      //     horizontal: Sizes.spaceSmall, vertical: Sizes.spaceNormal),
+      useBlackBackground: true,
       presenter: ref.watch(presenter),
-      appBar: Column(
-        children: [
-          ref.watch(state).isEditMode
-              ? const EditModeAppBar()
-              : const DefaultAppBar(),
-        ],
-      ),
+      appBar: ref.watch(state).isEditMode
+          ? const EditModeAppBar()
+          : const DefaultAppBar(),
       children: const [
         Expanded(
           child: Align(

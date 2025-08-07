@@ -29,8 +29,10 @@ class MxcPageRegular extends MxcPage {
     Gradient? backgroundGradient,
     bool useFooterPadding = true,
     bool resizeToAvoidBottomInset = true,
+    bool extendBodyBehindAppBar = false,
     bool useSplashBackground = false,
     bool useGradientBackground = false,
+    bool useBlackBackground = false,
     bool useAppBar = false,
   }) : super.internal(
           key: key,
@@ -54,7 +56,9 @@ class MxcPageRegular extends MxcPage {
           backgroundGradient: backgroundGradient,
           useFooterPadding: useFooterPadding,
           resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+          extendBodyBehindAppBar: extendBodyBehindAppBar,
           useSplashBackground: useSplashBackground,
+          useBlackBackground: useBlackBackground,
           useGradientBackground: useGradientBackground,
         );
 

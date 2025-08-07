@@ -34,8 +34,10 @@ class MxcPageLayer extends MxcPage {
     Gradient? backgroundGradient,
     bool useFooterPadding = true,
     bool resizeToAvoidBottomInset = true,
+    bool extendBodyBehindAppBar = false,
     bool useSplashBackground = false,
     bool useGradientBackground = false,
+    bool useBlackBackground = false,
   })  : assert(layout != LayoutType.column2 || footer == null || fixedFooter,
             'layout: column2 and fixedFooter: false isn\'t compatible, pls set fixedFooter: true'),
         super.internal(
@@ -59,7 +61,9 @@ class MxcPageLayer extends MxcPage {
           backgroundGradient: backgroundGradient,
           useFooterPadding: useFooterPadding,
           resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+          extendBodyBehindAppBar: extendBodyBehindAppBar,
           useSplashBackground: useSplashBackground,
+          useBlackBackground: useBlackBackground,
           useGradientBackground: useGradientBackground,
         );
 
