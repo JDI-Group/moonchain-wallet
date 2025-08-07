@@ -25,13 +25,19 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homePresenter = ref.watch(presenter);
+    final homePresenter = ref.read(presenter);
     final homeState = ref.watch(state);
     return MxcPage(
       layout: LayoutType.column,
       useContentPadding: false,
       floatingActionButton: const AiButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterDocked,
+      backgroundColor: homeState.bottomNavigationCurrentIndex == 0
+          ? ColorsTheme.of(context).primary
+          : null,
+      useBlackBackground:
+          homeState.bottomNavigationCurrentIndex == 0 ? false : true,
       bottomNavigationBar: BottomAppBar(
         padding: const EdgeInsets.all(0),
         shape: HillNotchedShape(),
@@ -98,7 +104,6 @@ class HomePage extends HookConsumerWidget {
   }
 }
 
-
 class HillNotchedShape extends NotchedShape {
   @override
   Path getOuterPath(Rect host, Rect? guest) {
@@ -119,18 +124,23 @@ class HillNotchedShape extends NotchedShape {
 
       // Left curve (steep/thin start)
       ..cubicTo(
-        hillStart + hillWidth * 0.03, host.top,                     // control point 1 (very close to hillStart)
-        notchCenter - hillWidth * 0.35, host.top - hillHeight,      // control point 2
-        notchCenter, host.top - hillHeight                          // peak
-      )
+          hillStart + hillWidth * 0.03,
+          host.top, // control point 1 (very close to hillStart)
+          notchCenter - hillWidth * 0.35,
+          host.top - hillHeight, // control point 2
+          notchCenter,
+          host.top - hillHeight // peak
+          )
 
       // Right curve (steep/thin end)
       ..cubicTo(
-        notchCenter + hillWidth * 0.35, host.top - hillHeight,      // control point 1
-        hillEnd - hillWidth * 0.03, host.top,                       // control point 2 (very close to hillEnd)
-        hillEnd, host.top                                           // end of hill
-      )
-
+          notchCenter + hillWidth * 0.35,
+          host.top - hillHeight, // control point 1
+          hillEnd - hillWidth * 0.03,
+          host.top, // control point 2 (very close to hillEnd)
+          hillEnd,
+          host.top // end of hill
+          )
       ..lineTo(host.right, host.top)
       ..lineTo(host.right, host.bottom)
       ..lineTo(host.left, host.bottom)
