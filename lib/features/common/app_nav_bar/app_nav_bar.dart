@@ -15,12 +15,14 @@ class AppNavBar extends HookConsumerWidget {
     this.action,
     this.title,
     this.leadingType = LeadingType.backButton,
+    this.backgroundColor,
   }) : super(key: key);
 
   final Widget? leading;
   final Widget? action;
   final Widget? title;
   final LeadingType leadingType;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,39 +31,43 @@ class AppNavBar extends HookConsumerWidget {
 
     return PresenterHooks(
       presenter: presenter,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 6),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            if (leading == null && leadingType == LeadingType.backButton) ...[
-              IconButton(
-                key: const ValueKey('backButton'),
-                icon: const Icon(Icons.arrow_back_rounded),
-                iconSize: 32,
-                onPressed: appBarPopHandlerBuilder(context),
-                color: ColorsTheme.of(context).iconPrimary,
-              ),
-            ] else if (leading == null && leadingType == LeadingType.walletAddress) ...[
-              const AccountsDropdown(),
-            ] else ...[
-              leading!,
+      child: Container(
+        color: backgroundColor,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 6),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (leading == null && leadingType == LeadingType.backButton) ...[
+                IconButton(
+                  key: const ValueKey('backButton'),
+                  icon: const Icon(Icons.arrow_back_rounded),
+                  iconSize: 32,
+                  onPressed: appBarPopHandlerBuilder(context),
+                  color: ColorsTheme.of(context).iconPrimary,
+                ),
+              ] else if (leading == null && leadingType == LeadingType.walletAddress) ...[
+                const AccountsDropdown(),
+              ] else ...[
+                leading!,
+              ],
+              if (title == null && leadingType != LeadingType.walletAddress) ...[
+                const AccountsDropdown(),
+              ] else if (title == null && leadingType == LeadingType.walletAddress) ...[
+                Container(),
+              ] else ...[
+                title!
+              ],
+              if (action == null) ...[
+                const SizedBox(width: 32),
+              ] else ...[
+                action!,
+              ]
             ],
-            if (title == null && leadingType != LeadingType.walletAddress) ...[
-              const AccountsDropdown(),
-            ] else if (title == null && leadingType == LeadingType.walletAddress) ...[
-              Container(),
-            ] else ...[
-              title!
-            ],
-            if (action == null) ...[
-              const SizedBox(width: 32),
-            ] else ...[
-              action!,
-            ]
-          ],
+          ),
         ),
       ),
     );
   }
+
 }

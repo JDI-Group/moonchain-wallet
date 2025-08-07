@@ -27,9 +27,7 @@ class DAppsPage extends HookConsumerWidget {
       layout: LayoutType.column,
       useContentPadding: false,
       extendBodyBehindAppBar: true,
-      // childrenPadding: const EdgeInsets.symmetric(
-      //     horizontal: Sizes.spaceSmall, vertical: Sizes.spaceNormal),
-      useBlackBackground: true,
+      backgroundColor: ColorsTheme.of(context).primary,
       presenter: ref.watch(presenter),
       appBar: ref.watch(state).isEditMode
           ? const EditModeAppBar()

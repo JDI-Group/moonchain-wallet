@@ -7,12 +7,14 @@ import 'package:mxc_ui/mxc_ui.dart';
 import '../dapps_presenter.dart';
 
 class EditModeAppBar extends HookConsumerWidget {
-  const EditModeAppBar({super.key});
+  final Color? backgroundColor;
+  const EditModeAppBar( {super.key, this.backgroundColor,});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dappsPresenter = ref.watch(appsPagePageContainer.actions);
     return AppNavBar(
+      backgroundColor: backgroundColor,
       leading: EditModeButton(
         onTap: dappsPresenter.addBookmark,
         child: Icon(
