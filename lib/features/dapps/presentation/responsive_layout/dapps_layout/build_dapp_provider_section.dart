@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:moonchain_wallet/features/dapps/presentation/responsive_layout/dapps_layout/native_dapp/build_native_dapp_card.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 
 import 'dapps_layout.dart';
+import 'native_dapp/native_dapp_card.dart';
 
 List<Widget> buildDAppProviderSection(
   String providerTitle,
   List<Dapp> dapps,
-  int flex,
-  int crossAxisCount,
-  int mainAxisCount,
+  ProviderType providerType,
 ) {
   if (dapps.isEmpty) {
     return [
-      DappsGridView(
-        flex: flex,
-        crossAxisCount: crossAxisCount,
-        dapps: const [],
-        mainAxisCount: mainAxisCount,
-      ),
+      Container(),
     ];
   } else {
     return [
@@ -25,14 +20,50 @@ List<Widget> buildDAppProviderSection(
         providerTitle: providerTitle,
         dapps: dapps,
       ),
-      DappsGridView(
-        flex: flex,
-        crossAxisCount: crossAxisCount,
-        dapps: dapps,
-        mainAxisCount: mainAxisCount,
-      ),
       const SizedBox(
-        height: 10,
+        height: 20,
+      ),
+      if (providerType == ProviderType.native)
+        Flexible(
+          child: ListView.builder(
+            itemCount: 4,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) => NativeDAppCard(
+              index: index,
+              dapp: dapps[index],
+            ),
+          ),
+        ),
+
+      // if (providerType == ProviderType.thirdParty)
+      //   ListView.builder(
+      //     itemCount: dapps.length,
+      //     scrollDirection: Axis.horizontal,
+      //     itemBuilder: (context, index) => NativeDAppCard(
+      //       index: index,
+      //       dapp: dapps[index],
+      //     ),
+      //   ),
+
+      // if (providerType != ProviderType.native ||
+      //     providerType != ProviderType.thirdParty)
+      //   // It's a bookmark dapp
+      //   ListView.builder(
+      //     itemCount: 4,
+      //     scrollDirection: Axis.vertical,
+      //     itemBuilder: (context, index) => NativeDAppCard(
+      //       index: index,
+      //       dapp: dapps[index],
+      //     ),
+      //   ),
+      // DappsGridView(
+      //   flex: flex,
+      //   crossAxisCount: crossAxisCount,
+      //   dapps: dapps,
+      //   mainAxisCount: mainAxisCount,
+      // ),
+      const SizedBox(
+        height: 30,
       ),
     ];
   }

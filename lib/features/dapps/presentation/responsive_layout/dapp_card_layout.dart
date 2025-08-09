@@ -6,7 +6,7 @@ import 'package:moonchain_wallet/features/dapps/presentation/dapps_presenter.dar
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:moonchain_wallet/features/portfolio/presentation/portfolio_page.dart';
-import 'package:mxc_logic/mxc_logic.dart' show Dapp;
+import 'package:mxc_logic/mxc_logic.dart' show Dapp, ProviderType;
 
 import 'package:mxc_ui/mxc_ui.dart';
 
@@ -58,100 +58,104 @@ class DappCardLayout extends HookConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Expanded(
+          Flexible(
             flex: 30,
-              child: Container(
-            padding: const EdgeInsets.only(
-                left: Sizes.spaceXLarge,
-                right: Sizes.spaceXLarge,
-                bottom: Sizes.spaceXLarge,
-                top: Sizes.spaceSmall),
-            decoration: BoxDecoration(
-              color: ColorsTheme.of(context).primary,
-            ),
-            child: Column(
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    key: const Key('AITextField'),
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    height: 58,
-                    decoration: BoxDecoration(
-                        color: ColorsTheme.of(context)
-                            .primary
-                            .withValues(alpha: 0.8),
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2,
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20))),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          translate('ask_moonchain_ai_anything'),
-                          style: FontTheme.of(context)
-                              .body1()
-                              .copyWith(color: const Color(0xFF1E1F24)),
-                        ),
-                        const Spacer(),
-                        SvgPicture.asset(
-                          Assets.svg.aiBlack,
-                          colorFilter: const ColorFilter.mode(
-                              Colors.black, BlendMode.srcIn),
-                        )
-                      ],
+            child: Container(
+              padding: const EdgeInsets.only(
+                  left: Sizes.spaceXLarge,
+                  right: Sizes.spaceXLarge,
+                  bottom: Sizes.spaceXLarge,
+                  top: Sizes.spaceSmall),
+              decoration: BoxDecoration(
+                color: ColorsTheme.of(context).primary,
+              ),
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      key: const Key('AITextField'),
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      height: 58,
+                      decoration: BoxDecoration(
+                          color: ColorsTheme.of(context)
+                              .primary
+                              .withValues(alpha: 0.8),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            translate('ask_moonchain_ai_anything'),
+                            style: FontTheme.of(context).body1().copyWith(
+                                  color: ColorsTheme.of(context, listen: false)
+                                      .backgroundGrey,
+                                ),
+                          ),
+                          const Spacer(),
+                          SvgPicture.asset(
+                            Assets.svg.aiBlack,
+                            colorFilter: const ColorFilter.mode(
+                                Colors.black, BlendMode.srcIn),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                // MxcTextField(
-                //   key: const Key('AITextField'),
-                //   controller: TextEditingController(),
-                //   hint: translate('ask_moonchain_ai_anything'),
-                //   suffixButton: MxcTextFieldButton.svg(
-                //     svg: Assets.svg.aiBlack,
-                //     color: Colors.black,
-                //     onTap: () {},
-                //   ),
-                //   readOnly: true,
-                //   hasClearButton: false,
-                // ),
-                const SizedBox(
-                  height: Sizes.spaceXLarge,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: getMostUsedButtons(context, translate),
-                )
-              ],
+                  // MxcTextField(
+                  //   key: const Key('AITextField'),
+                  //   controller: TextEditingController(),
+                  //   hint: translate('ask_moonchain_ai_anything'),
+                  //   suffixButton: MxcTextFieldButton.svg(
+                  //     svg: Assets.svg.aiBlack,
+                  //     color: Colors.black,
+                  //     onTap: () {},
+                  //   ),
+                  //   readOnly: true,
+                  //   hasClearButton: false,
+                  // ),
+                  const SizedBox(
+                    height: Sizes.spaceXLarge,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: getMostUsedButtons(context, translate),
+                  )
+                ],
+              ),
             ),
-          )),
-          Expanded(
-              flex: 70,
+          ),
+          Flexible(
+            fit: FlexFit.loose,
+            flex: 70,
+            child: Align(
+              alignment: Alignment.topCenter,
               child: Container(
+                
                 padding: const EdgeInsets.symmetric(
-                    horizontal: Sizes.spaceXLarge,
-                    vertical: Sizes.space4XLarge),
+                    horizontal: Sizes.spaceXLarge, vertical: Sizes.space4XLarge),
                 decoration: BoxDecoration(
                   color: ColorsTheme.of(context).black,
                 ),
                 child: Column(
                   children: [
-                    ListView.builder(itemCount: 4, itemBuilder: (context, index) {
-                      
-                    },),
                     ...buildDAppProviderSection(
-                        '${translate('native')} ${translate('dapps')}',
-                        nativeDapps,
-                        2,
-                        ),
+                      '${translate('native')} ${translate('dapps')}',
+                      nativeDapps,
+                      ProviderType.native,
+                    ),
                   ],
                 ),
-              ))
+              ),
+            ),
+          ),
 
           // ...buildDAppProviderSection(
           //     '${translate('partner')} ${translate('dapps')}',
@@ -243,10 +247,10 @@ class MostUsedSectionsButton extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(Sizes.spaceNormal),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              color: Color(0XFF1E1F24),
-              borderRadius: BorderRadius.all(
+              color: ColorsTheme.of(context, listen: false).backgroundGrey,
+              borderRadius: const BorderRadius.all(
                 Radius.circular(20),
               ),
             ),
@@ -273,7 +277,6 @@ class MostUsedSectionsButton extends StatelessWidget {
   }
 }
 
-
 class NativeDAppItem extends StatelessWidget {
   final String assetPath;
   const NativeDAppItem({super.key, required this.assetPath});
@@ -283,9 +286,9 @@ class NativeDAppItem extends StatelessWidget {
     return Row(
       children: [
         Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xFF1E1F24)
+            color: ColorsTheme.of(context, listen: false).backgroundGrey,
           ),
           child: SvgPicture.asset(assetPath),
         )
