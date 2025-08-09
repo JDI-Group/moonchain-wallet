@@ -41,6 +41,7 @@ Widget buildNativeNativeDAppCard(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: ColorsTheme.of(context, listen: false).backgroundGrey,
+              shape: BoxShape.circle,
             ),
             child: DappIcon(
               image: image,

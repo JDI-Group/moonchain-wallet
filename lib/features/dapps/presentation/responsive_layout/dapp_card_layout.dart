@@ -138,20 +138,32 @@ class DappCardLayout extends HookConsumerWidget {
             child: Align(
               alignment: Alignment.topCenter,
               child: Container(
-                
                 padding: const EdgeInsets.symmetric(
-                    horizontal: Sizes.spaceXLarge, vertical: Sizes.space4XLarge),
+                    horizontal: Sizes.spaceXLarge,
+                    vertical: Sizes.space4XLarge),
                 decoration: BoxDecoration(
                   color: ColorsTheme.of(context).black,
                 ),
-                child: Column(
-                  children: [
-                    ...buildDAppProviderSection(
-                      '${translate('native')} ${translate('dapps')}',
-                      nativeDapps,
-                      ProviderType.native,
-                    ),
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ...buildDAppProviderSection(
+                        '${translate('native')} ${translate('dapps')}',
+                        nativeDapps,
+                        ProviderType.native,
+                      ),
+                      ...buildDAppProviderSection(
+                        '${translate('partner')} ${translate('dapps')}',
+                        partnerDapps,
+                        ProviderType.thirdParty,
+                      ),
+                      ...buildDAppProviderSection(
+                        translate('bookmarks'),
+                        partnerDapps,
+                        ProviderType.bookmark,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
