@@ -17,12 +17,7 @@ import 'dapps_layout/dapps_layout.dart';
 class DappCardLayout extends HookConsumerWidget {
   const DappCardLayout({
     super.key,
-    this.crossAxisCount = CardCrossAxisCount.mobile,
-    this.mainAxisCount = CardMainAxisCount.mobile,
   });
-
-  final int crossAxisCount;
-  final int mainAxisCount;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,18 +29,15 @@ class DappCardLayout extends HookConsumerWidget {
     final List<Dapp> nativeDapps = actions.getNativeDapps();
     final List<Dapp> partnerDapps = actions.getPartnerDapps();
 
-    final pages = actions.calculateMaxItemsCount(
-        dapps.length, mainAxisCount, crossAxisCount);
-    final emptyItems = actions.getRequiredItems(
-        dapps.length, mainAxisCount, crossAxisCount, pages);
-    List<Widget> emptyWidgets =
-        List.generate(emptyItems, (index) => Container());
+    // final pages = actions.calculateMaxItemsCount(
+    //     dapps.length, mainAxisCount, crossAxisCount);
+    // final emptyItems = actions.getRequiredItems(
+    //     dapps.length, mainAxisCount, crossAxisCount, pages);
+    // List<Widget> emptyWidgets =
+    //     List.generate(emptyItems, (index) => Container());
 
     if (state.loading && DappUtils.loadingOnce) {
-      return DAppLoading(
-        crossAxisCount: crossAxisCount,
-        mainAxisCount: mainAxisCount,
-      );
+      return DAppLoading();
     }
 
     if (dapps.isEmpty) return Container();
@@ -58,7 +50,7 @@ class DappCardLayout extends HookConsumerWidget {
         );
 
     if (state.seeAllDapps != null) {
-      return DAppsListView(mainAxisCount: mainAxisCount);
+      return DAppsListView(mainAxisCount: 0);
     }
 
     return constraintWrapperWidget(
@@ -67,6 +59,7 @@ class DappCardLayout extends HookConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
+            flex: 30,
               child: Container(
             padding: const EdgeInsets.only(
                 left: Sizes.spaceXLarge,
@@ -78,18 +71,55 @@ class DappCardLayout extends HookConsumerWidget {
             ),
             child: Column(
               children: [
-                MxcTextField(
-                  key: const Key('AITextField'),
-                  controller: TextEditingController(),
-                  hint: translate('ask_moonchain_ai_anything'),
-                  suffixButton: MxcTextFieldButton.svg(
-                    svg: Assets.svg.aiBlack,
-                    color: Colors.black,
-                    onTap: () {},
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    key: const Key('AITextField'),
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    height: 58,
+                    decoration: BoxDecoration(
+                        color: ColorsTheme.of(context)
+                            .primary
+                            .withValues(alpha: 0.8),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2,
+                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          translate('ask_moonchain_ai_anything'),
+                          style: FontTheme.of(context)
+                              .body1()
+                              .copyWith(color: const Color(0xFF1E1F24)),
+                        ),
+                        const Spacer(),
+                        SvgPicture.asset(
+                          Assets.svg.aiBlack,
+                          colorFilter: const ColorFilter.mode(
+                              Colors.black, BlendMode.srcIn),
+                        )
+                      ],
+                    ),
                   ),
-                  readOnly: true,
-                  hasClearButton: false,
                 ),
+                // MxcTextField(
+                //   key: const Key('AITextField'),
+                //   controller: TextEditingController(),
+                //   hint: translate('ask_moonchain_ai_anything'),
+                //   suffixButton: MxcTextFieldButton.svg(
+                //     svg: Assets.svg.aiBlack,
+                //     color: Colors.black,
+                //     onTap: () {},
+                //   ),
+                //   readOnly: true,
+                //   hasClearButton: false,
+                // ),
                 const SizedBox(
                   height: Sizes.spaceXLarge,
                 ),
@@ -101,25 +131,27 @@ class DappCardLayout extends HookConsumerWidget {
             ),
           )),
           Expanded(
+              flex: 70,
               child: Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: Sizes.spaceXLarge, vertical: Sizes.space4XLarge),
-            decoration: BoxDecoration(
-              color: ColorsTheme.of(context).black,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  ...buildDAppProviderSection(
-                      '${translate('native')} ${translate('dapps')}',
-                      nativeDapps,
-                      2,
-                      2,
-                      mainAxisCount),
-                ],
-              ),
-            ),
-          ))
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Sizes.spaceXLarge,
+                    vertical: Sizes.space4XLarge),
+                decoration: BoxDecoration(
+                  color: ColorsTheme.of(context).black,
+                ),
+                child: Column(
+                  children: [
+                    ListView.builder(itemCount: 4, itemBuilder: (context, index) {
+                      
+                    },),
+                    ...buildDAppProviderSection(
+                        '${translate('native')} ${translate('dapps')}',
+                        nativeDapps,
+                        2,
+                        ),
+                  ],
+                ),
+              ))
 
           // ...buildDAppProviderSection(
           //     '${translate('partner')} ${translate('dapps')}',
@@ -237,6 +269,27 @@ class MostUsedSectionsButton extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+
+class NativeDAppItem extends StatelessWidget {
+  final String assetPath;
+  const NativeDAppItem({super.key, required this.assetPath});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0xFF1E1F24)
+          ),
+          child: SvgPicture.asset(assetPath),
+        )
+      ],
     );
   }
 }

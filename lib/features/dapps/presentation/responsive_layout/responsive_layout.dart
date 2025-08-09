@@ -9,12 +9,13 @@ class ResponsiveLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => const DappCardLayout(),
-      tablet: (BuildContext context) => const DappCardLayout(
-        crossAxisCount: CardCrossAxisCount.tablet,
-        mainAxisCount: CardMainAxisCount.tablet,
-      ),
-    );
+    return DappCardLayout();
+    // return ScreenTypeLayout.builder(
+    //   mobile: (BuildContext context) => const DappCardLayout(),
+    //   tablet: (BuildContext context) => const DappCardLayout(
+    //     crossAxisCount: CardCrossAxisCount.tablet,
+    //     mainAxisCount: CardMainAxisCount.tablet,
+    //   ),
+    // );
   }
 }
