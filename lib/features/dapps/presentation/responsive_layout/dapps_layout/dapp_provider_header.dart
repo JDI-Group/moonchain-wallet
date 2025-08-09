@@ -23,32 +23,23 @@ class DAppProviderHeader extends HookConsumerWidget {
     final state = ref.watch(appsPagePageContainer.state);
     final actions = ref.read(appsPagePageContainer.actions);
 
-    return Column(
+    return Row(
       children: [
-        const SizedBox(
-          height: 10,
+        Text(
+          providerTitle,
+          style: FontTheme.of(context).subtitle2().copyWith(
+              fontWeight: FontWeight.bold,
+              color: ColorsTheme.of(context).textPrimary),
         ),
-        Row(
-          children: [
-            Text(
-              providerTitle,
-              style: FontTheme.of(context).h7().copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w800,
-                  color: ColorsTheme.of(context).textPrimary),
-            ),
-            const Spacer(),
-            InkWell(
-              onTap: () => actions.selectSeeAllDApps(dapps),
-              child: Text(
-                FlutterI18n.translate(context, 'see_all'),
-                style: FontTheme.of(context).h7().copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w900,
-                    color: const Color(0xFF00AEFF)),
-              ),
-            ),
-          ],
+        const Spacer(),
+        InkWell(
+          onTap: () => actions.selectSeeAllDApps(dapps),
+          child: Text(
+            FlutterI18n.translate(context, 'see_all'),
+            style: FontTheme.of(context)
+                .subtitle2()
+                .copyWith(color: ColorsTheme.of(context).primary),
+          ),
         ),
       ],
     );
