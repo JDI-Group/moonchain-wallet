@@ -5,7 +5,10 @@ import 'package:mxc_ui/mxc_ui.dart';
 
 class DappIcon extends StatelessWidget {
   final String? image;
-  const DappIcon({super.key, required this.image});
+  final double iconSize;
+  final Color? iconColor;
+  const DappIcon(
+      {super.key, required this.image, required this.iconSize, this.iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +17,11 @@ class DappIcon extends StatelessWidget {
         Icons.image_not_supported_rounded,
         color: ColorsTheme.of(context).textPrimary,
       );
+    }
+
+    ColorFilter? iconColorFilter;
+    if (iconColor != null) {
+      iconColorFilter = ColorFilter.mode(iconColor!, BlendMode.srcIn);
     }
 
     final isNetworkImage = image!.contains(
@@ -27,12 +35,15 @@ class DappIcon extends StatelessWidget {
       if (image!.contains('svg')) {
         return SvgPicture.network(
           image!,
-          fit: BoxFit.fill,
+          height: iconSize,
+          width: iconSize,
+          colorFilter: iconColorFilter,
         );
       } else {
         return CachedNetworkImage(
           imageUrl: image!,
-          fit: BoxFit.fill,
+          height: iconSize,
+          width: iconSize,
           errorWidget: (context, url, error) {
             return Column(
               children: [
@@ -50,6 +61,7 @@ class DappIcon extends StatelessWidget {
         return SvgPicture.asset(
           image!,
           fit: BoxFit.fill,
+          colorFilter: iconColorFilter
         );
       } else {
         return Image.asset(
@@ -59,19 +71,4 @@ class DappIcon extends StatelessWidget {
       }
     }
   }
-}
-
-Widget buildDappIcon(BuildContext context, String? image, bool isBookmark) {
-  return isBookmark
-      ? Container(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 28),
-          decoration: const BoxDecoration(
-            color: Color(0XFF040404),
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          child: DappIcon(image: image),
-        )
-      : DappIcon(image: image);
 }
