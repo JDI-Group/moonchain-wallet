@@ -34,7 +34,7 @@ class AppNavBar extends HookConsumerWidget {
       child: Container(
         color: backgroundColor,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -46,14 +46,17 @@ class AppNavBar extends HookConsumerWidget {
                   onPressed: appBarPopHandlerBuilder(context),
                   color: ColorsTheme.of(context).iconPrimary,
                 ),
-              ] else if (leading == null && leadingType == LeadingType.walletAddress) ...[
+              ] else if (leading == null &&
+                  leadingType == LeadingType.walletAddress) ...[
                 const AccountsDropdown(),
               ] else ...[
                 leading!,
               ],
-              if (title == null && leadingType != LeadingType.walletAddress) ...[
+              if (title == null &&
+                  leadingType != LeadingType.walletAddress) ...[
                 const AccountsDropdown(),
-              ] else if (title == null && leadingType == LeadingType.walletAddress) ...[
+              ] else if (title == null &&
+                  leadingType == LeadingType.walletAddress) ...[
                 Container(),
               ] else ...[
                 title!
@@ -69,5 +72,4 @@ class AppNavBar extends HookConsumerWidget {
       ),
     );
   }
-
 }

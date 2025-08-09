@@ -21,6 +21,7 @@ class DefaultAppBar extends StatelessWidget {
           Assets.svg.settingsSvg,
           height: 28,
           width: 28,
+          fit: BoxFit.fill,
         ),
         iconSize: Sizes.space2XLarge,
         onPressed: () {
