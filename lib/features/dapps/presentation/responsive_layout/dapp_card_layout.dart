@@ -13,6 +13,7 @@ import 'package:mxc_ui/mxc_ui.dart';
 import 'dapp_loading.dart';
 import 'dapp_utils.dart';
 import 'dapps_layout/dapps_layout.dart';
+import 'dapps_layout/native_dapp/native_dapp_list.dart';
 
 class DappCardLayout extends HookConsumerWidget {
   const DappCardLayout({
@@ -151,16 +152,67 @@ class DappCardLayout extends HookConsumerWidget {
                         '${translate('native')} ${translate('dapps')}',
                         nativeDapps,
                         ProviderType.native,
+                        NativeDappList(
+                          dapps: nativeDapps.sublist(nativeDapps.length > 4
+                              ? nativeDapps.length - 4
+                              : nativeDapps.length),
+                          isScrollingLocked: true,
+                        ),
+                        NativeDappList(dapps: nativeDapps),
                       ),
                       ...buildDAppProviderSection(
                         '${translate('partner')} ${translate('dapps')}',
                         partnerDapps,
                         ProviderType.thirdParty,
+                        SizedBox(
+                          height: 150,
+                          child: ListView.separated(
+                            itemCount: partnerDapps.length,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) => PartnerDAppCard(
+                              index: index,
+                              dapp: partnerDapps[index],
+                              horizontallyExpanded: false,
+                            ),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(width: 16),
+                          ),
+                        ),
+                        ListView.separated(
+                          itemCount: partnerDapps.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => SizedBox(
+                            height: 120,
+                            child: PartnerDAppCard(
+                              index: index,
+                              dapp: partnerDapps[index],
+                              horizontallyExpanded: true,
+                            ),
+                          ),
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 16),
+                        ),
                       ),
                       ...buildDAppProviderSection(
-                        translate('bookmarks'),
+                        translate('webhooks'),
                         bookmarksDapps,
                         ProviderType.bookmark,
+                        SizedBox(
+                          height: 200,
+                          child: BookMarksGridView(
+                            dapps: bookmarksDapps,
+                            seeAll: false,
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          child: BookMarksGridView(
+                            dapps: bookmarksDapps,
+                            seeAll: true,
+                          ),
+                        ),
                       ),
                     ],
                   ),

@@ -14,10 +14,12 @@ import '../shatter_widget.dart';
 class PartnerDAppCard extends HookConsumerWidget {
   final Dapp dapp;
   final int index;
-  const PartnerDAppCard({
+  final bool horizontallyExpanded;
+  const PartnerDAppCard( {
     super.key,
     required this.index,
     required this.dapp,
+    required this.horizontallyExpanded,
   });
 
   @override
@@ -73,6 +75,7 @@ class PartnerDAppCard extends HookConsumerWidget {
             context,
             dapp,
             onTap,
+            horizontallyExpanded,
             shatter: shatter,
             actions: actions,
             animated: animation.value != 0.0,

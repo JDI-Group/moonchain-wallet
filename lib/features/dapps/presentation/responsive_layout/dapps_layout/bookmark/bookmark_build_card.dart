@@ -24,7 +24,7 @@ Widget buildCard(
     }
   }
 
-  final name =  dapp is Bookmark ? (dapp).title : '';
+  final name = dapp is Bookmark ? (dapp).title : '';
   // final url = (dapp).url;
   // final info = (dapp).description;
 
@@ -41,8 +41,8 @@ Widget buildCard(
       }
     },
     child: SizedBox(
-      height: 74,
-      width: 76,
+      height: 82,
+      width: 84,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -79,7 +79,9 @@ Widget buildCard(
             ),
           ),
           if (!contextMenuAnimation) ...[
-            const Spacer(),
+            const SizedBox(
+              height: 8,
+            ),
             Text(
               name,
               style: FontTheme.of(context)

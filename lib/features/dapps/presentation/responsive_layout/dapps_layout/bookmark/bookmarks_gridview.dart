@@ -8,10 +8,12 @@ import 'bookmark_dapp_card.dart';
 
 class BookMarksGridView extends StatelessWidget {
   final List<Dapp> dapps;
+  final bool seeAll;
 
   const BookMarksGridView({
     super.key,
     required this.dapps,
+    required this.seeAll,
   });
 
   @override
@@ -19,23 +21,28 @@ class BookMarksGridView extends StatelessWidget {
     // This is the case where dapps Then build empty space
     String translate(String key) => FlutterI18n.translate(context, key);
     final isDappsEmpty = dapps.isEmpty;
+    final itemCount = seeAll
+        ? dapps.length
+        : dapps.length > 7
+            ? 8
+            : dapps.length + 1;
 
     return isDappsEmpty
         ? Container()
         : GridView.builder(
-            scrollDirection: Axis.horizontal,
+            scrollDirection: Axis.vertical,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 20,
+              crossAxisCount: 4,
+              // mainAxisSpacing: 8,
+              // crossAxisSpacing: 20,
             ),
-            itemCount: dapps.length > 7 ? 8 : dapps.length + 1,
+            itemCount: itemCount,
             padding: const EdgeInsets.symmetric(vertical: 10),
             itemBuilder: (context, index) => index == dapps.length
                 ? SizedBox(
-                  height: 74,
-                  width: 76,
-                  child: Column(
+                    height: 82,
+                    width: 84,
+                    child: Column(
                       children: [
                         Container(
                           height: 54,
@@ -54,7 +61,9 @@ class BookMarksGridView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const Spacer(),
+                        const SizedBox(
+                          height: 8,
+                        ),
                         Text(
                           translate('add'),
                           style: FontTheme.of(context)
@@ -66,7 +75,7 @@ class BookMarksGridView extends StatelessWidget {
                         ),
                       ],
                     ),
-                )
+                  )
                 : BookmarkCard(
                     index: index,
                     dapp: dapps[index],

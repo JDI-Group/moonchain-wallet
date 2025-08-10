@@ -7,7 +7,8 @@ import 'package:mxc_ui/mxc_ui.dart';
 Widget buildPartnerDAppCard(
   BuildContext context,
   Dapp dapp,
-  VoidCallback? onTap, {
+  VoidCallback? onTap,
+  bool horizontallyExpanded, {
   DAppsPagePresenter? actions,
   void Function()? shatter,
   bool animated = false,
@@ -33,7 +34,6 @@ Widget buildPartnerDAppCard(
     },
     child: Container(
       padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.only(right: 16),
       constraints: const BoxConstraints(maxWidth: 150),
       decoration: BoxDecoration(
         color: ColorsTheme.of(context).backgroundGrey,
@@ -73,9 +73,11 @@ Widget buildPartnerDAppCard(
                 ),
               ],
             ),
-            const SizedBox(
-              height: Sizes.spaceSmall,
-            ),
+            horizontallyExpanded
+                ? const Spacer()
+                : const SizedBox(
+                    height: Sizes.spaceSmall,
+                  ),
             Text(
               info ?? '',
               style: FontTheme.of(context).caption1.textWhite60().copyWith(
