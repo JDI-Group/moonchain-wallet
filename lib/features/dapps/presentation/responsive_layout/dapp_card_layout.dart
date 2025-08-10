@@ -159,7 +159,7 @@ class DappCardLayout extends HookConsumerWidget {
                       ),
                       ...buildDAppProviderSection(
                         translate('bookmarks'),
-                        partnerDapps,
+                        bookmarksDapps,
                         ProviderType.bookmark,
                       ),
                     ],

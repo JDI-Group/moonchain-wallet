@@ -45,10 +45,10 @@ class DAppsListView extends HookConsumerWidget {
                 constraints: BoxConstraints(
                   maxHeight: itemMaxWidth > 250 ? 250 : itemMaxWidth,
                 ),
-                child: DAppCard(
-                  index: index,
-                  dapp: dapps[index],
-                ),
+                // child: DAppCard(
+                //   index: index,
+                //   dapp: dapps[index],
+                // ),
               ),
             ),
           ),

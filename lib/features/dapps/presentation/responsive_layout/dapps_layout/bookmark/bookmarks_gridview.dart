@@ -1,0 +1,76 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:mxc_logic/mxc_logic.dart';
+import 'package:mxc_ui/mxc_ui.dart';
+
+import '../dapps_layout.dart';
+import 'bookmark_dapp_card.dart';
+
+class BookMarksGridView extends StatelessWidget {
+  final List<Dapp> dapps;
+
+  const BookMarksGridView({
+    super.key,
+    required this.dapps,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // This is the case where dapps Then build empty space
+    String translate(String key) => FlutterI18n.translate(context, key);
+    final isDappsEmpty = dapps.isEmpty;
+
+    return isDappsEmpty
+        ? Container()
+        : GridView.builder(
+            scrollDirection: Axis.horizontal,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 20,
+            ),
+            itemCount: dapps.length > 7 ? 8 : dapps.length + 1,
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            itemBuilder: (context, index) => index == dapps.length
+                ? SizedBox(
+                  height: 74,
+                  width: 76,
+                  child: Column(
+                      children: [
+                        Container(
+                          height: 54,
+                          width: 54,
+                          decoration: BoxDecoration(
+                            color: ColorsTheme.of(context).backgroundGrey,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                          ),
+                          child: Center(
+                            child: Icon(
+                              Icons.add_rounded,
+                              size: Sizes.space2XLarge,
+                              color: ColorsTheme.of(context).white,
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          translate('add'),
+                          style: FontTheme.of(context)
+                              .subtitle2
+                              .primary()
+                              .copyWith(fontWeight: FontWeight.w800),
+                          softWrap: false,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                )
+                : BookmarkCard(
+                    index: index,
+                    dapp: dapps[index],
+                  ),
+          );
+  }
+}

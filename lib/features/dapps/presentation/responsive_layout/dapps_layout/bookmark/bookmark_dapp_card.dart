@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mxc_logic/mxc_logic.dart';
-import '../../dapps_presenter.dart';
-import 'build_card.dart';
-import 'context_menu_actions.dart';
-import 'shatter_widget.dart';
+import '../../../dapps_presenter.dart';
+import 'bookmark_build_card.dart';
+import '../context_menu_actions.dart';
+import '../shatter_widget.dart';
 
-class DAppCard extends HookConsumerWidget {
+class BookmarkCard extends HookConsumerWidget {
   final Dapp dapp;
   final int index;
-  const DAppCard({
+  const BookmarkCard({
     super.key,
     required this.index,
     required this.dapp,
@@ -38,16 +38,6 @@ class DAppCard extends HookConsumerWidget {
       onTap = state.isEditMode
           ? null
           : () => actions.openDapp((dapp as Bookmark).url);
-    } else {
-      dappUrl = dapp.app!.url!;
-      onTap = state.isEditMode
-          ? null
-          : () async {
-              await actions.requestPermissions(dapp);
-              actions.openDapp(
-                dapp.app!.url!,
-              );
-            };
     }
 
 
@@ -90,18 +80,14 @@ class DAppCard extends HookConsumerWidget {
       }
       return CupertinoContextMenuExtended.builder(
         builder: (context, animation) {
-          return SizedBox(
-            width: 300,
-            height: 140,
-            child: buildCard(
-              context,
-              dapp,
-              onTap,
-              isEditMode,
-              shatter: shatter,
-              actions: actions,
-              animated: animation.value != 0.0,
-            ),
+          return buildCard(
+            context,
+            dapp,
+            onTap,
+            isEditMode,
+            shatter: shatter,
+            actions: actions,
+            animated: animation.value != 0.0,
           );
         },
         actions: getContextMenuActions(
@@ -113,12 +99,10 @@ class DAppCard extends HookConsumerWidget {
       );
     }
 
-    return isBookMark
-        ? ShatteringWidget(
+    return ShatteringWidget(
             builder: (shatter) {
               return getCardItem(shatter: shatter);
             },
-            onShatterCompleted: () => actions.removeBookmark(dapp as Bookmark))
-        : getCardItem();
+            onShatterCompleted: () => actions.removeBookmark(dapp as Bookmark));
   }
 }

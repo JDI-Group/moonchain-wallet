@@ -44,6 +44,8 @@ class DappIcon extends StatelessWidget {
           imageUrl: image!,
           height: iconSize,
           width: iconSize,
+          fit: BoxFit.fitHeight,
+          // scale: iconSize,
           errorWidget: (context, url, error) {
             return Column(
               children: [
@@ -61,12 +63,16 @@ class DappIcon extends StatelessWidget {
         return SvgPicture.asset(
           image!,
           fit: BoxFit.fill,
-          colorFilter: iconColorFilter
+          colorFilter: iconColorFilter,
+          height: iconSize,
+          width: iconSize,
         );
       } else {
         return Image.asset(
           image!,
           fit: BoxFit.fill,
+          height: iconSize,
+          width: iconSize,
         );
       }
     }

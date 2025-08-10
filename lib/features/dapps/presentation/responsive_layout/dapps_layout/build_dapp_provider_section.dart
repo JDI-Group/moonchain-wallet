@@ -34,7 +34,6 @@ List<Widget> buildDAppProviderSection(
             dapp: dapps[index],
           ),
         ),
-
       if (providerType == ProviderType.thirdParty)
         SizedBox(
           height: 150,
@@ -48,24 +47,14 @@ List<Widget> buildDAppProviderSection(
             ),
           ),
         ),
-
-      // if (providerType != ProviderType.native ||
-      //     providerType != ProviderType.thirdParty)
-      //   // It's a bookmark dapp
-      //   ListView.builder(
-      //     itemCount: 4,
-      //     scrollDirection: Axis.vertical,
-      //     itemBuilder: (context, index) => NativeDAppCard(
-      //       index: index,
-      //       dapp: dapps[index],
-      //     ),
-      //   ),
-      // DappsGridView(
-      //   flex: flex,
-      //   crossAxisCount: crossAxisCount,
-      //   dapps: dapps,
-      //   mainAxisCount: mainAxisCount,
-      // ),
+      if (providerType == ProviderType.bookmark)
+        // It's a bookmark dapp
+        SizedBox(
+          height: 190,
+          child: BookMarksGridView(
+            dapps: dapps,
+          ),
+        ),
       const SizedBox(
         height: 30,
       ),
