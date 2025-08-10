@@ -14,8 +14,6 @@ class DAppsState with EquatableMixin {
   List<Dapp> dapps = [];
   List<Dapp> dappsAndBookmarks = [];
   bool dappsMerged = false;
-  // This var inits when user taps on the see all button
-  List<Dapp>? seeAllDapps;
   bool bookMarksMerged = false;
   bool loading = true;
 
@@ -42,6 +40,5 @@ class DAppsState with EquatableMixin {
         timer,
         onLeftEdge,
         onRightEdge,
-        seeAllDapps,
       ];
 }

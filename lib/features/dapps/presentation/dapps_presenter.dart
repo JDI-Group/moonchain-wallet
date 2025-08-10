@@ -124,18 +124,6 @@ class DAppsPagePresenter extends CompletePresenter<DAppsState> {
           DappUtils.loadingOnce = false;
           notify(() => state.loading = false);
         }
-        // Used to update dapps list for see all dapps
-        if (state.seeAllDapps != null) {
-          if (state.seeAllDapps is Bookmark) {
-            state.seeAllDapps = getBookmarkDapps();
-          } else if (state.seeAllDapps![0].app?.providerType ==
-              ProviderType.native) {
-            state.seeAllDapps = getNativeDapps();
-          } else if (state.seeAllDapps![0].app?.providerType ==
-              ProviderType.thirdParty) {
-            state.seeAllDapps = getPartnerDapps();
-          }
-        }
         notify();
       },
     );
@@ -250,13 +238,6 @@ class DAppsPagePresenter extends CompletePresenter<DAppsState> {
 
   void handleOnReorder(int newIndex, int oldIndex) {
     reorderHelper.handleOnReorder(newIndex, oldIndex);
-  }
-
-
-  deselectSeeAllDApps() {
-    notify(
-      () => state.seeAllDapps = null,
-    );
   }
 
   getBookmarkDapps() => state.orderedDapps.whereType<Bookmark>().toList();

@@ -1,7 +1,6 @@
 export 'dapp_provider_header.dart';
 export 'context_menu_actions.dart';
 export 'card_item.dart';
-export 'dapps_listview.dart';
 export 'bookmark/bookmark_dapp.dart';
 export 'native_dapp/native_dapp.dart';
 export 'partner_dapp/partner_dapp.dart';

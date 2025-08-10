@@ -49,11 +49,7 @@ class DappCardLayout extends HookConsumerWidget {
           constraints: const BoxConstraints(maxHeight: 780),
           child: child,
         );
-
-    if (state.seeAllDapps != null) {
-      return DAppsListView(mainAxisCount: 0);
-    }
-
+        
     return constraintWrapperWidget(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
