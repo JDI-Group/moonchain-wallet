@@ -21,12 +21,8 @@ class SettingsPage extends HookConsumerWidget {
     return MxcPage(
       presenter: presenter,
       resizeToAvoidBottomInset: true,
-      appBar: AppNavBar(
-        title: Text(
-          FlutterI18n.translate(context, 'settings'),
-          style: FontTheme.of(context).body1.primary(),
-        ),
-      ),
+      useBlackBackground: true,
+      appBar: AppNavBar(title: FlutterI18n.translate(context, 'settings')),
       children: [
         const AccountManagementPanel(),
         ...Setting.fixedSettings(context)

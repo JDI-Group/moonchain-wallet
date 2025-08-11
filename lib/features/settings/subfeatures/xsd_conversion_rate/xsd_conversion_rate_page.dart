@@ -30,10 +30,7 @@ class XsdConversionRatePage extends HookConsumerWidget {
       presenter: ref.watch(presenter),
       crossAxisAlignment: CrossAxisAlignment.start,
       appBar: AppNavBar(
-        title: Text(
-          FlutterI18n.translate(context, 'xsd_conversion_rate'),
-          style: FontTheme.of(context).body1.primary(),
-        ),
+        title: FlutterI18n.translate(context, 'xsd_conversion_rate'),
       ),
       children: [
         Form(

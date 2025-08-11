@@ -22,12 +22,7 @@ class SeeAllPage extends StatelessWidget {
           top: Sizes.spaceNormal,
           right: Sizes.spaceXLarge,
           left: Sizes.spaceXLarge),
-      appBar: AppNavBar(
-        title: Text(
-          pageTitle,
-          style: FontTheme.of(context).body1.primary(),
-        ),
-      ),
+      appBar: AppNavBar(title: pageTitle),
       children: [
         listWidget,
       ],

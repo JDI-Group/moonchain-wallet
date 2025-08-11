@@ -32,10 +32,7 @@ class SecuritySettingsPage extends HookConsumerWidget {
       presenter: ref.watch(presenter),
       crossAxisAlignment: CrossAxisAlignment.start,
       appBar: AppNavBar(
-        title: Text(
-          translate('security'),
-          style: FontTheme.of(context).body1.primary(),
-        ),
+        title: translate('security'),
       ),
       children: [
         Text(

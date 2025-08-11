@@ -28,10 +28,7 @@ class CustomerSupportPage extends HookConsumerWidget {
       presenter: ref.watch(presenter),
       crossAxisAlignment: CrossAxisAlignment.start,
       appBar: AppNavBar(
-        title: Text(
-          FlutterI18n.translate(context, 'costomer_support'),
-          style: FontTheme.of(context).body1.primary(),
-        ),
+        title: FlutterI18n.translate(context, 'costomer_support'),
       ),
       children: [
         Text(

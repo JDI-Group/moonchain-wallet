@@ -28,10 +28,7 @@ class ChainConfigurationPage extends HookConsumerWidget {
           right: Sizes.spaceXLarge,
           left: Sizes.spaceXLarge),
       appBar: AppNavBar(
-        title: Text(
-          translate('chain_configuration'),
-          style: FontTheme.of(context).body1.primary(),
-        ),
+        title: translate('chain_configuration'),
       ),
       children: [
         Expanded(

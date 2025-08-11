@@ -22,10 +22,7 @@ class LanguagePage extends ConsumerWidget {
 
     return MxcPage(
       appBar: AppNavBar(
-        title: Text(
-          FlutterI18n.translate(context, 'language'),
-          style: FontTheme.of(context).body1.primary(),
-        ),
+        title: FlutterI18n.translate(context, 'language'),
       ),
       presenter: ref.watch(languageContainer.actions),
       children: [

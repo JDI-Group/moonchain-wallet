@@ -15,6 +15,7 @@ class DefaultAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppNavBar(
       backgroundColor: backgroundColor,
+      isOnWhite: true,
       action: IconButton(
         key: const ValueKey('settingsButton'),
         icon: SvgPicture.asset(

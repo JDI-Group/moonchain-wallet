@@ -1,3 +1,6 @@
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:moonchain_wallet/common/assets.gen.dart';
 import 'package:moonchain_wallet/common/common.dart';
 import 'package:moonchain_wallet/features/common/app_nav_bar/widget/accounts_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +19,15 @@ class AppNavBar extends HookConsumerWidget {
     this.title,
     this.leadingType = LeadingType.backButton,
     this.backgroundColor,
+    this.isOnWhite = false,
   }) : super(key: key);
 
   final Widget? leading;
   final Widget? action;
-  final Widget? title;
+  final String? title;
   final LeadingType leadingType;
   final Color? backgroundColor;
+  final bool isOnWhite;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,25 +46,31 @@ class AppNavBar extends HookConsumerWidget {
               if (leading == null && leadingType == LeadingType.backButton) ...[
                 IconButton(
                   key: const ValueKey('backButton'),
-                  icon: const Icon(Icons.arrow_back_rounded),
+                  icon: SvgPicture.asset(Assets.svg.arrowBack),
                   iconSize: 32,
                   onPressed: appBarPopHandlerBuilder(context),
                   color: ColorsTheme.of(context).iconPrimary,
                 ),
               ] else if (leading == null &&
                   leadingType == LeadingType.walletAddress) ...[
-                const AccountsDropdown(),
+                AccountsDropdown(isOnWhite),
               ] else ...[
                 leading!,
               ],
               if (title == null &&
                   leadingType != LeadingType.walletAddress) ...[
-                const AccountsDropdown(),
+                AccountsDropdown(isOnWhite),
               ] else if (title == null &&
                   leadingType == LeadingType.walletAddress) ...[
                 Container(),
               ] else ...[
-                title!
+                Text(
+                  title!,
+                  style: FontTheme.of(context)
+                      .body1
+                      .primary()
+                      .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ],
               if (action == null) ...[
                 const SizedBox(width: 32),

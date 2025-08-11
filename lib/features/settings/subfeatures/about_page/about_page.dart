@@ -19,10 +19,7 @@ class AboutPage extends HookConsumerWidget {
     return MxcPage(
       crossAxisAlignment: CrossAxisAlignment.center,
       appBar: AppNavBar(
-        title: Text(
-          FlutterI18n.translate(context, 'about'),
-          style: FontTheme.of(context).body1.primary(),
-        ),
+        title: FlutterI18n.translate(context, 'about'),
       ),
       children: [
         const SizedBox(height: Sizes.space4XLarge),

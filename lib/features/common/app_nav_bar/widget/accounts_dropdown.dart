@@ -9,13 +9,14 @@ import 'package:mxc_logic/mxc_logic.dart';
 import 'package:mxc_ui/mxc_ui.dart';
 
 class AccountsDropdown extends HookConsumerWidget {
-  const AccountsDropdown({super.key});
+  final bool isOnWhite;
+  const AccountsDropdown(this.isOnWhite, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final presenter = ref.read(appNavBarContainer.actions);
     final state = ref.watch(appNavBarContainer.state);
-    
+
     return GestureDetector(
       onTap: () => showAccountsDialog(
         context: context,
@@ -36,19 +37,25 @@ class AccountsDropdown extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Portrait(
+            isOnWhite: isOnWhite,
             name: state.account?.address ?? '',
           ),
-          const SizedBox(width: Sizes.space2XSmall),
+          const SizedBox(width: Sizes.spaceXSmall),
           Text(
             state.account?.mns ??
-                MXCFormatter.formatWalletAddress(
-                    state.account?.address ?? ''),
-            style: FontTheme.of(context).subtitle1().copyWith(
-                  color: Colors.black,
+                MXCFormatter.formatWalletAddress(state.account?.address ?? ''),
+            style: FontTheme.of(context).body1().copyWith(
+                  fontWeight: FontWeight.w500,
+                  color: isOnWhite
+                      ? Colors.black
+                      : ColorsTheme.of(context).white100,
                 ),
           ),
-          const SizedBox(width: Sizes.space3XSmall),
-          const Icon(Icons.arrow_drop_down_rounded, color: Colors.black,),
+          Icon(
+            Icons.arrow_drop_down_rounded,
+            color: isOnWhite ? Colors.black : ColorsTheme.of(context).white100,
+            size: 32,
+          ),
         ],
       ),
     );
