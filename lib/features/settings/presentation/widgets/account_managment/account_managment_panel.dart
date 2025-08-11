@@ -34,7 +34,7 @@ class AccountManagementPanel extends HookConsumerWidget {
             end: Sizes.spaceSmall),
         decoration: BoxDecoration(
           borderRadius: UIConfig.defaultBorderRadiusAll,
-          color: const Color(0XFF212529),
+          color: ColorsTheme.of(context).backgroundGrey,
         ),
         child: Column(
           children: [
