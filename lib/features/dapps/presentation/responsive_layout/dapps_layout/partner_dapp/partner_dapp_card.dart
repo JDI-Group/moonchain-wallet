@@ -15,7 +15,7 @@ class PartnerDAppCard extends HookConsumerWidget {
   final Dapp dapp;
   final int index;
   final bool horizontallyExpanded;
-  const PartnerDAppCard( {
+  const PartnerDAppCard({
     super.key,
     required this.index,
     required this.dapp,
@@ -30,35 +30,22 @@ class PartnerDAppCard extends HookConsumerWidget {
     final actions = ref.read(appsPagePageContainer.actions);
     final state = ref.read(appsPagePageContainer.state);
 
-    final isEditMode = state.isEditMode;
-    final isBookMark = dapp is Bookmark;
-    late String dappUrl;
     void Function()? onTap;
 
-    if (isBookMark) {
-      dappUrl = (dapp as Bookmark).url;
-      onTap = state.isEditMode
-          ? null
-          : () => actions.openDapp((dapp as Bookmark).url);
-    } else {
-      dappUrl = dapp.app!.url!;
-      onTap = state.isEditMode
-          ? null
-          : () async {
-              await actions.requestPermissions(dapp);
-              actions.openDapp(
-                dapp.app!.url!,
-              );
-            };
-    }
-
+    onTap = state.isEditMode
+        ? null
+        : () async {
+            await actions.requestPermissions(dapp);
+            actions.openDapp(
+              dapp.app!.url!,
+            );
+          };
 
     final animationController = useAnimationController(
       duration: const Duration(milliseconds: 75),
       lowerBound: -pi / 50,
       upperBound: pi / 50,
     );
-
 
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {

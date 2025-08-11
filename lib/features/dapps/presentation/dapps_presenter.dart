@@ -241,12 +241,22 @@ class DAppsPagePresenter extends CompletePresenter<DAppsState> {
   }
 
   getBookmarkDapps() => state.orderedDapps.whereType<Bookmark>().toList();
+  // We assume that most used dapp can be from both native & partner dapps, However It's better if It's from native because icons are different
+  getMostUsedDapps() => state.orderedDapps
+      .where((e) => e.app?.mostUsed == true)
+      .toList();
   getNativeDapps() => state.orderedDapps
       .where((e) => e.app?.providerType == ProviderType.native)
-      .toList();
+      .toList()
+      .where(
+        (e) => (e.app?.mostUsed ?? false) != true,
+      ).toList();
   getPartnerDapps() => state.orderedDapps
       .where((e) => e.app?.providerType == ProviderType.thirdParty)
-      .toList();
+      .toList()
+      .where(
+        (e) => (e.app?.mostUsed ?? false) != true,
+      ).toList();
 
   @override
   Future<void> dispose() async {

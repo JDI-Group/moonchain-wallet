@@ -34,7 +34,7 @@ Widget buildPartnerDAppCard(
     },
     child: Container(
       padding: const EdgeInsets.all(12),
-      constraints: const BoxConstraints(maxWidth: 150),
+      constraints: const BoxConstraints(maxWidth: 190),
       decoration: BoxDecoration(
         color: ColorsTheme.of(context).backgroundGrey,
         borderRadius: const BorderRadius.all(
@@ -44,19 +44,20 @@ Widget buildPartnerDAppCard(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (!contextMenuAnimation) ...[
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   name ?? url ?? '',
                   style: FontTheme.of(context)
                       .body1
                       .primary()
-                      .copyWith(fontWeight: FontWeight.bold),
+                      .copyWith(fontWeight: FontWeight.w500),
                   softWrap: false,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -75,7 +76,8 @@ Widget buildPartnerDAppCard(
             ),
             horizontallyExpanded
                 ? const Spacer()
-                : const SizedBox(
+                : 
+                const SizedBox(
                     height: Sizes.spaceSmall,
                   ),
             Text(
@@ -83,6 +85,7 @@ Widget buildPartnerDAppCard(
               style: FontTheme.of(context).caption1.textWhite60().copyWith(
                     fontWeight: FontWeight.w500,
                   ),
+              textAlign: TextAlign.left,
               maxLines: 2,
             ),
           ]

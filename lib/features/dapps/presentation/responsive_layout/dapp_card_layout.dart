@@ -180,7 +180,7 @@ class DappCardLayout extends HookConsumerWidget {
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemBuilder: (context, index) => SizedBox(
-                            height: 120,
+                            height: 100,
                             child: PartnerDAppCard(
                               index: index,
                               dapp: partnerDapps[index],

@@ -22,7 +22,7 @@ class BookMarksGridView extends StatelessWidget {
     String translate(String key) => FlutterI18n.translate(context, key);
     final isDappsEmpty = dapps.isEmpty;
     final itemCount = seeAll
-        ? dapps.length
+        ? dapps.length + 1
         : dapps.length > 7
             ? 8
             : dapps.length + 1;
