@@ -33,100 +33,111 @@ class HomePage extends HookConsumerWidget {
     final bottomAppBarHeight = 50 + additionalBottomPadding;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return MxcPage(
-      layout: LayoutType.column,
-      useContentPadding: false,
-      floatingActionButton: const AiButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      backgroundColor: homeState.bottomNavigationCurrentIndex == 0
-          ? ColorsTheme.of(context).primary
-          : null,
-      useBlackBackground:
-          homeState.bottomNavigationCurrentIndex == 0 ? false : true,
-      bottomNavigationBar: SizedBox(
-        height: 120,
-        child: BottomAppBar(
-          padding: const EdgeInsets.all(0),
-          shape: ConvexNotchedRectangle(
-            bottomAppBarHeight,
-            screenWidth,
-          ),
-          color: ColorsTheme.of(context).backgroundGrey,
-          surfaceTintColor: ColorsTheme.of(context).backgroundGrey,
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: ColorsTheme.of(context).backgroundGrey,
-            fixedColor: ColorsTheme.of(context).backgroundGrey,
-            currentIndex: homeState.bottomNavigationCurrentIndex,
-            onTap: homePresenter.changeBottomNavigationIndex,
-            elevation: 0,
-            items: [
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width * 0.06),
-                  child: SvgPicture.asset(
-                    Assets.svg.indexGary,
-                    height: 28,
-                    width: 28,
+    return SafeArea(
+      top: false,
+      left: false,
+      right: false,
+      maintainBottomViewPadding: true,
+      child: MxcPage(
+        layout: LayoutType.column,
+        useContentPadding: false,
+        floatingActionButton: const AiButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+        backgroundColor: homeState.bottomNavigationCurrentIndex == 0
+            ? ColorsTheme.of(context).primary
+            : null,
+        useBlackBackground:
+            homeState.bottomNavigationCurrentIndex == 0 ? false : true,
+        bottomNavigationBar: SizedBox(
+          height: 65,
+          child: BottomAppBar(
+            padding: const EdgeInsets.all(0),
+            shape: ConvexNotchedRectangle(
+              bottomAppBarHeight,
+              screenWidth,
+            ),
+            color: ColorsTheme.of(context).backgroundGrey,
+            surfaceTintColor: ColorsTheme.of(context).backgroundGrey,
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: ColorsTheme.of(context).backgroundGrey,
+              fixedColor: ColorsTheme.of(context).backgroundGrey,
+              currentIndex: homeState.bottomNavigationCurrentIndex,
+              onTap: homePresenter.changeBottomNavigationIndex,
+              elevation: 0,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Container(
+                    margin: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.06,
+                    ),
+                    child: SvgPicture.asset(
+                      Assets.svg.indexGary,
+                      height: 28,
+                      width: 28,
+                    ),
                   ),
-                ),
-                activeIcon: Container(
-                  margin: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width * 0.06),
-                  child: SvgPicture.asset(
-                    Assets.svg.indexWhite,
-                    height: 28,
-                    width: 28,
+                  activeIcon: Container(
+                    margin: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.06,
+                    ),
+                    child: SvgPicture.asset(
+                      Assets.svg.indexWhite,
+                      height: 28,
+                      width: 28,
+                    ),
                   ),
+                  label: '',
                 ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.06),
-                  child: SvgPicture.asset(
-                    Assets.svg.walletGary,
-                    height: 28,
-                    width: 28,
+                BottomNavigationBarItem(
+                  icon: Container(
+                    margin: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.06),
+                    child: SvgPicture.asset(
+                      Assets.svg.walletGary,
+                      height: 28,
+                      width: 28,
+                    ),
                   ),
-                ),
-                activeIcon: Container(
-                  margin: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.06),
-                  child: SvgPicture.asset(
-                    Assets.svg.walletWhite,
-                    height: 28,
-                    width: 28,
+                  activeIcon: Container(
+                    margin: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.06),
+                    child: SvgPicture.asset(
+                      Assets.svg.walletWhite,
+                      height: 28,
+                      width: 28,
+                    ),
                   ),
+                  label: '',
                 ),
-                label: '',
-              ),
-            ],
+              ],
+            ),
           ),
         ),
+        childrenPadding: EdgeInsets.zero,
+        // childrenPadding: const EdgeInsets.symmetric(
+        //     horizontal: Sizes.spaceSmall, vertical: Sizes.spaceNormal),
+        // useGradientBackground: true,
+        presenter: ref.watch(presenter),
+        // appBar: Column(
+        //   children: [
+        //     ref.watch(state).isEditMode
+        //         ? const EditModeAppBar()
+        //         : const DefaultAppBar(),
+        //   ],
+        // ),
+        children: [
+          Expanded(
+            child: IndexedStack(
+              index: homeState.bottomNavigationCurrentIndex,
+              children: const [DAppsPage(), WalletPage()],
+            ),
+          ),
+        ],
       ),
-      childrenPadding: EdgeInsets.zero,
-      // childrenPadding: const EdgeInsets.symmetric(
-      //     horizontal: Sizes.spaceSmall, vertical: Sizes.spaceNormal),
-      // useGradientBackground: true,
-      presenter: ref.watch(presenter),
-      // appBar: Column(
-      //   children: [
-      //     ref.watch(state).isEditMode
-      //         ? const EditModeAppBar()
-      //         : const DefaultAppBar(),
-      //   ],
-      // ),
-      children: [
-        Expanded(
-          child: IndexedStack(
-            index: homeState.bottomNavigationCurrentIndex,
-            children: const [DAppsPage(), WalletPage()],
-          ),
-        ),
-      ],
     );
   }
 }
