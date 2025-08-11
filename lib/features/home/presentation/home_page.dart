@@ -43,49 +43,68 @@ class HomePage extends HookConsumerWidget {
           : null,
       useBlackBackground:
           homeState.bottomNavigationCurrentIndex == 0 ? false : true,
-      bottomNavigationBar: BottomAppBar(
-        padding: const EdgeInsets.all(0),
-        shape: ConvexNotchedRectangle(
-          bottomAppBarHeight,
-          screenWidth,
-        ),
-        color: ColorsTheme.of(context).backgroundGrey,
-        notchMargin: 10,
-        surfaceTintColor: ColorsTheme.of(context).backgroundGrey,
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: ColorsTheme.of(context).backgroundGrey,
-          fixedColor: ColorsTheme.of(context).backgroundGrey,
-          currentIndex: homeState.bottomNavigationCurrentIndex,
-          onTap: homePresenter.changeBottomNavigationIndex,
-          items: [
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                Assets.svg.indexGary,
-                height: 24,
-                width: 24,
+      bottomNavigationBar: SizedBox(
+        height: 120,
+        child: BottomAppBar(
+          padding: const EdgeInsets.all(0),
+          shape: ConvexNotchedRectangle(
+            bottomAppBarHeight,
+            screenWidth,
+          ),
+          color: ColorsTheme.of(context).backgroundGrey,
+          surfaceTintColor: ColorsTheme.of(context).backgroundGrey,
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: ColorsTheme.of(context).backgroundGrey,
+            fixedColor: ColorsTheme.of(context).backgroundGrey,
+            currentIndex: homeState.bottomNavigationCurrentIndex,
+            onTap: homePresenter.changeBottomNavigationIndex,
+            elevation: 0,
+            items: [
+              BottomNavigationBarItem(
+                icon: Container(
+                  margin: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.06),
+                  child: SvgPicture.asset(
+                    Assets.svg.indexGary,
+                    height: 28,
+                    width: 28,
+                  ),
+                ),
+                activeIcon: Container(
+                  margin: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.06),
+                  child: SvgPicture.asset(
+                    Assets.svg.indexWhite,
+                    height: 28,
+                    width: 28,
+                  ),
+                ),
+                label: '',
               ),
-              activeIcon: SvgPicture.asset(
-                Assets.svg.indexWhite,
-                height: 24,
-                width: 24,
+              BottomNavigationBarItem(
+                icon: Container(
+                  margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.06),
+                  child: SvgPicture.asset(
+                    Assets.svg.walletGary,
+                    height: 28,
+                    width: 28,
+                  ),
+                ),
+                activeIcon: Container(
+                  margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.06),
+                  child: SvgPicture.asset(
+                    Assets.svg.walletWhite,
+                    height: 28,
+                    width: 28,
+                  ),
+                ),
+                label: '',
               ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                Assets.svg.walletGary,
-                height: 24,
-                width: 24,
-              ),
-              activeIcon: SvgPicture.asset(
-                Assets.svg.walletWhite,
-                height: 24,
-                width: 24,
-              ),
-              label: '',
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       childrenPadding: EdgeInsets.zero,
