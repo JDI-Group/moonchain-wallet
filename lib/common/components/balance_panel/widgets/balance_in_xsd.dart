@@ -20,6 +20,7 @@ class BalanceInXSD extends HookConsumerWidget {
     return Row(children: [
       Text(balance,
           style: FontTheme.of(context).body2().copyWith(
+              fontSize: 24,
               color: state.hideBalance == true
                   ? null
                   : ColorsTheme.of(context).textPrimary,
@@ -32,6 +33,7 @@ class BalanceInXSD extends HookConsumerWidget {
       const SizedBox(width: 4),
       Text(accountUseCase.getXsdUnit(),
           style: FontTheme.of(context).body2().copyWith(
+                fontSize: 24,
                 color: ColorsTheme.of(context).textSecondary,
               )),
     ]);

@@ -1,3 +1,5 @@
+import 'package:flutter_svg/svg.dart';
+import 'package:moonchain_wallet/common/assets.gen.dart' as assets;
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:moonchain_wallet/features/common/common.dart';
 import 'package:moonchain_wallet/features/dapps/dapps.dart';
@@ -34,9 +36,17 @@ class WalletPage extends HookConsumerWidget {
         layout: LayoutType.column,
         useContentPadding: false,
         appBar: AppNavBar(
-          leading: IconButton(
+          action: IconButton(
             key: const ValueKey('settingsButton'),
-            icon: const Icon(MxcIcons.settings, size: 32),
+            icon: SvgPicture.asset(
+              assets.Assets.svg.settingsSvg,
+              height: 28,
+              width: 28,
+              fit: BoxFit.fill,
+              colorFilter: ColorFilter.mode(
+                  ColorsTheme.of(context).white100, BlendMode.srcIn),
+            ),
+            iconSize: Sizes.space2XLarge,
             onPressed: () {
               Navigator.of(context).push(
                 route(
@@ -46,13 +56,7 @@ class WalletPage extends HookConsumerWidget {
             },
             color: ColorsTheme.of(context).iconPrimary,
           ),
-          action: IconButton(
-            key: const ValueKey('appsButton'),
-            icon: const Icon(MxcIcons.apps, size: 32),
-            onPressed: () =>
-                Navigator.of(context).replaceAll(route(const DAppsPage())),
-            color: ColorsTheme.of(context).iconPrimary,
-          ),
+          leadingType: LeadingType.walletAddress,
         ),
         children: [
           Expanded(
@@ -66,8 +70,8 @@ class WalletPage extends HookConsumerWidget {
                     Text(
                       FlutterI18n.translate(context, 'wallet'),
                       style: FontTheme.of(context).h4().copyWith(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 35,
+                            fontWeight: FontWeight.w800,
                             color: ColorsTheme.of(context).textPrimary,
                           ),
                     ),
@@ -81,8 +85,8 @@ class WalletPage extends HookConsumerWidget {
                     Text(FlutterI18n.translate(context, 'transaction_history'),
                         style: FontTheme.of(context).h7().copyWith(
                             fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: ColorsTheme.of(context).textSecondary)),
+                            fontWeight: FontWeight.bold,
+                            color: ColorsTheme.of(context).textPrimary)),
                     const SizedBox(
                       height: 12,
                     ),

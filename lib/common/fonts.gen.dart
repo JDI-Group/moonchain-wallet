@@ -14,12 +14,6 @@ class FontFamily {
   /// Font family: MxcIcons
   static const String mxcIcons = 'MxcIcons';
 
-  /// Font family: Nunito
-  static const String nunito = 'Nunito';
-
-  /// Font family: ProtestGuerrilla
-  static const String protestGuerrilla = 'ProtestGuerrilla';
-
   /// Font family: Roboto
   static const String roboto = 'Roboto';
 }
