@@ -32,7 +32,7 @@ Widget buildNativeNativeDAppCard(
       }
     },
     child: Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(top: 10),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -45,7 +45,7 @@ Widget buildNativeNativeDAppCard(
             ),
             child: DappIcon(
               image: image,
-              iconSize: 48,
+              iconSize: 28,
             ),
           ),
           if (!contextMenuAnimation) ...[
