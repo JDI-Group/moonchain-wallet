@@ -1,10 +1,11 @@
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:moonchain_wallet/common/assets.gen.dart' show Assets;
-import 'package:moonchain_wallet/core/src/routing/route.dart';
+import 'package:moonchain_wallet/core/core.dart';
 import 'package:moonchain_wallet/features/dapps/presentation/dapps_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:moonchain_wallet/features/dapps/presentation/dapps_state.dart';
 import 'package:moonchain_wallet/features/portfolio/presentation/portfolio_page.dart';
 import 'package:mxc_logic/mxc_logic.dart' show Dapp, ProviderType;
 
@@ -26,9 +27,14 @@ class DappCardLayout extends HookConsumerWidget {
     final actions = ref.read(appsPagePageContainer.actions);
     final dapps = state.orderedDapps;
 
+    if (state.orderedDapps.isEmpty) {
+      return Container();
+    }
+
     final List<Dapp> bookmarksDapps = actions.getBookmarkDapps();
     final List<Dapp> nativeDapps = actions.getNativeDapps();
     final List<Dapp> partnerDapps = actions.getPartnerDapps();
+    final List<Dapp> mostUsedDapps = actions.getMostUsedDapps();
 
     // final pages = actions.calculateMaxItemsCount(
     //     dapps.length, mainAxisCount, crossAxisCount);
@@ -49,7 +55,7 @@ class DappCardLayout extends HookConsumerWidget {
           constraints: const BoxConstraints(maxHeight: 780),
           child: child,
         );
-        
+
     return constraintWrapperWidget(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,24 +112,18 @@ class DappCardLayout extends HookConsumerWidget {
                       ),
                     ),
                   ),
-                  // MxcTextField(
-                  //   key: const Key('AITextField'),
-                  //   controller: TextEditingController(),
-                  //   hint: translate('ask_moonchain_ai_anything'),
-                  //   suffixButton: MxcTextFieldButton.svg(
-                  //     svg: Assets.svg.aiBlack,
-                  //     color: Colors.black,
-                  //     onTap: () {},
-                  //   ),
-                  //   readOnly: true,
-                  //   hasClearButton: false,
-                  // ),
                   const SizedBox(
                     height: Sizes.spaceXLarge,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: getMostUsedButtons(context, translate),
+                    children: getMostUsedButtons(
+                      mostUsedDapps,
+                      context,
+                      state,
+                      actions,
+                      translate,
+                    ),
                   )
                 ],
               ),
@@ -161,7 +161,7 @@ class DappCardLayout extends HookConsumerWidget {
                         partnerDapps,
                         ProviderType.thirdParty,
                         SizedBox(
-                          height: 150,
+                          height: 120,
                           child: ListView.separated(
                             itemCount: partnerDapps.length,
                             scrollDirection: Axis.horizontal,
@@ -232,62 +232,99 @@ class DappCardLayout extends HookConsumerWidget {
 }
 
 List<Widget> getMostUsedButtons(
-        BuildContext context, String Function(String key) translate) =>
-    [
-      // const SizedBox(
-      //   width: Sizes.space2XSmall,
-      // ),
-      // Fixed
-      MostUsedSectionsButton(
-        title: translate('my_x').replaceFirst('{0}', translate('portfolio')),
-        icon: Assets.svg.portfilio,
-        onTap: () {
-          Navigator.of(context).push(
-            route(
-              const PortfolioPage(),
-            ),
-          );
-        },
-      ),
-      // Most used dapps
-      MostUsedSectionsButton(
-        title: translate('portfolio'),
-        icon: Assets.svg.portfilio,
-        onTap: () {
-          Navigator.of(context).push(
-            route(
-              const PortfolioPage(),
-            ),
-          );
-        },
-      ),
-      MostUsedSectionsButton(
-        title: translate('portfolio'),
-        icon: Assets.svg.portfilio,
-        onTap: () {
-          Navigator.of(context).push(
-            route(
-              const PortfolioPage(),
-            ),
-          );
-        },
-      ),
-      // Fixed
-      MostUsedSectionsButton(
-        title: translate('track_x').replaceFirst('{0}', translate('tokens')),
-        icon: Assets.svg.token,
-        onTap: () {
-          Navigator.of(context).push(
-            route(
-              const PortfolioPage(),
-            ),
-          );
-        },
-      ),
-      // const SizedBox(
-      //   width: Sizes.space2XSmall,
-      // ),
-    ];
+    List<Dapp> dapps,
+    BuildContext context,
+    DAppsState state,
+    DAppsPagePresenter actions,
+    String Function(String key) translate) {
+  final list = dapps
+      .map(
+        (e) => MostUsedSectionsButton(
+            icon: e.reviewApi!.iconV3!,
+            onTap: () async {
+              final dappUrl = e.app!.url!;
+              if (!state.isEditMode) {
+                await actions.requestPermissions(e);
+                actions.openDapp(
+                  dappUrl,
+                );
+              }
+            },
+            title: e.app?.name ?? e.app?.url ?? ''),
+      )
+      .toList();
+
+  list.insert(
+    0,
+    MostUsedSectionsButton(
+      title: translate('my_x').replaceFirst('{0}', translate('portfolio')),
+      icon: Assets.svg.portfilio,
+      onTap: () {
+        Navigator.of(context).push(
+          route(
+            const PortfolioPage(),
+          ),
+        );
+      },
+    ),
+  );
+  return list;
+}
+// [
+//   // const SizedBox(
+//   //   width: Sizes.space2XSmall,
+//   // ),
+//   // Fixed
+//   MostUsedSectionsButton(
+//     title: translate('my_x').replaceFirst('{0}', translate('portfolio')),
+//     icon: Assets.svg.portfilio,
+//     onTap: () {
+//       Navigator.of(context).push(
+//         route(
+//           const PortfolioPage(),
+//         ),
+//       );
+//     },
+//   ),
+//   // Most used dapps
+//   MostUsedSectionsButton(
+//     title: translate('portfolio'),
+//     icon: Assets.svg.portfilio,
+//     onTap: () {
+//       Navigator.of(context).push(
+//         route(
+//           const PortfolioPage(),
+//         ),
+//       );
+//     },
+//   ),
+//   MostUsedSectionsButton(
+//     title: translate('portfolio'),
+//     icon: Assets.svg.portfilio,
+//     onTap: () {
+//       Navigator.of(context).push(
+//         route(
+//           const PortfolioPage(),
+//         ),
+//       );
+//     },
+//   ),
+//   // Fixed
+//   MostUsedSectionsButton(
+//     title: translate('track_x').replaceFirst('{0}', translate('tokens')),
+//     icon: Assets.svg.token,
+//     onTap: () {
+//       Navigator.of(context).push(
+//         route(
+//           const PortfolioPage(),
+//         ),
+//       );
+//     },
+//   ),
+//   // const SizedBox(
+//   //   width: Sizes.space2XSmall,
+//   // ),
+// ];
 
 class MostUsedSectionsButton extends StatelessWidget {
   final String title;
