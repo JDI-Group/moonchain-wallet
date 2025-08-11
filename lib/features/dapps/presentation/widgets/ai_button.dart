@@ -15,7 +15,7 @@ class AiButton extends StatelessWidget {
         splashColor: Colors.transparent,
         elevation: 0,
         child: Container(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: ColorsTheme.of(context).primary,
