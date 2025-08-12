@@ -25,7 +25,7 @@ abstract class RecoveryPhraseBasePresenter<T extends RecoveryPhraseBaseState>
 
   final AppinioSocialShare _socialShare = AppinioSocialShare();
   final _mnemonicTitle = 'Moonchain Wallet Mnemonic Key';
-  final _mnemonicFileName = Assets.seedPhaseFileName;
+  final _mnemonicFileName = AssetsPath.seedPhaseFileName;
 
   void changeAcceptAggreement() =>
       notify(() => state.acceptAgreement = !state.acceptAgreement);
