@@ -477,5 +477,10 @@
 	"public_list": "Public list",
 	"token_not_found": "Token not found! Please check address and try again.",
 	"token_already_exists": "Token already exists!",
-	"bluetooth_devices": "Bluetooth devices"
+	"bluetooth_devices": "Bluetooth devices",
+	"ask_moonchain_ai_anything": "Ask Moonchain AI anything...",
+	"track_x": "Track {0}",
+	"my_x": "My {0}",
+	"add": "Add",
+	"webhooks": "Webhooks"
 }
