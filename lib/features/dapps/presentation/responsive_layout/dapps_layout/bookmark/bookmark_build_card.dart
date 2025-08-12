@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:moonchain_wallet/common/assets.gen.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 import 'package:mxc_ui/mxc_ui.dart';
 
@@ -65,12 +67,12 @@ Widget buildCard(
                   if (isEditMode && dapp is Bookmark)
                     Positioned(
                       top: -6,
-                      left: -6,
+                      right: -6,
                       child: GestureDetector(
                         onTap: () =>
                             actions!.removeBookmarkDialog(dapp, shatter!),
-                        child: const Icon(
-                          FontAwesomeIcons.circleXmark,
+                        child: SvgPicture.asset(
+                          Assets.svg.deleteBookmark,
                         ),
                       ),
                     ),

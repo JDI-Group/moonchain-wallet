@@ -83,8 +83,8 @@ class DappCardLayout extends HookConsumerWidget {
                       height: 58,
                       decoration: BoxDecoration(
                           color: ColorsTheme.of(context)
-                              .primary
-                              .withValues(alpha: 0.8),
+                              .white
+                              .withValues(alpha: 0.12),
                           border: Border.all(
                             color: Colors.black,
                             width: 2,

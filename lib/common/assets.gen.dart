@@ -77,6 +77,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/bridge.svg
   String get bridge => 'assets/svg/bridge.svg';
 
+  /// File path: assets/svg/delete_bookmark.svg
+  String get deleteBookmark => 'assets/svg/delete_bookmark.svg';
+
   /// File path: assets/svg/governance.svg
   String get governance => 'assets/svg/governance.svg';
 
@@ -132,6 +135,7 @@ class $AssetsSvgGen {
         arrowBack,
         blueberryring,
         bridge,
+        deleteBookmark,
         governance,
         icContact,
         indexGary,
