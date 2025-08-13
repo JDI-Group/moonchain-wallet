@@ -39,7 +39,7 @@ class AppNavBar extends HookConsumerWidget {
       child: Container(
         color: backgroundColor,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
