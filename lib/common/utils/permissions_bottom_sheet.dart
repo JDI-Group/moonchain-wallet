@@ -38,6 +38,7 @@ Future<bool?> showPermissionUseCasesBottomSheet(
         title: translate('ok_allow'),
         onTap: () => Navigator.of(context).pop(true),
         size: MXCWalletButtonSize.xl,
+        edgeType: UIConfig.permissionsBottomSheetEdgeType,
       ),
     ],
   );
