@@ -27,15 +27,6 @@ class DAppsPagePresenter extends CompletePresenter<DAppsState> {
   late final _accountUseCase = ref.read(accountUseCaseProvider);
   late final _dappsOrderUseCase = ref.read(dappsOrderUseCaseProvider);
 
-  PaginationHelper get paginationHelper => PaginationHelper(
-        notify: notify,
-        state: state,
-        translate: translate,
-        context: context,
-        scrollController: scrollController,
-        viewPortWidth: viewPortWidth,
-      );
-
   GestureNavigationHelper get gestureNavigationHelper =>
       GestureNavigationHelper(
         state: state,
@@ -140,17 +131,6 @@ class DAppsPagePresenter extends CompletePresenter<DAppsState> {
       },
     );
 
-    initScrollListener();
-  }
-
-  initScrollListener() {
-    Future.delayed(
-      const Duration(milliseconds: 100),
-      () => scrollController.addListener(() {
-        // inspect(paginationHelper);
-        paginationHelper.scrollListener();
-      }),
-    );
   }
 
   void loadPage() {
@@ -207,21 +187,6 @@ class DAppsPagePresenter extends CompletePresenter<DAppsState> {
     }
   }
 
-  int getRequiredItems(
-    int itemsCount,
-    int mainAxisCount,
-    int crossAxisCount,
-    int maxPageCount,
-  ) {
-    return paginationHelper.getRequiredItems(
-        itemsCount, mainAxisCount, crossAxisCount, maxPageCount);
-  }
-
-  int calculateMaxItemsCount(
-      int itemsCount, int mainAxisCount, int crossAxisCount) {
-    return paginationHelper.calculateMaxItemsCount(
-        itemsCount, mainAxisCount, crossAxisCount);
-  }
 
   void initializeViewPreferences(double maxWidth) {
     viewPortWidth = maxWidth;
