@@ -68,6 +68,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ai_porfolio.svg
   String get aiPorfolio => 'assets/svg/ai_porfolio.svg';
 
+  /// File path: assets/svg/ai_ranking.svg
+  String get aiRanking => 'assets/svg/ai_ranking.svg';
+
   /// File path: assets/svg/arrow_back.svg
   String get arrowBack => 'assets/svg/arrow_back.svg';
 
@@ -132,6 +135,7 @@ class $AssetsSvgGen {
         aiMarketOverview,
         aiPending,
         aiPorfolio,
+        aiRanking,
         arrowBack,
         blueberryring,
         bridge,

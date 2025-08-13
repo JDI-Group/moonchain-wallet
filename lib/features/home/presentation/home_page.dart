@@ -59,6 +59,7 @@ class HomePage extends HookConsumerWidget {
             ),
             color: ColorsTheme.of(context).backgroundGrey,
             surfaceTintColor: ColorsTheme.of(context).backgroundGrey,
+            shadowColor: Colors.transparent,
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               backgroundColor: ColorsTheme.of(context).backgroundGrey,
