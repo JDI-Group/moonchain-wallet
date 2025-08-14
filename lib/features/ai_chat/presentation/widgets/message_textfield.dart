@@ -35,11 +35,18 @@ class MessageTextfield extends HookConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
-            child: MxcTextField(
+            child: MxcTextField.multiline(
               key: const Key('messageTextField'),
               controller: chatPresenter.messageTextController,
               focusNode: chatPresenter.messageFocusNode,
+              maxLines: 6,
+              borderFocusColor: Colors.transparent,
+              borderUnFocusColor: Colors.transparent,
+              minLines: 1,
             ),
+          ),
+          const SizedBox(
+            width: Sizes.space3XSmall,
           ),
           GestureDetector(
             onTap: () {},
@@ -53,9 +60,9 @@ class MessageTextfield extends HookConsumerWidget {
               ),
             ),
           ),
-          // const SizedBox(
-          //   width: Sizes.space2XSmall,
-          // ),
+          const SizedBox(
+            width: Sizes.spaceNormal,
+          ),
           GestureDetector(
             onTap: () {},
             child: Container(
