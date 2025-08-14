@@ -4,35 +4,22 @@ import 'package:flutter_svg/svg.dart';
 import 'package:moonchain_wallet/common/assets.gen.dart';
 import 'package:mxc_ui/mxc_ui.dart';
 
+import 'gredient.dart';
+
 class AIBanner extends StatelessWidget {
   const AIBanner({super.key});
 
   @override
   Widget build(BuildContext context) {
     String translate(String key) => FlutterI18n.translate(context, key);
-    
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.35,
       width: MediaQuery.of(context).size.height * 0.349,
       // margin: EdgeInsets.only(top: ),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(32)),
-        gradient: LinearGradient(
-          stops: [
-            0.0,
-            0.5,
-            1.0,
-          ],
-          colors: [
-            Color(0XFFD1F258),
-            Color(0XFFE3E3DE),
-            Color(0XFF9166FF),
-          ],
-          begin: Alignment(
-              0.5, -1.0),
-          end: Alignment(
-              0.5, 1.0),
-        ),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(32)),
+        gradient: getLinearGradient(),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
