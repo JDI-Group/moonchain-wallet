@@ -16,6 +16,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
   ChatPresenter() : super(ChatState());
 
   late final _bookmarksUseCase = ref.read(bookmarksUseCaseProvider);
+  final messageListScrollController = ScrollController();
   final messageTextController = TextEditingController();
   final messageFocusNode = FocusNode();
 
@@ -24,6 +25,16 @@ class ChatPresenter extends CompletePresenter<ChatState> {
     super.initState();
 
     messageFocusNode.requestFocus();
+  }
+
+  void sendMessage() {
+    messageListScrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+    
+    messageTextController.text = '';
   }
 
   @override
