@@ -2,6 +2,7 @@ import 'package:moonchain_wallet/common/common.dart';
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:moonchain_wallet/features/common/common.dart';
 import 'package:moonchain_wallet/features/dapps/dapps.dart';
+import 'package:moonchain_wallet/features/home/home.dart';
 import 'package:moonchain_wallet/features/portfolio/subfeatures/tokens_balance_list/utils.dart';
 import 'package:moonchain_wallet/features/portfolio/subfeatures/token/send_token/send_crypto/send_crypto_page.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,9 @@ class ChooseCryptoPage extends HookConsumerWidget {
           icon: const Icon(MxcIcons.apps),
           iconSize: 32,
           onPressed: () =>
-              Navigator.of(context).replaceAll(route(const DAppsPage())),
+              Navigator.of(context).replaceAll(route(const HomePage(
+            homePageSubPage: HomePageSubPage.dapps,
+          ))),
           color: ColorsTheme.of(context).iconPrimary,
         ),
       ),

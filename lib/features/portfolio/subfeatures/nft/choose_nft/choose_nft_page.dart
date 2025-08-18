@@ -2,6 +2,7 @@ import 'package:moonchain_wallet/common/common.dart';
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:moonchain_wallet/features/common/common.dart';
 import 'package:moonchain_wallet/features/dapps/dapps.dart';
+import 'package:moonchain_wallet/features/home/home.dart';
 import 'package:moonchain_wallet/features/portfolio/subfeatures/nft/nft_list/nft_list.dart';
 import 'package:moonchain_wallet/features/portfolio/subfeatures/nft/send_nft/send_nft_page.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,9 @@ class ChooseNftPage extends HookConsumerWidget {
           icon: const Icon(MxcIcons.apps),
           iconSize: 32,
           onPressed: () =>
-              Navigator.of(context).replaceAll(route(const DAppsPage())),
+              Navigator.of(context).replaceAll(route(const HomePage(
+            homePageSubPage: HomePageSubPage.dapps,
+          ))),
           color: ColorsTheme.of(context).iconPrimary,
         ),
       ),

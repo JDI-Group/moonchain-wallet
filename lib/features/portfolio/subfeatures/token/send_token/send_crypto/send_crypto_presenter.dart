@@ -7,7 +7,7 @@ import 'package:moonchain_wallet/features/common/common.dart';
 import 'package:moonchain_wallet/features/common/app_nav_bar/app_nav_bar_presenter.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:moonchain_wallet/features/wallet/wallet.dart';
+import 'package:moonchain_wallet/features/home/home.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 import 'package:mxc_ui/mxc_ui.dart';
 
@@ -257,7 +257,11 @@ class SendCryptoPresenter extends CompletePresenter<SendCryptoState> {
         // if (!walletPageFound) {
         //   navigator?.pushReplacement(route(const WalletPage()));
         // }
-        navigator?.pushReplacement(route(const WalletPage()));
+        navigator?.pushReplacement(route(
+          const HomePage(
+            homePageSubPage: HomePageSubPage.wallet,
+          ),
+        ));
       });
     }
     return null;

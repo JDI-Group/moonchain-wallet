@@ -13,18 +13,27 @@ import 'dart:math' as math;
 import 'home_presenter.dart';
 import 'home_state.dart';
 
+enum HomePageSubPage {
+  dapps,
+  wallet;
+}
+
 class HomePage extends HookConsumerWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final HomePageSubPage homePageSubPage;
+  const HomePage({Key? key, required this.homePageSubPage}) : super(key: key);
 
   @override
-  ProviderBase<HomePagePresenter> get presenter =>
-      homePagePageContainer.actions;
+  ProviderBase<HomePagePresenter> get presenter => homePagePageContainer
+      .actions(HomePageArguments(homePageSubPage: homePageSubPage));
+  
 
   @override
-  ProviderBase<HomeState> get state => homePagePageContainer.state;
+  ProviderBase<HomeState> get state => homePagePageContainer
+      .state(HomePageArguments(homePageSubPage: homePageSubPage));
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final homePresenter = ref.read(presenter);
     final homeState = ref.watch(state);
 

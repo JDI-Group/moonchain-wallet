@@ -1,7 +1,6 @@
 import 'package:moonchain_wallet/app/app_presenter.dart';
 import 'package:moonchain_wallet/common/common.dart';
 import 'package:moonchain_wallet/core/core.dart';
-import 'package:moonchain_wallet/features/dapps/dapps.dart';
 import 'package:moonchain_wallet/features/errors/network_unavailable/network_unavailable.dart';
 import 'package:moonchain_wallet/features/file_listener/file_listener_wrapper.dart';
 import 'package:moonchain_wallet/features/home/home.dart';
@@ -61,7 +60,7 @@ class MXCWallet extends HookConsumerWidget {
 
                 return route(
                   const PasscodeRequireWrapperPage(
-                    child: HomePage(),
+                    child: HomePage(homePageSubPage: HomePageSubPage.dapps,),
                   ),
                 );
               },

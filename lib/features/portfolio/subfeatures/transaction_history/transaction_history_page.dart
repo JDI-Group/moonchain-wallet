@@ -5,6 +5,7 @@ import 'package:moonchain_wallet/features/dapps/dapps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:moonchain_wallet/features/home/home.dart';
 import 'package:mxc_ui/mxc_ui.dart';
 
 import 'transaction_history_presenter.dart';
@@ -36,7 +37,7 @@ class TransactionHistoryPage extends HookConsumerWidget {
           icon: const Icon(MxcIcons.apps),
           iconSize: 32,
           onPressed: () =>
-              Navigator.of(context).replaceAll(route(const DAppsPage())),
+              Navigator.of(context).replaceAll(route(const HomePage(homePageSubPage: HomePageSubPage.dapps,))),
           color: ColorsTheme.of(context).iconPrimary,
         ),
       ),

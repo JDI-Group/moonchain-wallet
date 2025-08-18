@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:moonchain_wallet/features/common/common.dart';
 import 'package:moonchain_wallet/features/dapps/dapps.dart';
+import 'package:moonchain_wallet/features/home/presentation/home_page.dart';
 import 'package:moonchain_wallet/features/portfolio/subfeatures/nft/choose_nft/choose_nft_page.dart';
 import 'package:moonchain_wallet/features/portfolio/subfeatures/nft/nft_list/nft_list.dart';
 import 'package:moonchain_wallet/features/portfolio/subfeatures/tokens_balance_list/tokens_balance_list.dart';
@@ -35,8 +36,13 @@ class PortfolioPage extends HookConsumerWidget {
           key: const ValueKey('appsButton'),
           icon: const Icon(MxcIcons.apps),
           iconSize: 32,
-          onPressed: () =>
-              Navigator.of(context).replaceAll(route(const DAppsPage())),
+          onPressed: () => Navigator.of(context).pushReplacement(
+            route(
+              const HomePage(
+                homePageSubPage: HomePageSubPage.dapps,
+              ),
+            ),
+          ),
           color: ColorsTheme.of(context).iconPrimary,
         ),
       ),

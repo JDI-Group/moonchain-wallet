@@ -2,7 +2,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:moonchain_wallet/common/assets.gen.dart' as assets;
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:moonchain_wallet/features/common/common.dart';
-import 'package:moonchain_wallet/features/dapps/dapps.dart';
 import 'package:moonchain_wallet/features/settings/settings.dart';
 import 'package:moonchain_wallet/features/wallet/presentation/widgets/tweets_list.dart';
 import 'package:flutter/material.dart';

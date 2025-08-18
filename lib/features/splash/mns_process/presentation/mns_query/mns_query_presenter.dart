@@ -2,6 +2,7 @@ import 'package:moonchain_wallet/common/common.dart';
 import 'package:moonchain_wallet/features/dapps/dapps.dart';
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:moonchain_wallet/features/home/home.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 
 import 'mns_query_state.dart';
@@ -98,7 +99,9 @@ class SplashMNSQueryPresenter extends CompletePresenter<SplashMNSQueryState> {
               true,
             );
           } else {
-            navigator?.replaceAll(route(const DAppsPage()));
+            navigator?.replaceAll(route(const HomePage(
+              homePageSubPage: HomePageSubPage.dapps,
+            )));
           }
         }
       } else {
@@ -118,7 +121,9 @@ class SplashMNSQueryPresenter extends CompletePresenter<SplashMNSQueryState> {
     await navigator
         ?.push(route.featureDialog(OpenDAppPage(url: launchUrl)))
         .then((_) {
-      navigator?.replaceAll(route(const DAppsPage()));
+      navigator?.replaceAll(route(const HomePage(
+        homePageSubPage: HomePageSubPage.dapps,
+      )));
     });
   }
 }

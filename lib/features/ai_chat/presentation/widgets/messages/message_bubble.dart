@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moonchain_wallet/features/ai_chat/presentation/widgets/gredient.dart';
 import 'package:moonchain_wallet/features/ai_chat/presentation/widgets/messages/message_bubble_raw.dart';
 import 'package:mxc_ui/mxc_ui.dart';
 
