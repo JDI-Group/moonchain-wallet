@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:moonchain_wallet/common/components/context_menu_extended.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -8,7 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 import '../../../dapps_presenter.dart';
 import 'bookmark_build_card.dart';
-import '../context_menu_actions.dart';
 import '../shatter_widget.dart';
 
 class BookmarkCard extends HookConsumerWidget {
@@ -78,25 +76,16 @@ class BookmarkCard extends HookConsumerWidget {
                   shatter: shatter, actions: actions)),
         );
       }
-      return CupertinoContextMenuExtended.builder(
-        builder: (context, animation) {
-          return buildCard(
+      return buildCard(
             context,
             dapp,
             onTap,
             isEditMode,
             shatter: shatter,
             actions: actions,
-            animated: animation.value != 0.0,
           );
-        },
-        actions: getContextMenuActions(
-          actions,
-          context,
-          dapp,
-          shatter,
-        ),
-      );
+        
+
     }
 
     return ShatteringWidget(

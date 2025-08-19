@@ -12,9 +12,8 @@ Widget buildCard(
   Dapp dapp,
   VoidCallback? onTap,
   bool isEditMode, {
-  DAppsPagePresenter? actions,
+  required DAppsPagePresenter actions,
   void Function()? shatter,
-  bool animated = false,
   bool contextMenuAnimation = false,
 }) {
   String? image;
@@ -31,17 +30,8 @@ Widget buildCard(
   // final info = (dapp).description;
 
   return GestureDetector(
-    onTap: () {
-      if (animated) {
-        Navigator.pop(context);
-        Future.delayed(
-          const Duration(milliseconds: 500),
-          () => onTap!(),
-        );
-      } else if (onTap != null) {
-        onTap();
-      }
-    },
+    onLongPress: actions.changeEditMode,
+    onTap: onTap,
     child: SizedBox(
       height: 82,
       width: 84,

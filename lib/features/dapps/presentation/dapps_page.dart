@@ -26,6 +26,7 @@ class DAppsPage extends HookConsumerWidget {
       layout: LayoutType.column,
       useContentPadding: false,
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: true,
       backgroundColor: ColorsTheme.of(context).primary,
       presenter: ref.watch(presenter),
       appBar:  const DefaultAppBar(),
