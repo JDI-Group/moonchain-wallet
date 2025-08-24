@@ -196,7 +196,8 @@ class SendCryptoPage extends HookConsumerWidget {
                   svg: 'assets/svg/ic_contact.svg',
                   onTap: () async {
                     Recipient? res = (await Navigator.of(context)
-                        .push(route(const SelectRecipientPage())) as Recipient?);
+                            .push(route(const SelectRecipientPage()))
+                        as Recipient?);
 
                     if (res == null) {
                       return;

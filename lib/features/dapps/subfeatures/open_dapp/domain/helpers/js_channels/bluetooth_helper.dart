@@ -120,8 +120,7 @@ class BluetoothHelper {
             const equality = ListEquality<String>();
             final isRingDapp = -1 !=
                 Urls.getRingDappUrls().indexWhere(
-                  (element) =>
-                      Uri.parse(element).host == currentUrl.host,
+                  (element) => Uri.parse(element).host == currentUrl.host,
                 );
             bool showNearbyBottomSheet = true;
             if (isRingDapp) {

@@ -23,7 +23,7 @@ class BookMarksGridView extends HookConsumerWidget {
     // This is the case where dapps Then build empty space
     String translate(String key) => FlutterI18n.translate(context, key);
     final state = ref.watch(appsPagePageContainer.state);
-    
+
     final isDappsEmpty = dapps.isEmpty;
     final itemCount = seeAll
         ? dapps.length + 1
@@ -34,8 +34,8 @@ class BookMarksGridView extends HookConsumerWidget {
     return isDappsEmpty
         ? Container()
         : AbsorbPointer(
-          absorbing: state.isEditMode,
-          child: GridView.builder(
+            absorbing: state.isEditMode,
+            child: GridView.builder(
               scrollDirection: Axis.vertical,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
@@ -87,6 +87,6 @@ class BookMarksGridView extends HookConsumerWidget {
                       dapp: dapps[index],
                     ),
             ),
-        );
+          );
   }
 }

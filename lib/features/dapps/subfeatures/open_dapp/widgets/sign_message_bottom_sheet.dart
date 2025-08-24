@@ -16,12 +16,12 @@ Future<bool?> showSignMessageDialog(
     bottomSheetTitle: title,
     closeButtonReturnValue: false,
     widgets: [
-        MessageInfo(
-          message: message,
-          networkName: networkName,
-          onTap: onTap,
-        ),
-        const SizedBox(height: 10),
-      ],
+      MessageInfo(
+        message: message,
+        networkName: networkName,
+        onTap: onTap,
+      ),
+      const SizedBox(height: 10),
+    ],
   );
 }

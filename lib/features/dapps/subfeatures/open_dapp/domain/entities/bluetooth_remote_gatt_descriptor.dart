@@ -20,9 +20,13 @@ class BluetoothRemoteGATTDescriptor extends Equatable {
 
   factory BluetoothRemoteGATTDescriptor.fromMap(Map<String, dynamic> json) {
     return BluetoothRemoteGATTDescriptor(
-      characteristic: BluetoothRemoteGATTCharacteristic.fromMap(json['characteristic']),
+      characteristic:
+          BluetoothRemoteGATTCharacteristic.fromMap(json['characteristic']),
       uuid: json['uuid'],
-      value: json['value'] != null ? ByteData.sublistView(Uint8List.fromList(List<int>.from(json['value']))) : null,
+      value: json['value'] != null
+          ? ByteData.sublistView(
+              Uint8List.fromList(List<int>.from(json['value'])))
+          : null,
     );
   }
 
@@ -47,20 +51,20 @@ class BluetoothRemoteGATTDescriptor extends Equatable {
   }
 
   Future<ByteData> readValue(InAppWebViewController webViewController) async {
-    
     final result = await webViewController.evaluateJavascript(source: '''
       
     ''');
     return ByteData.sublistView(Uint8List.fromList(List<int>.from(result)));
   }
 
-  Future<void> writeValue(InAppWebViewController webViewController, ByteData value) async {
+  Future<void> writeValue(
+      InAppWebViewController webViewController, ByteData value) async {
     // await webViewController.evaluateJavascript(source: );
   }
 
   @override
   List<Object?> get props => [characteristic, uuid, value];
-  
+
   @override
   String toString() {
     return 'BluetoothRemoteGATTDescriptor(characteristic: $characteristic, uuid: $uuid, value: $value)';

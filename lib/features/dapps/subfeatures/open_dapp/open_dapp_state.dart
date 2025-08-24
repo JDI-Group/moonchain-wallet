@@ -4,7 +4,6 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart' as bluePlus;
 import 'package:mxc_logic/mxc_logic.dart';
 import 'package:web3_provider/web3_provider.dart';
 
-
 class OpenDAppState with EquatableMixin {
   Account? account;
   InAppWebViewController? webviewController;

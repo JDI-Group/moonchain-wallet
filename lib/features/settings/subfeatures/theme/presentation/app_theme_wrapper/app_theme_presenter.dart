@@ -21,8 +21,7 @@ class AppThemePresenter extends Presenter<AppThemeState>
 
   @override
   void initState() {
-
-    // Init app links NOTE that It will be alive for app life cycle 
+    // Init app links NOTE that It will be alive for app life cycle
     ref.read(appLinksUseCaseProvider);
 
     super.initState();

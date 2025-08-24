@@ -1,4 +1,3 @@
-
 import 'package:moonchain_wallet/features/portfolio/presentation/portfolio_page_presenter.dart';
 import 'package:moonchain_wallet/features/portfolio/subfeatures/nft/nft_list/utils.dart';
 import 'package:flutter/material.dart';

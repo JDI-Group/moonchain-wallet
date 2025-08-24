@@ -30,7 +30,11 @@ class SplashMNSAnnouncementPage extends HookConsumerWidget {
         action: MxcAppBarButton.text(
           FlutterI18n.translate(context, 'skip'),
           onTap: () => Navigator.of(context).replaceAll(
-            route(const HomePage(homePageSubPage: HomePageSubPage.dapps,)),
+            route(
+              const HomePage(
+                homePageSubPage: HomePageSubPage.dapps,
+              ),
+            ),
           ),
         ),
       ),

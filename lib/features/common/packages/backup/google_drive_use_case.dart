@@ -36,7 +36,8 @@ class GoogleDriveUseCase extends ReactiveUseCase {
   }
 
   Future<void> uploadBackup(String mnemonic) async =>
-      _repository.googleDriveRepository.uploadBackup(mnemonic, _googleAuthHeaders);
+      _repository.googleDriveRepository
+          .uploadBackup(mnemonic, _googleAuthHeaders);
 
   Future<String> readBackupFile() async =>
       _repository.googleDriveRepository.readBackupFile(_googleAuthHeaders);

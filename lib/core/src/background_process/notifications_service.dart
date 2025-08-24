@@ -49,7 +49,7 @@ class NotificationsService {
       final lowBatteryEnabled = periodicalCallData.lowBatteryEnabled;
 
       // Make sure user is logged in
-      print("isLoggedIn : $isLoggedIn, serviceEnabled : $serviceEnabled" );
+      print("isLoggedIn : $isLoggedIn, serviceEnabled : $serviceEnabled");
       if (isLoggedIn && MXCChains.isMXCChains(chainId) && serviceEnabled) {
         await MoonchainWalletNotification()
             .setupFlutterNotifications(shouldInitFirebase: false);
@@ -66,7 +66,8 @@ class NotificationsService {
               .checkTransactionFee(expectedTransactionFee);
         }
 
-        print('expectedEpochOccurrenceEnabled: $expectedEpochOccurrenceEnabled');
+        print(
+            'expectedEpochOccurrenceEnabled: $expectedEpochOccurrenceEnabled');
         if (expectedEpochOccurrenceEnabled) {
           periodicalCallData =
               await backgroundFetchConfigUseCase.checkEpochOccur(
@@ -101,13 +102,13 @@ class NotificationsService {
         backgroundFetchConfigUseCase.updateItem(periodicalCallData);
         BackgroundFetch.finish(taskId);
       } else {
-        print("Terminating background service because conditions doesn't meet" );
+        print("Terminating background service because conditions doesn't meet");
         // terminate background fetch
         BackgroundFetch.stop(taskId);
       }
     } catch (e, s) {
-      print("Background fetch ERROR : $e" );
-      print("Background fetch stacktrace : $s" );
+      print("Background fetch ERROR : $e");
+      print("Background fetch stacktrace : $s");
       BackgroundFetch.finish(taskId);
     }
   }

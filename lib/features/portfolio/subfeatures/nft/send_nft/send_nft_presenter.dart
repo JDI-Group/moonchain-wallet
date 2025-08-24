@@ -155,5 +155,4 @@ class SendNftPresenter extends CompletePresenter<SendNftState> {
       loading = false;
     }
   }
-
 }

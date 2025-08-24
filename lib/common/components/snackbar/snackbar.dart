@@ -132,24 +132,25 @@ void showSnackBar({
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                leadingIcon ??  Container(
-                  padding: const EdgeInsets.all(Sizes.spaceXSmall),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color(0xFF303746).withOpacity(0.5),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      SnackBarType.success == type
-                          ? MxcIcons.check_mark
-                          : SnackBarType.fail == type
-                              ? Icons.cancel_sharp
-                              : MxcIcons.warning_1,
-                      color: getColor(),
-                      size: 20,
+                leadingIcon ??
+                    Container(
+                      padding: const EdgeInsets.all(Sizes.spaceXSmall),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color(0xFF303746).withOpacity(0.5),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          SnackBarType.success == type
+                              ? MxcIcons.check_mark
+                              : SnackBarType.fail == type
+                                  ? Icons.cancel_sharp
+                                  : MxcIcons.warning_1,
+                          color: getColor(),
+                          size: 20,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
                 const SizedBox(width: Sizes.spaceXSmall),
                 Expanded(
                   child: Padding(

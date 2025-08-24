@@ -29,7 +29,7 @@ class DAppsPage extends HookConsumerWidget {
       resizeToAvoidBottomInset: true,
       backgroundColor: ColorsTheme.of(context).primary,
       presenter: ref.watch(presenter),
-      appBar:  const DefaultAppBar(),
+      appBar: const DefaultAppBar(),
       children: const [
         Expanded(
           child: Align(

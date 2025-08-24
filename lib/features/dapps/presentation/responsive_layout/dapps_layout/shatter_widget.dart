@@ -122,14 +122,20 @@ class ShatteringWidgetState extends State<ShatteringWidget>
         image = value;
         List<Tri> triangles = image!.width > image!.height
             ? [
-                Tri(const Offset(0, 0), const Offset(.3, 0), const Offset(0, 1.0)),
-                Tri(const Offset(.3, 0), const Offset(1.0, 0), const Offset(1.0, 1.0)),
-                Tri(const Offset(0, 1.0), const Offset(.3, 0), const Offset(1.0, 1.0)),
+                Tri(const Offset(0, 0), const Offset(.3, 0),
+                    const Offset(0, 1.0)),
+                Tri(const Offset(.3, 0), const Offset(1.0, 0),
+                    const Offset(1.0, 1.0)),
+                Tri(const Offset(0, 1.0), const Offset(.3, 0),
+                    const Offset(1.0, 1.0)),
               ]
             : [
-                Tri(const Offset(0, 0), const Offset(1.0, 0), const Offset(1.0, .3)),
-                Tri(const Offset(0, 0), const Offset(1.0, .3), const Offset(0, 1.0)),
-                Tri(const Offset(0, 1.0), const Offset(1.0, .3), const Offset(1.0, 1.0)),
+                Tri(const Offset(0, 0), const Offset(1.0, 0),
+                    const Offset(1.0, .3)),
+                Tri(const Offset(0, 0), const Offset(1.0, .3),
+                    const Offset(0, 1.0)),
+                Tri(const Offset(0, 1.0), const Offset(1.0, .3),
+                    const Offset(1.0, 1.0)),
               ];
         shards = triangles
             .map((e) => r.nextBool() ? e.split() : [e])

@@ -38,7 +38,9 @@ void showAccountsDialog(
       MxcButton.primary(
         key: const ValueKey('addAccountButton'),
         title: FlutterI18n.translate(
-            context, isLoading ? 'adding_account' : 'add_new_account',),
+          context,
+          isLoading ? 'adding_account' : 'add_new_account',
+        ),
         onTap: onAdd,
         size: MXCWalletButtonSize.xl,
         edgeType: MXCWalletButtonEdgeType.hard,
@@ -46,7 +48,10 @@ void showAccountsDialog(
       const SizedBox(height: Sizes.spaceXSmall),
       MxcButton.plainWhite(
         key: const ValueKey('importAccountButton'),
-        title: FlutterI18n.translate(context, 'import_account',),
+        title: FlutterI18n.translate(
+          context,
+          'import_account',
+        ),
         onTap: onImport,
         size: MXCWalletButtonSize.xl,
         titleColor: ColorsTheme.of(

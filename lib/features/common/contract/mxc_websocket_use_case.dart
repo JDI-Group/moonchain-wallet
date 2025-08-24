@@ -42,7 +42,7 @@ class MXCWebsocketUseCase extends ReactiveUseCase {
       }
     });
 
-    // Used to track account changes 
+    // Used to track account changes
     _accountUseCase.account.listen(
       (value) {
         account = value;
@@ -130,7 +130,6 @@ class MXCWebsocketUseCase extends ReactiveUseCase {
       initializeWebSocketConnection();
     });
   }
-
 
   Future<Stream<dynamic>> subscribeToAddressEvents(String address) async {
     final res = await subscribeEvent(

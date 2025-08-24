@@ -25,5 +25,6 @@ class UIConfig {
       );
 
   static Radius defaultRadius = const Radius.circular(10);
-  static BorderRadiusGeometry defaultBorderRadiusAll = BorderRadius.all(defaultRadius);
+  static BorderRadiusGeometry defaultBorderRadiusAll =
+      BorderRadius.all(defaultRadius);
 }

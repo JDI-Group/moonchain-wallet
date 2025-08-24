@@ -10,7 +10,6 @@ class MoonchainNotificationsUseCase extends ReactiveUseCase {
 
   final MoonchainAppLinksUseCase _moonchainAppLinksUseCase;
 
-
   // It is assumed that all messages contain a data field with the key 'type'
   Future<void> setupHandlers() async {
     // Get any messages which caused the application to open from
@@ -22,14 +21,16 @@ class MoonchainNotificationsUseCase extends ReactiveUseCase {
 
     // Also handle any interaction when the app is in the background via a
     // Stream listener
-    FirebaseMessaging.onMessageOpenedApp.listen((event) => handleNotificationData(event.data));
+    FirebaseMessaging.onMessageOpenedApp
+        .listen((event) => handleNotificationData(event.data));
 
-    // Foreground message handling 
+    // Foreground message handling
     // See If there are any openUrl
-    // Used to handle when app is opened 
+    // Used to handle when app is opened
     // FirebaseMessaging.onMessage.listen(handleNotificationData);
 
-    MoonchainWalletNotification.foregroundNotificationStreamController.stream.listen((event) => handleNotificationData(jsonDecode(event!)));
+    MoonchainWalletNotification.foregroundNotificationStreamController.stream
+        .listen((event) => handleNotificationData(jsonDecode(event!)));
   }
 
   void handleNotificationData(Map<String, dynamic>? data) {

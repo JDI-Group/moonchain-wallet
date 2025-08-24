@@ -51,8 +51,10 @@ class AddTokenPresenter extends CompletePresenter<AddTokenState> {
     loading = true;
     try {
       final tokenIndex = _tokenContractUseCase.tokensList.value.indexWhere(
-        (element) => element.address != null ? MXCCompare.isEqualEthereumAddressFromString(
-            state.token!.address!, element.address!) : false,
+        (element) => element.address != null
+            ? MXCCompare.isEqualEthereumAddressFromString(
+                state.token!.address!, element.address!)
+            : false,
       );
       if (tokenIndex != -1) {
         addError(translate('token_already_exists'));

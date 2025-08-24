@@ -138,19 +138,27 @@ class ChainConfigurationUseCase extends ReactiveUseCase {
     }
   }
 
-  void getCurrentNetwork() async{
-    final chains =_repository.items;
+  void getCurrentNetwork() async {
+    final chains = _repository.items;
     try {
-      final currentNetwork =
-          chains.where((item) => item.enabled).first;
+      final currentNetwork = chains.where((item) => item.enabled).first;
       update(selectedNetwork, currentNetwork);
     } catch (e, s) {
-      FirebaseCrashlytics.instance.setCustomKey("chains_list_not_enabled_any", chains.map((e) => e.toJson(),).toList().toString());
+      FirebaseCrashlytics.instance.setCustomKey(
+          "chains_list_not_enabled_any",
+          chains
+              .map(
+                (e) => e.toJson(),
+              )
+              .toList()
+              .toString());
       await FirebaseCrashlytics.instance.recordError(
         e,
         s,
         reason: 'Fatal error on detecting enabled chain',
-        information: ['chains_list_not_enabled_any is reported with It\'s value'],
+        information: [
+          'chains_list_not_enabled_any is reported with It\'s value'
+        ],
       );
     }
   }

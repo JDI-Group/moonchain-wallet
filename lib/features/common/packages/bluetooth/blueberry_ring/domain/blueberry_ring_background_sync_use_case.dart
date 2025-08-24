@@ -34,8 +34,7 @@ class BlueberryRingBackgroundSyncUseCase extends ReactiveUseCase {
     required void Function(String title, String? text) showNotification,
     required String Function(
       String key,
-    )
-        translate,
+    ) translate,
   }) async {
     // Get miner from cache
     // for (String ring in selectedRings) {

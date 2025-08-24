@@ -7,9 +7,5 @@ class DAppHooksState with EquatableMixin {
   Account? account;
 
   @override
-  List<Object?> get props => [
-        network,
-        dAppHooksData,
-        account
-      ];
+  List<Object?> get props => [network, dAppHooksData, account];
 }

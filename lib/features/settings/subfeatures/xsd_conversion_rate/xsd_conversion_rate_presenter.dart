@@ -22,7 +22,6 @@ class XsdConversionRatePresenter
     });
   }
 
-
   void onReset() {
     final rate = rateController.text;
 

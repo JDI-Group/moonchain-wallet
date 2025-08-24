@@ -80,7 +80,8 @@ class BlueberryRingUseCase extends ReactiveUseCase {
           // withNames: ['Buds Pro'],
           );
 
-      await _bluetoothUseCase.getScanResults(context, true, 'nearby_blueberry_rings');
+      await _bluetoothUseCase.getScanResults(
+          context, true, 'nearby_blueberry_rings');
       update(selectedBlueberryRing,
           _bluetoothUseCase.selectedScanResult.valueOrNull);
 

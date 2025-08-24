@@ -17,11 +17,10 @@ class BluetoothRemoteGATTService extends Equatable {
     required this.isPrimary,
   });
 
-  factory BluetoothRemoteGATTService.fromBluetoothService(BluetoothDevice device, bluePlus.BluetoothService service) =>
+  factory BluetoothRemoteGATTService.fromBluetoothService(
+          BluetoothDevice device, bluePlus.BluetoothService service) =>
       BluetoothRemoteGATTService(
-        device: device,
-        isPrimary: true,
-        uuid: service.uuid.str);
+          device: device, isPrimary: true, uuid: service.uuid.str);
 
   factory BluetoothRemoteGATTService.fromJson(String source) =>
       BluetoothRemoteGATTService.fromMap(json.decode(source));
@@ -36,37 +35,37 @@ class BluetoothRemoteGATTService extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  /// In this method thisService is used to have the 
+  /// In this method thisService is used to have the
   Map<String, dynamic> toMap() {
     return {
       'device': device.toMap(),
       'uuid': uuid,
       'isPrimary': isPrimary,
 
-    //   'getCharacteristic': '''
-    //   (async function(characteristic) {
-    //     var response = await navigator.bluetooth.bluetoothRemoteGATTService.getCharacteristic( { 'this': '$uuid', 'characteristic': characteristic } );
-    //     return response;
-    //   })
-    // ''',
-    //   'getCharacteristics': '''
-    //   (async function(characteristic) {
-    //     var response = await window.axs.callHandler('BluetoothRemoteGATTService.getCharacteristics', { 'this': '$uuid',  'characteristic': characteristic, });
-    //     return response;
-    //   })
-    // ''',
-    //   'getIncludedService': '''
-    //   (async function(service) {
-    //     var response = await window.axs.callHandler('BluetoothRemoteGATTService.getIncludedService', {'this': '$uuid', 'service': service,});
-    //     return response;
-    //   })
-    // ''',
-    //   'getIncludedServices': '''
-    //   (async function(service) {
-    //     var response = await window.axs.callHandler('BluetoothRemoteGATTService.getIncludedServices', {'this': '$uuid', 'service': service, });
-    //     return response;
-    //   })
-    // ''',
+      //   'getCharacteristic': '''
+      //   (async function(characteristic) {
+      //     var response = await navigator.bluetooth.bluetoothRemoteGATTService.getCharacteristic( { 'this': '$uuid', 'characteristic': characteristic } );
+      //     return response;
+      //   })
+      // ''',
+      //   'getCharacteristics': '''
+      //   (async function(characteristic) {
+      //     var response = await window.axs.callHandler('BluetoothRemoteGATTService.getCharacteristics', { 'this': '$uuid',  'characteristic': characteristic, });
+      //     return response;
+      //   })
+      // ''',
+      //   'getIncludedService': '''
+      //   (async function(service) {
+      //     var response = await window.axs.callHandler('BluetoothRemoteGATTService.getIncludedService', {'this': '$uuid', 'service': service,});
+      //     return response;
+      //   })
+      // ''',
+      //   'getIncludedServices': '''
+      //   (async function(service) {
+      //     var response = await window.axs.callHandler('BluetoothRemoteGATTService.getIncludedServices', {'this': '$uuid', 'service': service, });
+      //     return response;
+      //   })
+      // ''',
     };
   }
 

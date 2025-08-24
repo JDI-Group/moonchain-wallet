@@ -10,5 +10,6 @@ final walletCreationNoticeContainer =
 class WalletCreationNoticePresenter extends CompletePresenter<void> {
   WalletCreationNoticePresenter() : super(null);
 
-  Future<void> continueNow(BuildContext context) => pushMNSAnnouncementPage(context);
+  Future<void> continueNow(BuildContext context) =>
+      pushMNSAnnouncementPage(context);
 }

@@ -38,7 +38,6 @@ class BookmarkCard extends HookConsumerWidget {
           : () => actions.openDapp((dapp as Bookmark).url);
     }
 
-
     final animationController = useAnimationController(
       duration: const Duration(milliseconds: 75),
       lowerBound: -pi / 50,
@@ -65,33 +64,29 @@ class BookmarkCard extends HookConsumerWidget {
           animation: animationController,
           builder: (context, child) {
             return Transform.rotate(
-              angle: animationController.value *
-                  (pi / 8), 
+              angle: animationController.value * (pi / 8),
               child: child,
             );
           },
           child: SizedBox.expand(
-              child: buildCard(
-                  context, dapp, onTap, isEditMode, 
+              child: buildCard(context, dapp, onTap, isEditMode,
                   shatter: shatter, actions: actions)),
         );
       }
       return buildCard(
-            context,
-            dapp,
-            onTap,
-            isEditMode,
-            shatter: shatter,
-            actions: actions,
-          );
-        
-
+        context,
+        dapp,
+        onTap,
+        isEditMode,
+        shatter: shatter,
+        actions: actions,
+      );
     }
 
     return ShatteringWidget(
-            builder: (shatter) {
-              return getCardItem(shatter: shatter);
-            },
-            onShatterCompleted: () => actions.removeBookmark(dapp as Bookmark));
+        builder: (shatter) {
+          return getCardItem(shatter: shatter);
+        },
+        onShatterCompleted: () => actions.removeBookmark(dapp as Bookmark));
   }
 }

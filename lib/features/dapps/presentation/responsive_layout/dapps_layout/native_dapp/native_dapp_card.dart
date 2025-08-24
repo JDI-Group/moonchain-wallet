@@ -22,15 +22,13 @@ class NativeDAppCard extends HookConsumerWidget {
     final actions = ref.read(appsPagePageContainer.actions);
     final state = ref.read(appsPagePageContainer.state);
 
-    
-
     final dappUrl = dapp.app!.url!;
     onTap() async {
-            await actions.requestPermissions(dapp);
-            actions.openDapp(
-              dappUrl,
-            );
-          }
+      await actions.requestPermissions(dapp);
+      actions.openDapp(
+        dappUrl,
+      );
+    }
 
     Widget getCardItem({void Function()? shatter}) {
       return buildNativeNativeDAppCard(

@@ -7,9 +7,7 @@ class LogsConfigRepository extends GlobalCacheRepository {
 
   late final Field<bool> notImportantLogsEnabled = fieldWithDefault<bool>(
       'notImportantLogsEnabled', false,
-      serializer: (b) => b,
-      deserializer: (b) => b);
-
+      serializer: (b) => b, deserializer: (b) => b);
 
   bool get item => notImportantLogsEnabled.value;
 

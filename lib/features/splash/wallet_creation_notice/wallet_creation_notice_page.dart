@@ -129,7 +129,9 @@ class WalletCreationNoticePage extends HookConsumerWidget {
           onTap: () => presenter.continueNow(context),
           edgeType: UIConfig.securityScreensButtonsEdgeType,
         ),
-        const SizedBox(height: Sizes.spaceNormal,)
+        const SizedBox(
+          height: Sizes.spaceNormal,
+        )
       ],
     );
   }

@@ -37,7 +37,9 @@ class TransactionHistoryPage extends HookConsumerWidget {
           icon: const Icon(MxcIcons.apps),
           iconSize: 32,
           onPressed: () =>
-              Navigator.of(context).replaceAll(route(const HomePage(homePageSubPage: HomePageSubPage.dapps,))),
+              Navigator.of(context).replaceAll(route(const HomePage(
+            homePageSubPage: HomePageSubPage.dapps,
+          ))),
           color: ColorsTheme.of(context).iconPrimary,
         ),
       ),

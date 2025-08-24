@@ -18,10 +18,8 @@ Future<bool?> showAutoClaimExecutionAlertDialog(
             translate(
               'auto_claim_execution_dialog_text',
             ),
-            style: FontTheme.of(context, listen: false)
-                .body1
-                .primary()
-                .copyWith(),
+            style:
+                FontTheme.of(context, listen: false).body1.primary().copyWith(),
             softWrap: true,
             textAlign: TextAlign.justify,
           ),

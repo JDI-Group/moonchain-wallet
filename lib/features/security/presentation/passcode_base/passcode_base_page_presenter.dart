@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:moonchain_wallet/common/biometric.dart';
 import 'package:moonchain_wallet/core/core.dart';
 
-
 const passcodeTransitionDuration = Duration(milliseconds: 400);
 
 abstract class PasscodeBasePagePresenter<T extends PasscodeBasePageState>
@@ -17,8 +16,6 @@ abstract class PasscodeBasePagePresenter<T extends PasscodeBasePageState>
   void initState() {
     super.initState();
 
-  
-
     listen<bool>(
       _passcodeUseCase.biometricEnabled,
       (biometricEnabled) =>
@@ -27,7 +24,6 @@ abstract class PasscodeBasePagePresenter<T extends PasscodeBasePageState>
   }
 
   void onAllNumbersEntered(String? dismissedPage);
-
 
   Future<bool> requestBiometrics() async {
     return await Biometric.authenticate(context!);

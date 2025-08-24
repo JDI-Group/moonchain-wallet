@@ -54,10 +54,12 @@ class MoonchainWalletNotification {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('moonbase_logo');
+        AndroidInitializationSettings('moonbase_logo');
 
     const InitializationSettings initializationSettings =
-        InitializationSettings(android: initializationSettingsAndroid, iOS: DarwinInitializationSettings());
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: DarwinInitializationSettings());
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
@@ -92,7 +94,7 @@ class MoonchainWalletNotification {
     AndroidNotification? android = message.notification?.android;
     final imageUrl = android?.imageUrl;
     AndroidBitmap<Object>? largeImage;
-    
+
     if (imageUrl != null) {
       final http.Response response = await http.get(Uri.parse(imageUrl));
       largeImage = ByteArrayAndroidBitmap.fromBase64String(

@@ -32,7 +32,8 @@ class BlueberryRingBackgroundNotificationsUseCase extends ReactiveUseCase {
     final todaysData = data.where((e) => MXCTime.isDateOnToday(e.dateTime));
     print(
         'checkActivityReminder:todaysData ${todaysData.map((e) => e.toJson()).toList()}');
-    final totalSteps = todaysData.map((item) => item.step).reduce((a, b) => a + b);
+    final totalSteps =
+        todaysData.map((item) => item.step).reduce((a, b) => a + b);
     print('checkActivityReminder:totalSteps $totalSteps');
 
     if (totalSteps < 5000) {

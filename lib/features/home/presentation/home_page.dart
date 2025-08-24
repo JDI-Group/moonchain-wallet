@@ -25,7 +25,6 @@ class HomePage extends HookConsumerWidget {
   @override
   ProviderBase<HomePagePresenter> get presenter => homePagePageContainer
       .actions(HomePageArguments(homePageSubPage: homePageSubPage));
-  
 
   @override
   ProviderBase<HomeState> get state => homePagePageContainer
@@ -33,7 +32,6 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final homePresenter = ref.read(presenter);
     final homeState = ref.watch(state);
 

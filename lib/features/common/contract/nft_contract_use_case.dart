@@ -55,7 +55,8 @@ class NftContractUseCase extends ReactiveUseCase {
     String address,
     String ipfsGateWay,
   ) async {
-    return await _repository.nftContract.getNftsByAddress(address.toLowerCase(), ipfsGateWay);
+    return await _repository.nftContract
+        .getNftsByAddress(address.toLowerCase(), ipfsGateWay);
   }
 
   Future<List<Nft>> getDomainsByAddress(

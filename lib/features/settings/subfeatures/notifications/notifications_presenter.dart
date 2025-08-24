@@ -60,25 +60,21 @@ class NotificationsPresenter extends CompletePresenter<NotificationsState>
     transactionFeeController.addListener(onTransactionFeeChange);
 
     Future.delayed(
-      const Duration(
-        milliseconds: 1,
-      ),
-      () {
-        showSnackBar(
+        const Duration(
+          milliseconds: 1,
+        ), () {
+      showSnackBar(
           context: context!,
           content: translate(
               'let_us_personalize_your_notifications_choose_which_ones_you_want_to_see')!);
-
-      }
-    );
+    });
 
     Future.delayed(
         const Duration(
           milliseconds: 1,
-        ),
-        () {
-          notificationsHelper.checkNotificationsStatus();
-        });
+        ), () {
+      notificationsHelper.checkNotificationsStatus();
+    });
   }
 
   void onLowBalanceChange() {

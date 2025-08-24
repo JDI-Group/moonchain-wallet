@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-
 class PasscodeChangeConfirmPage extends PasscodeBasePage {
   const PasscodeChangeConfirmPage(
       {Key? key, required this.expectedNumbers, this.dismissedDest})

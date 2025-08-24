@@ -14,11 +14,7 @@ class Grouping<T> {
       DateTime time = DateFormat('yyyy-MM-dd').parse(day);
       int start = time.millisecondsSinceEpoch ~/ 1000;
       int end = start + 86400;
-      return {
-        'start': start,
-        'time': time,
-        'end': end
-      };
+      return {'start': start, 'time': time, 'end': end};
     }).toList();
 
     group.sort((a, b) => (a['start'] as int).compareTo(b['start'] as int));
@@ -35,7 +31,6 @@ class Grouping<T> {
         'ytd': DateFormat('yyyy-MM-dd').format(e['time'])
       };
     }).toList();
-
   }
 
   List<Map<String, dynamic>> hourGrouping(

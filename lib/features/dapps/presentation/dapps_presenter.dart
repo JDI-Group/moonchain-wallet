@@ -130,7 +130,6 @@ class DAppsPagePresenter extends CompletePresenter<DAppsState> {
         notify();
       },
     );
-
   }
 
   void loadPage() {
@@ -187,7 +186,6 @@ class DAppsPagePresenter extends CompletePresenter<DAppsState> {
     }
   }
 
-
   void initializeViewPreferences(double maxWidth) {
     viewPortWidth = maxWidth;
     scrollingArea = UIMetricsUtils.calculateScrollingArea(maxWidth);
@@ -207,21 +205,22 @@ class DAppsPagePresenter extends CompletePresenter<DAppsState> {
 
   getBookmarkDapps() => state.orderedDapps.whereType<Bookmark>().toList();
   // We assume that most used dapp can be from both native & partner dapps, However It's better if It's from native because icons are different
-  getMostUsedDapps() => state.orderedDapps
-      .where((e) => e.app?.mostUsed == true)
-      .toList();
+  getMostUsedDapps() =>
+      state.orderedDapps.where((e) => e.app?.mostUsed == true).toList();
   getNativeDapps() => state.orderedDapps
       .where((e) => e.app?.providerType == ProviderType.native)
       .toList()
       .where(
         (e) => (e.app?.mostUsed ?? false) != true,
-      ).toList();
+      )
+      .toList();
   getPartnerDapps() => state.orderedDapps
       .where((e) => e.app?.providerType == ProviderType.thirdParty)
       .toList()
       .where(
         (e) => (e.app?.mostUsed ?? false) != true,
-      ).toList();
+      )
+      .toList();
 
   @override
   Future<void> dispose() async {

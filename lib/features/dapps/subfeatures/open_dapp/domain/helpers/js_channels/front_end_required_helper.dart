@@ -22,27 +22,25 @@ class FrontEndRequiredHelper {
     Map<String, dynamic> data,
     BuildContext? context,
   ) async {
+    final isDenied =
+        await PermissionUtils.isPermissionPermanentlyDenied(Permission.camera);
+    if (isDenied) {
+      throw "Camera permission denied, To enable camera access, please go to your iPhone Settings → "
+          "Privacy & Security → Camera → Allow access for MoonBase!";
+    }
 
-      final isDenied = await PermissionUtils.isPermissionPermanentlyDenied(Permission.camera);
-      if (isDenied) {
-        throw "Camera permission denied, To enable camera access, please go to your iPhone Settings → "
-      "Privacy & Security → Camera → Allow access for MoonBase!";
-      }
+    final qrCode = await showBaseBottomSheet(
+      context: context!,
+      hasCloseButton: false,
+      content: const QrScannerPage(
+        returnQrCode: true,
+      ),
+    );
 
-      final qrCode = await showBaseBottomSheet(
-        context: context!,
-        hasCloseButton: false,
-        content: const QrScannerPage(
-          returnQrCode: true,
-        ),
-      );
+    final response = AXSJSChannelResponseModel<Map<String, String>>(
+        status: AXSJSChannelResponseStatus.success, message: null, data: null);
 
-      final response = AXSJSChannelResponseModel<Map<String, String>>(
-          status: AXSJSChannelResponseStatus.success,
-          message: null,
-          data: null);
-
-      return response.toMap((qrCode) => {}, mappedData: {'qrCode': qrCode});
+    return response.toMap((qrCode) => {}, mappedData: {'qrCode': qrCode});
   }
 
   Future<Map<String, dynamic>> handleGetCookies(

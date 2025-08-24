@@ -19,10 +19,8 @@ Future<bool?> showWiFiHooksBackgroundFetchAlertBottomSheet({
             translate(
               'wifi_location_background_fetch_notice_text',
             ),
-            style: FontTheme.of(context, listen: false)
-                .body1
-                .primary()
-                .copyWith(),
+            style:
+                FontTheme.of(context, listen: false).body1.primary().copyWith(),
             softWrap: true,
             textAlign: TextAlign.justify,
           ),

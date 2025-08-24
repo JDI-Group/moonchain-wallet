@@ -106,8 +106,7 @@ class MoonchainWalletFireBase {
     buildTap++;
     if (buildTap == 10) {
       forceFullCrash();
-    }
-     else {
+    } else {
       forceCrash();
     }
     if (buildTap == 10) {

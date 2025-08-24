@@ -20,12 +20,10 @@ class MinerUseCase extends ReactiveUseCase {
     required void Function(
       String title,
       String? text,
-    )
-        showNotification,
+    ) showNotification,
     required String Function(
       String key,
-    )
-        translate,
+    ) translate,
   }) async {
     return await _repository.minerRepository.claimMinersReward(
         selectedMinerListId: selectedMinerListId,

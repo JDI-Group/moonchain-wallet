@@ -66,7 +66,9 @@ abstract class SplashBasePage extends HookConsumerWidget {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 2000),
             curve: Curves.easeInOut,
-            top: splashState.animate ? 175 : MediaQuery.of(context).size.height + 600,
+            top: splashState.animate
+                ? 175
+                : MediaQuery.of(context).size.height + 600,
             child: appLogo(context),
           ),
           AnimatedPositioned(

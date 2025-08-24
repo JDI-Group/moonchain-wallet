@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:mxc_logic/mxc_logic.dart';
 
-
 class DappUtils {
   static bool loadingOnce = true;
 

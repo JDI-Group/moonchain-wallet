@@ -83,7 +83,8 @@ class OpenDAppPresenter extends CompletePresenter<OpenDAppState> {
         characteristicListenerTimer: characteristicListenerTimer,
         characteristicValueStreamSubscription:
             characteristicValueStreamSubscription,
-        currentUrl: state.currentUrl ?? initialUrl ?? Uri.parse('https://google.com'), 
+        currentUrl:
+            state.currentUrl ?? initialUrl ?? Uri.parse('https://google.com'),
       );
 
   CronListenersHelper get cronListenersHelper => CronListenersHelper(

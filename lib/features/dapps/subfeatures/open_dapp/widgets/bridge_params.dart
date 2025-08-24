@@ -1,4 +1,3 @@
-
 class BridgeParams {
   int? gas;
   BigInt? value;

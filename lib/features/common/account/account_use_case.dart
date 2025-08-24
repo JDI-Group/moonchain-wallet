@@ -18,7 +18,8 @@ class AccountUseCase extends ReactiveUseCase {
   late final ValueStream<List<Account>> accounts =
       reactiveField(_accountCacheRepository.accounts);
 
-  late final ValueStream<double> xsdConversionRate = reactiveField(_accountCacheRepository.xsdConversionRate);
+  late final ValueStream<double> xsdConversionRate =
+      reactiveField(_accountCacheRepository.xsdConversionRate);
 
   String? getMnemonic() => _authenticationStorageRepository.mnemonic;
 

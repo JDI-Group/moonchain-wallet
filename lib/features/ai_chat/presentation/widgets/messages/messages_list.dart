@@ -7,10 +7,9 @@ import '../../chat_presenter.dart';
 import '../../chat_state.dart';
 import './message_bubble.dart';
 
-
 class MessagesList extends HookConsumerWidget {
   final List<Map<String, dynamic>> messageList;
-   const MessagesList(this.messageList, {super.key});
+  const MessagesList(this.messageList, {super.key});
 
   @override
   ProviderBase<ChatPresenter> get presenter => chatPagePageContainer.actions;

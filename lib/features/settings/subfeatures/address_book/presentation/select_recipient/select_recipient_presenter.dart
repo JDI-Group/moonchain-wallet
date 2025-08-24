@@ -22,7 +22,6 @@ class SelectRecipientPresenter extends CompletePresenter<SelectRecipientState> {
     loadPage();
   }
 
-
   void loadPage() {
     _recipientsUseCase.getRecipients();
   }

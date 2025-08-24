@@ -107,8 +107,9 @@ class DappCardLayout extends HookConsumerWidget {
                             Text(
                               translate('ask_moonchain_ai_anything'),
                               style: FontTheme.of(context).body1().copyWith(
-                                    color: ColorsTheme.of(context, listen: false)
-                                        .backgroundGrey,
+                                    color:
+                                        ColorsTheme.of(context, listen: false)
+                                            .backgroundGrey,
                                   ),
                             ),
                             const Spacer(),
@@ -228,7 +229,7 @@ class DappCardLayout extends HookConsumerWidget {
                 ),
               ),
             ),
-      
+
             // ...buildDAppProviderSection(
             //     '${translate('partner')} ${translate('dapps')}',
             //     partnerDapps,

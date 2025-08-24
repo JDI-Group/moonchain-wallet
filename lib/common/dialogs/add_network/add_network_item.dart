@@ -6,7 +6,6 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mxc_ui/mxc_ui.dart';
 
-
 class AddNetworkItem extends HookConsumerWidget {
   final Network network;
 

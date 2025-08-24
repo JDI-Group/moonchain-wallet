@@ -14,7 +14,9 @@ class ChainConfigurationRepository extends GlobalCacheRepository {
                     'web3RpcWebsocketUrl': e.web3RpcWebsocketUrl,
                     'web3WebSocketUrl': e.web3WebSocketUrl,
                     'symbol': e.symbol,
-                    'explorerUrl': e.explorerUrl == 'https://explorer.mxc.com/' ? 'https://explorer.moonchain.com/' : e.explorerUrl,
+                    'explorerUrl': e.explorerUrl == 'https://explorer.mxc.com/'
+                        ? 'https://explorer.moonchain.com/'
+                        : e.explorerUrl,
                     'enabled': e.enabled,
                     'label': e.label,
                     'chainId': e.chainId,
@@ -23,7 +25,6 @@ class ChainConfigurationRepository extends GlobalCacheRepository {
                   })
               .toList(),
           deserializer: (b) {
-
             final chains = (b as List)
                 .map((e) => Network(
                     logo: e['logo'],
@@ -39,13 +40,15 @@ class ChainConfigurationRepository extends GlobalCacheRepository {
                     networkType: NetworkType.values.firstWhere(
                         (element) => element.name == e['networkType'])))
                 .toList();
-              final i = chains.indexWhere((element) => element.enabled == true,);
-              // Handling exceptional cases
-              // If no network is enabled try handling like this.
-              if (i == -1) {
-                chains[0] = chains[0].copyWith(enabled: true);
-              }
-              return chains;
+            final i = chains.indexWhere(
+              (element) => element.enabled == true,
+            );
+            // Handling exceptional cases
+            // If no network is enabled try handling like this.
+            if (i == -1) {
+              chains[0] = chains[0].copyWith(enabled: true);
+            }
+            return chains;
           });
 
   late final Field<String?> selectedIpfsGateWay = fieldWithDefault<String?>(

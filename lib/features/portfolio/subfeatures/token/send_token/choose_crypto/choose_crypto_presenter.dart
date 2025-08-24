@@ -63,5 +63,4 @@ class ChooseCryptoPresenter extends CompletePresenter<ChooseCryptoState> {
 
     notify(() => state.filterTokens = tokens);
   }
-
 }

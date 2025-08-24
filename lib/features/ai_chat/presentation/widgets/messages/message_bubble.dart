@@ -49,5 +49,7 @@ class MessageBubble extends MessageBubbleRaw {
   }
 
   @override
-  Widget border({required Widget child}) => Container(child: child,);
+  Widget border({required Widget child}) => Container(
+        child: child,
+      );
 }

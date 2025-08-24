@@ -15,18 +15,16 @@ class AppVersionUseCase {
 
   static const apkName = 'app-release.apk';
   static const smallIcon = 'ic_launcher';
-  static const downloadLink =
-      'https://app.xbmxc.com/app/moonchain.apk';
+  static const downloadLink = 'https://app.xbmxc.com/app/moonchain.apk';
 
   Future<bool> checkAppVersionCode() async {
     try {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
-      String currentVersion = packageInfo.version; // Use version instead of buildNumber
+      String currentVersion =
+          packageInfo.version; // Use version instead of buildNumber
 
       final result = await repository.appVersionRepository.checkLatestVersion(
-
         currentVersion,
-
       );
 
       print('Update available: $result');

@@ -3,7 +3,9 @@ import 'package:moonchain_wallet/core/core.dart';
 import 'logs_config_repository.dart';
 
 class LogsConfigUseCase extends ReactiveUseCase {
-  LogsConfigUseCase(this._repository,);
+  LogsConfigUseCase(
+    this._repository,
+  );
 
   final LogsConfigRepository _repository;
 

@@ -6,7 +6,8 @@ import 'custom_tokens_repository_temp.dart';
 import 'custom_tokens_repository.dart';
 
 class CustomTokensUseCase extends ReactiveUseCase {
-  CustomTokensUseCase(this._repository, this._customTokensRepositoryTemp, this._accountUseCase)
+  CustomTokensUseCase(
+      this._repository, this._customTokensRepositoryTemp, this._accountUseCase)
       : super() {
     initCustomTokensRepoListener();
   }

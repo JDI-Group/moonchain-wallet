@@ -30,7 +30,6 @@ class SecuritySettingsPresenter
     );
   }
 
-
   void clearBrowserCache() async {
     final result = await showAlertDialog(
       context: context!,

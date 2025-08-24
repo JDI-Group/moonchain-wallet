@@ -33,7 +33,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
-    
+
     messageTextController.text = '';
   }
 

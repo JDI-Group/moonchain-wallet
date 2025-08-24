@@ -6,7 +6,8 @@ class RoundedBottomBorder extends ShapeBorder {
   const RoundedBottomBorder({required this.bottomBorder});
 
   @override
-  EdgeInsetsGeometry get dimensions => EdgeInsets.only(bottom: bottomBorder.width);
+  EdgeInsetsGeometry get dimensions =>
+      EdgeInsets.only(bottom: bottomBorder.width);
 
   @override
   Path getOuterPath(Rect rect, {TextDirection? textDirection}) {

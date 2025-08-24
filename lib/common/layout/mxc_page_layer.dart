@@ -28,7 +28,8 @@ class MxcPageLayer extends MxcPage {
     ScrollController? scrollController,
     bool fixedFooter = false,
     Widget? floatingActionButton,
-    FloatingActionButtonLocation floatingActionButtonLocation = FloatingActionButtonLocation.miniCenterFloat,
+    FloatingActionButtonLocation floatingActionButtonLocation =
+        FloatingActionButtonLocation.miniCenterFloat,
     Color? backgroundColor,
     this.upperBackgroundColor,
     Gradient? backgroundGradient,

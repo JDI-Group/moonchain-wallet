@@ -24,24 +24,21 @@ class PartnerDAppCard extends HookConsumerWidget {
     final actions = ref.read(appsPagePageContainer.actions);
     final state = ref.read(appsPagePageContainer.state);
 
-    
-
     onTap() async {
-            await actions.requestPermissions(dapp);
-            actions.openDapp(
-              dapp.app!.url!,
-            );
-          }
-
+      await actions.requestPermissions(dapp);
+      actions.openDapp(
+        dapp.app!.url!,
+      );
+    }
 
     Widget getCardItem({void Function()? shatter}) {
       return buildPartnerDAppCard(
-            context,
-            dapp,
-            onTap,
-            horizontallyExpanded,
-            actions: actions,
-          );
+        context,
+        dapp,
+        onTap,
+        horizontallyExpanded,
+        actions: actions,
+      );
     }
 
     return getCardItem();

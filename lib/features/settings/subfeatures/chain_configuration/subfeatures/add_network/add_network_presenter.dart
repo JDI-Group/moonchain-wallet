@@ -4,7 +4,6 @@ import 'package:moonchain_wallet/features/settings/settings.dart';
 import 'package:mxc_logic/src/domain/entities/network.dart';
 import 'package:flutter/material.dart';
 
-
 final addNetworkContainer =
     PresenterContainer<AddNetworkPresenter, AddNetworkState>(
         () => AddNetworkPresenter());
