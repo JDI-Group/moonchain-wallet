@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:moonchain_wallet/common/assets.gen.dart';
@@ -20,6 +21,8 @@ class MessageTextfield extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final chatPresenter = ref.watch(presenter);
     final chatState = ref.watch(state);
+    String translate(String key) => FlutterI18n.translate(context, key);
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: Sizes.spaceNormal,
@@ -43,23 +46,24 @@ class MessageTextfield extends HookConsumerWidget {
               borderFocusColor: Colors.transparent,
               borderUnFocusColor: Colors.transparent,
               minLines: 1,
+              hint: translate('ask_me_anything'),
             ),
           ),
-          const SizedBox(
-            width: Sizes.space3XSmall,
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: SvgPicture.asset(
-              Assets.svg.addImage,
-              height: 24,
-              width: 24,
-              colorFilter: ColorFilter.mode(
-                ColorsTheme.of(context).white,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
+          // const SizedBox(
+          //   width: Sizes.space3XSmall,
+          // ),
+          // GestureDetector(
+          //   onTap: () {},
+          //   child: SvgPicture.asset(
+          //     Assets.svg.addImage,
+          //     height: 24,
+          //     width: 24,
+          //     colorFilter: ColorFilter.mode(
+          //       ColorsTheme.of(context).white,
+          //       BlendMode.srcIn,
+          //     ),
+          //   ),
+          // ),
           const SizedBox(
             width: Sizes.spaceNormal,
           ),
