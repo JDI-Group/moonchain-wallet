@@ -35,6 +35,7 @@ class MessagesList extends HookConsumerWidget {
             return const ProcessingBubble();
           }
           return MessageBubble(
+            key: PageStorageKey('msg_${index}'),
             message: messageList[index].content ?? '',
             isSender: messageList[index].role == 'user',
             isLatests: index == messageList.length-1,

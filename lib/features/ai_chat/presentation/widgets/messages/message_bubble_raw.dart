@@ -28,6 +28,7 @@ abstract class MessageBubbleRaw extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final chatPresenter = ref.watch(presenter);
     final chatState = ref.watch(state);
+    
     return Row(
       mainAxisAlignment: alignmentOnType,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,23 +46,12 @@ abstract class MessageBubbleRaw extends HookConsumerWidget {
               ),
             ),
             child: !isSender && shouldHaveTypeAnimation
-                ? AnimatedTextKit(
-                    controller: chatPresenter.animatedTextController,
-                    displayFullTextOnTap: true,
-                    isRepeatingAnimation: isRepeatingAnimation,
-                    animatedTexts: [
-                      TyperAnimatedText(
-                        changeMessage(context, message),
-                        speed: const Duration(milliseconds: 60),
-                        textStyle: FontTheme.of(context).body1().copyWith(
-                              color: textColorOnType(context),
-                            ),
-                      )
-                    ],
-                    // onNextBeforePause: (i, _) => chatPresenter.scrollToBottom(),
-                    // onNext: (i, _) => chatPresenter.scrollToBottom(),
-                    onFinished: () => chatPresenter.scrollToBottom(),
-                  )
+                ? AnimatedTextWidget(
+                    message: message,
+                    changeMessage: changeMessage,
+                    textColor: textColorOnType(context),
+                    chatPresenter: chatPresenter,
+                    isRepeatingAnimation: isRepeatingAnimation)
                 : Text(
                     changeMessage(context, message),
                     style: FontTheme.of(context).body1().copyWith(
@@ -83,4 +73,52 @@ abstract class MessageBubbleRaw extends HookConsumerWidget {
   Color colorOnType(BuildContext context);
 
   Color textColorOnType(BuildContext context);
+}
+
+class AnimatedTextWidget extends StatefulWidget {
+  final String Function(BuildContext context, String message) changeMessage;
+  final String message;
+  final Color textColor;
+  final ChatPresenter chatPresenter;
+  final bool isRepeatingAnimation;
+
+  const AnimatedTextWidget({
+    super.key,
+    required this.message,
+    required this.changeMessage,
+    required this.textColor,
+    required this.chatPresenter,
+    required this.isRepeatingAnimation,
+  });
+
+  @override
+  _AnimatedTextWidgetState createState() => _AnimatedTextWidgetState();
+}
+
+class _AnimatedTextWidgetState extends State<AnimatedTextWidget>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true; // 👈 tells Flutter to keep state alive
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context); // 👈 important when using KeepAlive
+    return AnimatedTextKit(
+      controller: widget.chatPresenter.animatedTextController,
+      displayFullTextOnTap: true,
+      isRepeatingAnimation: widget.isRepeatingAnimation,
+      animatedTexts: [
+        TyperAnimatedText(
+          widget.changeMessage(context, widget.message),
+          speed: const Duration(milliseconds: 60),
+          textStyle: FontTheme.of(context).body1().copyWith(
+                color: widget.textColor,
+              ),
+        )
+      ],
+      // onNextBeforePause: (i, _) => chatPresenter.scrollToBottom(),
+      // onNext: (i, _) => chatPresenter.scrollToBottom(),
+      onFinished: () => widget.chatPresenter.scrollToBottom(),
+    );
+  }
 }
