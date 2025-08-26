@@ -39,13 +39,15 @@ void main() async {
       const fatalError = true;
       var onError = FlutterError.onError;
       // Non-async exceptions
-      FlutterError.onError = (errorDetails) { 
+      FlutterError.onError = (errorDetails) {
         onError?.call(errorDetails);
         reportErrorAndLog(errorDetails);
-        if (fatalError) {  
+        if (fatalError) {
           // This error should be fixed on latest Flutter version
           // But since we don't want to upgrade the version for now, we will ignore this error
-          final bool isGpuError = errorDetails.exception.toString().contains('Image upload failed due to loss of GPU access');
+          final bool isGpuError = errorDetails.exception
+              .toString()
+              .contains('Image upload failed due to loss of GPU access');
           if (isGpuError) {
             return;
           }
@@ -73,7 +75,7 @@ void main() async {
       FirebaseMessaging.onBackgroundMessage(
           _firebaseMessagingBackgroundHandler);
 
-      await dotenv.load(fileName: 'assets/.env');
+      await dotenv.load(fileName: ".env");
       await initLogs();
       await loadProviders();
 

@@ -11,6 +11,8 @@ class ProcessingBubble extends MessageBubbleRaw {
           isSender: false,
           // Will format message
           message: '',
+          isRepeatingAnimation: true,
+          shouldHaveTypeAnimation: true,
         );
 
   // @override

@@ -64,7 +64,7 @@ class MessageTextfield extends HookConsumerWidget {
             width: Sizes.spaceNormal,
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () => chatPresenter.sendMessage(),
             child: Container(
               padding: const EdgeInsets.all(Sizes.space2XSmall),
               decoration: BoxDecoration(

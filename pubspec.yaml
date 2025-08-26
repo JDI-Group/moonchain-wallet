@@ -31,6 +31,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   android_metadata: ^0.2.1
+  animated_text_kit: ^4.2.3
   app_links: 3.5.1
   app_settings: ^5.1.1
   appinio_social_share:

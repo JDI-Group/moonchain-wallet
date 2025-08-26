@@ -9,6 +9,7 @@ import 'package:mxc_ui/mxc_ui.dart';
 
 import 'chat_presenter.dart';
 import 'chat_state.dart';
+import 'widgets/widgets.dart';
 
 class ChatPage extends HookConsumerWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -21,11 +22,6 @@ class ChatPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final messageList = [
-      {"message": "Hello", "isSender": true},
-      {"message": "Hello", "isSender": false}
-    ];
-
     final chatPresenter = ref.watch(presenter);
     final chatState = ref.watch(state);
     String translate(String key) => FlutterI18n.translate(context, key);
@@ -48,22 +44,24 @@ class ChatPage extends HookConsumerWidget {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                        onTap: () => chatPresenter.messageFocusNode.unfocus(),
-                        child: MessagesList(messageList)
-                        //  SingleChildScrollView(
-                        //   child: Column(
-                        //     children: [
-                        //       // AIBanner(),
-                        //       // SizedBox(
-                        //       //   height: 30,
-                        //       // ),
-                        //       // AIPreSetButtons()
-                        //     ],
-                        //   ),
-                        // ),
-                        ),
+                      onTap: () => chatPresenter.messageFocusNode.unfocus(),
+                      child: chatState.messages.isNotEmpty ||
+                              chatState.isProcessing
+                          ? const MessagesList()
+                          : const SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  AIBanner(),
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  AIPreSetButtons()
+                                ],
+                              ),
+                            ),
+                    ),
                   ),
-                  MessageTextfield()
+                  const MessageTextfield()
                 ],
               ),
             ),

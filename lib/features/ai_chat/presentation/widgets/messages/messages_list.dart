@@ -8,8 +8,7 @@ import '../../chat_state.dart';
 import './message_bubble.dart';
 
 class MessagesList extends HookConsumerWidget {
-  final List<Map<String, dynamic>> messageList;
-  const MessagesList(this.messageList, {super.key});
+  const MessagesList({super.key});
 
   @override
   ProviderBase<ChatPresenter> get presenter => chatPagePageContainer.actions;
@@ -21,21 +20,24 @@ class MessagesList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final chatPresenter = ref.watch(presenter);
     final chatState = ref.watch(state);
+    final messageList = chatState.messages;
+    final isInProcess = chatState.isProcessing;
 
     return Align(
       alignment: Alignment.topCenter,
       child: ListView.separated(
         controller: chatPresenter.messageListScrollController,
         shrinkWrap: true,
-        reverse: true,
-        itemCount: messageList.length + 1,
+        reverse: false,
+        itemCount: messageList.length + ( isInProcess ? 1 : 0),
         itemBuilder: (context, index) {
-          if (index == messageList.length) {
+          if (index == messageList.length && isInProcess) {
             return const ProcessingBubble();
           }
           return MessageBubble(
-            message: messageList[index]['message']! as String,
-            isSender: messageList[index]['isSender']! as bool,
+            message: messageList[index].content ?? '',
+            isSender: messageList[index].role == 'user',
+            isLatests: index == messageList.length-1,
           );
         },
         separatorBuilder: (BuildContext context, int index) => const SizedBox(

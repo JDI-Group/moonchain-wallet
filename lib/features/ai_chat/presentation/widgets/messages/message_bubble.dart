@@ -5,13 +5,17 @@ import 'package:mxc_ui/mxc_ui.dart';
 class MessageBubble extends MessageBubbleRaw {
   final String message;
   final bool isSender;
+  final bool isLatests;
   const MessageBubble({
     super.key,
     required this.message,
     required this.isSender,
+    required this.isLatests,
   }) : super(
           isSender: isSender,
           message: message,
+          isRepeatingAnimation: false,
+          shouldHaveTypeAnimation: isLatests
         );
 
   @override
