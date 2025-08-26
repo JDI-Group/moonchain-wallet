@@ -43,22 +43,25 @@ class ChatPage extends HookConsumerWidget {
               child: Column(
                 children: [
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () => chatPresenter.messageFocusNode.unfocus(),
-                      child: chatState.messages.isNotEmpty ||
-                              chatState.isProcessing
-                          ? const MessagesList()
-                          : const SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  AIBanner(),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  AIPreSetButtons()
-                                ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: Sizes.spaceXSmall),
+                      child: GestureDetector(
+                        onTap: () => chatPresenter.messageFocusNode.unfocus(),
+                        child: chatState.messages.isNotEmpty ||
+                                chatState.isProcessing
+                            ? const MessagesList()
+                            : const SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    AIBanner(),
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    AIPreSetButtons()
+                                  ],
+                                ),
                               ),
-                            ),
+                      ),
                     ),
                   ),
                   const MessageTextfield()
