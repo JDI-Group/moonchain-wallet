@@ -22,8 +22,8 @@ class AIBanner extends StatelessWidget {
         gradient: getLinearGradient(),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          const Spacer(),
           Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
@@ -32,11 +32,14 @@ class AIBanner extends StatelessWidget {
             ),
             child: SvgPicture.asset(
               Assets.svg.aiBlack,
-              height: 32,
-              width: 32,
+              height: 40,
+              width: 40,
               colorFilter: ColorFilter.mode(
                   ColorsTheme.of(context).primary, BlendMode.srcIn),
             ),
+          ),
+          const SizedBox(
+            height: 10,
           ),
           Text(translate("${translate('moonchain')} ${translate('ai')}"),
               style: FontTheme.of(context).h4().copyWith(
@@ -47,12 +50,16 @@ class AIBanner extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          Text(translate("${translate('moonchain')} ${translate('ai')}"),
-              style: FontTheme.of(context).body2().copyWith(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: ColorsTheme.of(context).black,
-                  )),
+          Text(
+            translate('you_can_ask_me_anything'),
+            style: FontTheme.of(context).body2().copyWith(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: ColorsTheme.of(context).black,
+                ),
+            textAlign: TextAlign.center,
+          ),
+          const Spacer(),
         ],
       ),
     );
