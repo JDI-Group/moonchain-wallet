@@ -27,78 +27,64 @@ class ChatPresenter extends CompletePresenter<ChatState> {
   void initState() {
     super.initState();
 
-    animatedTextController.stateNotifier.addListener(
+    messageFocusNode.addListener(
       () {
-        if (animatedTextController.state == AnimatedTextState.playing) {
+        if (messageFocusNode.hasFocus) {
           scrollToBottom();
         }
       },
     );
 
-    messageListScrollController.addListener(() {
-      if (messageListScrollController.position.userScrollDirection ==
-          ScrollDirection.forward) {
-        // user scrolling up
-        _isUserScrolling = true;
-      } else if (messageListScrollController.position.pixels >=
-          messageListScrollController.position.maxScrollExtent - 20) {
-        // near the bottom again
-        _isUserScrolling = false;
-      }
-    });
-    // messageFocusNode.requestFocus();
   }
 
   void sendMessage() {
     messageFocusNode.unfocus();
+    scrollToBottom();
     notify(
       () => state.isProcessing = true,
     );
 
-    final newMessage = messageTextController.text;
-    state.messages.add(AIMessage(role: 'user', content: newMessage));
-    final messagesStream = _chatUseCase.sendMessage(newMessage);
-    String? finalResponse;
-    messagesStream.listen(
-      (event) {
-        if (state.isProcessing != false) {
+    try {
+      final newMessage = messageTextController.text;
+      state.messages.insert(0, AIMessage(role: 'user', content: newMessage));
+      final messagesStream = _chatUseCase.sendMessage(newMessage);
+      messageTextController.text = '';
+      String? finalResponse;
+      messagesStream.listen(
+        (event) {
+          turnIsProcessingOff();
+          finalResponse = event;
+        },
+        onDone: () {
           notify(
-            () => state.isProcessing = false,
+            () => state.messages
+                .insert(0, AIMessage(role: 'ai', content: finalResponse)),
           );
-        }
-        finalResponse = event;
-      },
-      onDone: () {
-        notify(
-          () =>
-              state.messages.add(AIMessage(role: 'ai', content: finalResponse)),
-        );
-      },
-      onError: (err) => addError(translate(err)),
-    );
+        },
+        onError: (err) => addError(translate(err)),
+      );
+    } catch (e) {
+      turnIsProcessingOff();
+      addError(e);
+    }
+  }
 
+  turnIsProcessingOff() {
+    if (state.isProcessing != false) {
+      notify(
+        () => state.isProcessing = false,
+      );
+    }
+  }
+
+  void scrollToBottom() {
     messageListScrollController.animateTo(
       0,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
-
-    messageTextController.text = '';
   }
 
-  void scrollToBottom() {
-    if (!_isUserScrolling) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (messageListScrollController.hasClients) {
-          messageListScrollController.animateTo(
-            messageListScrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOut,
-          );
-        }
-      });
-    }
-  }
 
   @override
   Future<void> dispose() async {

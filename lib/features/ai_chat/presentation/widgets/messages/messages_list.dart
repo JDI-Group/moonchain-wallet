@@ -28,17 +28,17 @@ class MessagesList extends HookConsumerWidget {
       child: ListView.separated(
         controller: chatPresenter.messageListScrollController,
         shrinkWrap: true,
-        reverse: false,
-        itemCount: messageList.length + ( isInProcess ? 1 : 0),
+        reverse: true,
+        itemCount: messageList.length + (isInProcess ? 1 : 0),
         itemBuilder: (context, index) {
-          if (index == messageList.length && isInProcess) {
+          if (index == 0 && isInProcess) {
             return const ProcessingBubble();
           }
           return MessageBubble(
             key: PageStorageKey('msg_${index}'),
             message: messageList[index].content ?? '',
             isSender: messageList[index].role == 'user',
-            isLatests: index == messageList.length-1,
+            isLatests: index == 0,
           );
         },
         separatorBuilder: (BuildContext context, int index) => const SizedBox(
