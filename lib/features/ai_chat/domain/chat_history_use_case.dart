@@ -12,6 +12,9 @@ class ChatHistoryUseCase extends ReactiveUseCase {
 
   late final ValueStream<List<AIMessage>> messages =
       reactiveField(_repository.messages);
+  late final ValueStream<String> conversationId =
+      reactiveField(_repository.conversationId);
+
 
   List<AIMessage> getMessages() => _repository.items;
 
@@ -28,5 +31,9 @@ class ChatHistoryUseCase extends ReactiveUseCase {
   void removeAll() {
     _repository.removeAll();
     update(messages, _repository.items);
+  }
+
+  void setConversationId(String value) {
+    update(conversationId, value);
   }
 }

@@ -6,10 +6,12 @@ import 'package:mxc_logic/mxc_logic.dart';
 class ChatState with EquatableMixin {
   List<AIMessage> messages = [];
   bool isProcessing = false;
+  bool isTypeAnimation = false;
 
   @override
   List<Object?> get props => [
     messages,
     isProcessing,
+    isTypeAnimation,
   ];
 }

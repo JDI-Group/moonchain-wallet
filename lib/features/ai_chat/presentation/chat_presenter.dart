@@ -13,15 +13,17 @@ final chatPagePageContainer =
 class ChatPresenter extends CompletePresenter<ChatState> {
   ChatPresenter() : super(ChatState());
 
-  late final _bookmarksUseCase = ref.read(bookmarksUseCaseProvider);
   late final ChatHistoryUseCase _chatHistoryUseCase =
       ref.read(chatHistoryUseCaseProvider);
   late final _chatUseCase = ref.read(chatUseCaseProvider);
+  late final _accountUseCase = ref.read(accountUseCaseProvider);
+
   final messageListScrollController = ScrollController();
   final messageTextController = TextEditingController();
   // Will be attached to only last message
   final animatedTextController = AnimatedTextController();
-  bool _isUserScrolling = false;
+  String? conversationId;
+  Account? account;
 
   final messageFocusNode = FocusNode();
 
@@ -30,9 +32,19 @@ class ChatPresenter extends CompletePresenter<ChatState> {
     super.initState();
 
     _chatHistoryUseCase.messages.listen(
-      (event) => notify(
-        () => state.messages = event,
+      (val) => notify(
+        () => state.messages = val,
       ),
+    );
+
+    _chatHistoryUseCase.conversationId.listen(
+      (val) => notify(
+        () => conversationId = val,
+      ),
+    );
+
+    _accountUseCase.account.listen(
+      (val) => account = val,
     );
 
     messageFocusNode.addListener(
@@ -44,26 +56,31 @@ class ChatPresenter extends CompletePresenter<ChatState> {
     );
   }
 
-  void sendMessage() {
+  void sendMessage() async {
     messageFocusNode.unfocus();
     scrollToBottom();
-    notify(
-      () => state.isProcessing = true,
-    );
+    turnIsProcessingOn();
 
     try {
-      final newMessage = messageTextController.text;
-      if (newMessage.isEmpty || newMessage == '') {
+      final newMessageText = messageTextController.text;
+      if (newMessageText.isEmpty || newMessageText == '') {
         turnIsProcessingOff();
         return;
       }
-      _chatHistoryUseCase.addItem(
-        AIMessage(
-          role: 'user',
-          content: newMessage,
-        ),
+
+      if (conversationId == null) {
+        conversationId = await _chatUseCase.newConversation(account!.address);
+        _chatHistoryUseCase.setConversationId(conversationId!);
+      }
+
+      final newMessage = AIMessage(
+        role: 'user',
+        content: newMessageText,
       );
-      final messagesStream = _chatUseCase.sendMessage(newMessage);
+      _chatHistoryUseCase.addItem(newMessage);
+
+      final messagesStream =
+          _chatUseCase.sendMessage([newMessage], conversationId!);
       messageTextController.text = '';
       String? finalResponse;
       messagesStream.listen(
@@ -73,8 +90,8 @@ class ChatPresenter extends CompletePresenter<ChatState> {
         },
         onDone: () {
           if (finalResponse != null) {
-            _chatHistoryUseCase
-                .addItem(AIMessage(role: 'ai', content: finalResponse ?? ''));
+            _chatHistoryUseCase.addItem(
+                AIMessage(role: 'assistant', content: finalResponse ?? ''));
           }
         },
         onError: (err) => addError(translate(err)),
@@ -85,6 +102,8 @@ class ChatPresenter extends CompletePresenter<ChatState> {
     }
   }
 
+  void removeAllMessages() {}
+
   turnIsProcessingOff() {
     if (state.isProcessing != false) {
       notify(
@@ -93,12 +112,21 @@ class ChatPresenter extends CompletePresenter<ChatState> {
     }
   }
 
-  void scrollToBottom() {
-    messageListScrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
+  turnIsProcessingOn() {
+    state.isTypeAnimation = true;
+    notify(
+      () => state.isProcessing = true,
     );
+  }
+
+  void scrollToBottom() {
+    if (messageListScrollController.hasClients) {
+      messageListScrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   @override

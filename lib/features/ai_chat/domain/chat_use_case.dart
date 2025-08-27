@@ -15,7 +15,11 @@ class ChatUseCase extends ReactiveUseCase {
     return await _repository.chatRepository.newConversation(walletAddress);
   }
 
-  Stream<String> sendMessage(String message) {
-    return _repository.chatRepository.sendMessage('28c1795880ae11f08e760242ac630010', message, 'MoonChain AI');
+  Stream<String> sendMessage(List<AIMessage> messages, String conversationId) {
+    return _repository.chatRepository.sendMessage(
+      conversationId,
+      messages,
+      Config.aiAgentName,
+    );
   }
 }

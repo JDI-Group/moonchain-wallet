@@ -10,16 +10,24 @@ class ChatHistoryRepository extends GlobalCacheRepository {
     [],
     serializer: (t) => t
         .map((e) => {
-              'name': e.content,
-              'symbol': e.role,
+              'content': e.content,
+              'role': e.role,
+              'createdAt': e.createdAt.millisecondsSinceEpoch,
+              'uuid': e.uuid,
             })
         .toList(),
     deserializer: (t) => (t as List)
         .map((e) => AIMessage(
               content: e['content'],
               role: e['role'],
+              createdAt: DateTime.fromMillisecondsSinceEpoch(e['createdAt']),
+              uuid: e['uuid'],
             ))
         .toList(),
+  );
+
+  late final Field<String?> conversationId = field(
+    'conversationId',
   );
 
   List<AIMessage> get items => messages.value;

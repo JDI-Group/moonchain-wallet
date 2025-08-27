@@ -34,11 +34,12 @@ class MessagesList extends HookConsumerWidget {
           if (index == 0 && isInProcess) {
             return const ProcessingBubble();
           }
+          final message = messageList[isInProcess ? index -1 : index];
           return MessageBubble(
-            key: PageStorageKey('msg_${index}'),
-            message: messageList[index].content ?? '',
-            isSender: messageList[index].role == 'user',
-            isLatests: index == 0,
+            key: PageStorageKey('msg_${message.uuid}'),
+            message: message.content,
+            isSender: message.role == 'user',
+            isLatests: index == 0 && chatState.isTypeAnimation,
           );
         },
         separatorBuilder: (BuildContext context, int index) => const SizedBox(
