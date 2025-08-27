@@ -485,13 +485,13 @@
 	"webhooks": "Webhooks",
 	"moonchain": "Moonchain",
 	"ai": "AI",
-	"you_can_ask_me_anything": "You Can Ask Me Anything...",
+	"you_can_ask_me_anything": "You Can Ask Me\n Anything...",
 	"pending_swaps": "Pending swaps",
 	"market_overview": "Market overview",
 	"view_portfolio": "View Portfolio",
 	"airdrop_status": "Airdrop status",
 	"processing": "Processing",
 	"unable_to_send_new_message": "Unable to send new message",
-	"unable_to_create_new_conversation": "Unable to create new conversion"
-
+	"unable_to_create_new_conversation": "Unable to create new conversion",
+	"ask_me_anything": "Ask me anything..."
 }

@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/rendering.dart';
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:moonchain_wallet/features/ai_chat/ai_chat.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 import 'chat_state.dart';
 
@@ -14,6 +14,8 @@ class ChatPresenter extends CompletePresenter<ChatState> {
   ChatPresenter() : super(ChatState());
 
   late final _bookmarksUseCase = ref.read(bookmarksUseCaseProvider);
+  late final ChatHistoryUseCase _chatHistoryUseCase =
+      ref.read(chatHistoryUseCaseProvider);
   late final _chatUseCase = ref.read(chatUseCaseProvider);
   final messageListScrollController = ScrollController();
   final messageTextController = TextEditingController();
@@ -27,6 +29,12 @@ class ChatPresenter extends CompletePresenter<ChatState> {
   void initState() {
     super.initState();
 
+    _chatHistoryUseCase.messages.listen(
+      (event) => notify(
+        () => state.messages = event,
+      ),
+    );
+
     messageFocusNode.addListener(
       () {
         if (messageFocusNode.hasFocus) {
@@ -34,7 +42,6 @@ class ChatPresenter extends CompletePresenter<ChatState> {
         }
       },
     );
-
   }
 
   void sendMessage() {
@@ -46,7 +53,16 @@ class ChatPresenter extends CompletePresenter<ChatState> {
 
     try {
       final newMessage = messageTextController.text;
-      state.messages.insert(0, AIMessage(role: 'user', content: newMessage));
+      if (newMessage.isEmpty || newMessage == '') {
+        turnIsProcessingOff();
+        return;
+      }
+      _chatHistoryUseCase.addItem(
+        AIMessage(
+          role: 'user',
+          content: newMessage,
+        ),
+      );
       final messagesStream = _chatUseCase.sendMessage(newMessage);
       messageTextController.text = '';
       String? finalResponse;
@@ -56,10 +72,10 @@ class ChatPresenter extends CompletePresenter<ChatState> {
           finalResponse = event;
         },
         onDone: () {
-          notify(
-            () => state.messages
-                .insert(0, AIMessage(role: 'ai', content: finalResponse)),
-          );
+          if (finalResponse != null) {
+            _chatHistoryUseCase
+                .addItem(AIMessage(role: 'ai', content: finalResponse ?? ''));
+          }
         },
         onError: (err) => addError(translate(err)),
       );
@@ -84,7 +100,6 @@ class ChatPresenter extends CompletePresenter<ChatState> {
       curve: Curves.easeInOut,
     );
   }
-
 
   @override
   Future<void> dispose() async {
