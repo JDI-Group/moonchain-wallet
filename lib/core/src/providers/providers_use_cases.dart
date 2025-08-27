@@ -1,5 +1,6 @@
 import 'package:moonchain_wallet/common/common.dart';
 import 'package:moonchain_wallet/common/components/recent_transactions/domain/mxc_transaction_use_case.dart';
+import 'package:moonchain_wallet/features/ai_chat/domain/chat_history_use_case.dart';
 import 'package:moonchain_wallet/features/ai_chat/domain/chat_use_case.dart';
 import 'package:moonchain_wallet/features/common/account/log_out_use_case.dart';
 import 'package:moonchain_wallet/features/common/common.dart';
@@ -251,6 +252,12 @@ final Provider<CustomTokensUseCase> customTokensUseCaseProvider = Provider(
     ref.watch(globalCacheProvider).globalCustomTokensRepository,
     ref.watch(datadashCacheProvider).custonTokens,
     ref.watch(accountUseCaseProvider),
+  ),
+);
+
+final Provider<ChatHistoryUseCase> chatHistoryUseCaseProvider = Provider(
+  (ref) => ChatHistoryUseCase(
+    ref.watch(globalCacheProvider).chatHistoryRepository,
   ),
 );
 
