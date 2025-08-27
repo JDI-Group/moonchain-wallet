@@ -1,3 +1,4 @@
+import 'package:moonchain_wallet/features/ai_chat/domain/chat_history_repository.dart';
 import 'package:moonchain_wallet/features/common/account/account_cache_repository.dart';
 import 'package:moonchain_wallet/features/common/common.dart';
 import 'package:moonchain_wallet/features/dapps/domain/domain.dart';
@@ -30,6 +31,7 @@ class GlobalCache extends GlobalCacheContainer {
   final LogsConfigRepository logsConfigRepository = LogsConfigRepository();
   final GlobalCustomTokensRepository globalCustomTokensRepository =
       GlobalCustomTokensRepository();
+  final ChatHistoryRepository chatHistoryRepository = ChatHistoryRepository();
 
   @override
   List<BaseCacheRepository> get repositories => [
@@ -41,5 +43,6 @@ class GlobalCache extends GlobalCacheContainer {
         account,
         logsConfigRepository,
         globalCustomTokensRepository,
+        chatHistoryRepository,
       ];
 }
