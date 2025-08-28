@@ -17,19 +17,27 @@ class ChatPresenter extends CompletePresenter<ChatState> {
       ref.read(chatHistoryUseCaseProvider);
   late final _chatUseCase = ref.read(chatUseCaseProvider);
   late final _accountUseCase = ref.read(accountUseCaseProvider);
+  late final _mxcTransactionsUseCase = ref.read(mxcTransactionsUseCaseProvider);
+  late final _chainConfigurationUseCase =
+      ref.read(chainConfigurationUseCaseProvider);
 
   final messageListScrollController = ScrollController();
   final messageTextController = TextEditingController();
   // Will be attached to only last message
   final animatedTextController = AnimatedTextController();
   String? conversationId;
-  Account? account;
 
   final messageFocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
+
+    listen(_chainConfigurationUseCase.selectedNetwork, (value) {
+      if (value != null) {
+        state.network = value;
+      }
+    });
 
     _chatHistoryUseCase.messages.listen(
       (val) => notify(
@@ -44,7 +52,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
     );
 
     _accountUseCase.account.listen(
-      (val) => account = val,
+      (val) => state.account = val,
     );
 
     messageFocusNode.addListener(
@@ -69,7 +77,8 @@ class ChatPresenter extends CompletePresenter<ChatState> {
       }
 
       if (conversationId == null) {
-        conversationId = await _chatUseCase.newConversation(account!.address);
+        conversationId =
+            await _chatUseCase.newConversation(state.account!.address);
         _chatHistoryUseCase.setConversationId(conversationId!);
       }
 
@@ -91,7 +100,8 @@ class ChatPresenter extends CompletePresenter<ChatState> {
         onDone: () {
           if (finalResponse != null) {
             _chatHistoryUseCase.addItem(
-                AIMessage(role: 'assistant', content: finalResponse ?? ''));
+              AIMessage(role: 'assistant', content: finalResponse ?? ''),
+            );
           }
         },
         onError: (err) => addError(translate(err)),
@@ -99,6 +109,78 @@ class ChatPresenter extends CompletePresenter<ChatState> {
     } catch (e) {
       turnIsProcessingOff();
       addError(e);
+    }
+  }
+
+  void handlePresetButtons(String command) {
+    switch (command) {
+      case "pending_swaps":
+        handlePendingSwaps();
+        break;
+
+      case "iho_mining":
+        print("Settings selected");
+        break;
+
+      case "view_portfolio":
+        print("Logout selected");
+        break;
+
+      case "market_overview":
+        print("Logout selected");
+        break;
+
+      default:
+        print("Invalid option");
+    }
+  }
+
+  void handlePendingSwaps() async {
+    if (MXCChains.isMXCChains(state.network!.chainId)) {
+      scrollToBottom();
+      turnIsProcessingOn();
+
+      try {
+        final txList = await _mxcTransactionsUseCase
+            .getMXCTransactions(state.account!.address);
+
+        if (txList != null) {
+          txList.sublist(txList.length - 6);
+        }
+      } catch (e) {
+        addError(e);
+        turnIsProcessingOff();
+      }
+    }
+  }
+
+  void handleIHOMining() async {
+    // Need to check If current chain has mining 
+    // We can get from previous page which was dapps page 
+    if (MXCChains.isMXCChains(state.network!.chainId)) {
+      scrollToBottom();
+      turnIsProcessingOn();
+
+      try {
+        List<TransactionModel>? txList = await _mxcTransactionsUseCase
+            .getMXCTransactions(state.account!.address);
+
+        if (txList == null) {
+          return;
+        }
+
+        if (txList.length > 6) {
+          txList = txList.sublist(0, 6);
+        }
+
+        for (TransactionModel tx in txList) {
+          
+        }
+
+      } catch (e) {
+        addError(e);
+        turnIsProcessingOff();
+      }
     }
   }
 

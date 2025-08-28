@@ -7,11 +7,15 @@ class ChatState with EquatableMixin {
   List<AIMessage> messages = [];
   bool isProcessing = false;
   bool isTypeAnimation = false;
+  Account? account;
+  Network? network;
 
   @override
   List<Object?> get props => [
     messages,
     isProcessing,
     isTypeAnimation,
+    account,
+    network,
   ];
 }
