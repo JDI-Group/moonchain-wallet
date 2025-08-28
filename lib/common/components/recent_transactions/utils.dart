@@ -73,6 +73,7 @@ class RecentTransactionsUtils {
     if ((onlySix ?? false) && items.length > 6) {
       items = items.sublist(0, 6);
     }
+
     return items.map((e) {
       final foundToken = tokensList.firstWhere(
           (element) =>
@@ -84,16 +85,18 @@ class RecentTransactionsUtils {
       final decimal =
           foundToken.decimals ?? e.token.decimals ?? Config.ethDecimals;
       final symbol = foundToken.symbol ?? e.token.symbol;
+      final amount = e.value == null
+          ? null
+          : MXCFormatter.convertWeiToEth(e.value!, decimal);
+      final timeStamp = e.timeStamp == null
+            ? "Unknown"
+            : MXCFormatter.localTime(e.timeStamp!);
 
       return RecentTrxListItem(
         logoUrl: logoUrl,
-        amount: e.value == null
-            ? null
-            : MXCFormatter.convertWeiToEth(e.value!, decimal),
+        amount: amount,
         symbol: symbol,
-        timestamp: e.timeStamp == null
-            ? "Unknown"
-            : MXCFormatter.localTime(e.timeStamp!),
+        timestamp: timeStamp,
         txHash: e.hash,
         transactionType: e.type,
         transactionStatus: e.status,

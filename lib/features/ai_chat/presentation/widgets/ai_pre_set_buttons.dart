@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moonchain_wallet/common/assets.gen.dart';
+import 'package:mxc_logic/mxc_logic.dart';
 
 import 'ai_pre_set_button.dart';
 
@@ -26,16 +27,16 @@ final presetButtonsProps = [
     "icon": Assets.svg.aiPending,
   },
   {
-    "title": "market_overview",
-    "icon": Assets.svg.aiMarketOverview,
+    "title": "iho_mining",
+    "icon": AssetsPath.dappsThumbnailV3('iho_mining'),
   },
   {
     "title": "view_portfolio",
     "icon": Assets.svg.aiPorfolio,
   },
   {
-    "title": "airdrop_status",
-    "icon": Assets.svg.aiRanking,
+    "title": "market_overview",
+    "icon": Assets.svg.aiMarketOverview,
   },
 ];
 
