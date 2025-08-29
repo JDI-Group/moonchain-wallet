@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:moonchain_wallet/core/src/extensions.dart';
 import 'package:moonchain_wallet/features/ai_chat/ai_chat.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 import 'chat_state.dart';
@@ -20,6 +21,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
   late final _mxcTransactionsUseCase = ref.read(mxcTransactionsUseCaseProvider);
   late final _chainConfigurationUseCase =
       ref.read(chainConfigurationUseCaseProvider);
+  late final _launcherUseCase = ref.read(launcherUseCaseProvider);
 
   final messageListScrollController = ScrollController();
   final messageTextController = TextEditingController();
@@ -88,6 +90,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
       );
       _chatHistoryUseCase.addItem(newMessage);
 
+      // turnIsProcessingOff();
       final messagesStream =
           _chatUseCase.sendMessage([newMessage], conversationId!);
       messageTextController.text = '';
@@ -104,7 +107,10 @@ class ChatPresenter extends CompletePresenter<ChatState> {
             );
           }
         },
-        onError: (err) => addError(translate(err)),
+        onError: (err) {
+          turnIsProcessingOff();
+          addError(translate(err));
+        },
       );
     } catch (e) {
       turnIsProcessingOff();
@@ -135,7 +141,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
     }
   }
 
-  void handlePendingSwaps() async {
+  void handleIHOMining() async {
     if (MXCChains.isMXCChains(state.network!.chainId)) {
       scrollToBottom();
       turnIsProcessingOn();
@@ -154,14 +160,20 @@ class ChatPresenter extends CompletePresenter<ChatState> {
     }
   }
 
-  void handleIHOMining() async {
-    // Need to check If current chain has mining 
-    // We can get from previous page which was dapps page 
+  void handlePendingSwaps() async {
+    // Need to check If current chain has mining
+    // We can get from previous page which was dapps page
     if (MXCChains.isMXCChains(state.network!.chainId)) {
       scrollToBottom();
       turnIsProcessingOn();
 
       try {
+        final buffer = StringBuffer();
+
+        buffer.writeln('## 🔗 Transactions\n');
+        buffer.writeln('| Status | Amount | Token | Date | Tx Hash |');
+        buffer.writeln('|--------|--------|-------|------|---------|');
+
         List<TransactionModel>? txList = await _mxcTransactionsUseCase
             .getMXCTransactions(state.account!.address);
 
@@ -173,10 +185,37 @@ class ChatPresenter extends CompletePresenter<ChatState> {
           txList = txList.sublist(0, 6);
         }
 
-        for (TransactionModel tx in txList) {
-          
+        for (TransactionModel e in txList) {
+          // final foundToken = tokensList.firstWhere(
+          //     (element) =>
+          //         element.address?.toLowerCase() ==
+          //         e.token.address?.toLowerCase(),
+          //     orElse: () => const Token());
+          // final logoUrl = foundToken.logoUri ??
+          //     e.token.logoUri ??
+          //     'assets/svg/networks/unknown.svg';
+          final decimal = e.token.decimals ?? Config.ethDecimals;
+          final symbol = e.token.symbol ?? 'UNKNOWN';
+          final amount = e.value == null
+              ? null
+              : MXCFormatter.convertWeiToEth(e.value!, decimal);
+          final timeStamp = e.timeStamp == null
+              ? "Unknown"
+              : MXCFormatter.localTime(e.timeStamp!);
+          final formattedHash = MXCFormatter.formatWalletAddress(
+            e.hash,
+          );
+
+          buffer.writeln(
+              "| ${e.status.name.capitalizeFirstLetter()} (${e.type.name.capitalizeFirstLetter()}) | $amount | $symbol | $timeStamp | [$formattedHash](${getTransactionExplorerUrl(e.hash).toString()}) |");
         }
 
+        turnIsProcessingOff();
+        final newMessage = AIMessage(
+          role: 'assistant',
+          content: buffer.toString(),
+        );
+        _chatHistoryUseCase.addItem(newMessage);
       } catch (e) {
         addError(e);
         turnIsProcessingOff();
@@ -184,7 +223,21 @@ class ChatPresenter extends CompletePresenter<ChatState> {
     }
   }
 
-  void removeAllMessages() {}
+  void launchUrl(String href) {
+    try {
+      _launcherUseCase.launchUrlInExternalApp(Uri.parse(href));
+    } catch (e) {
+      addError(e);
+    }
+  }
+
+  void removeAllMessages() {
+    _chatHistoryUseCase.removeAll();
+  }
+
+  Uri getTransactionExplorerUrl(String txHash) {
+    return _launcherUseCase.getTxExplorerUrl(txHash);
+  }
 
   turnIsProcessingOff() {
     if (state.isProcessing != false) {

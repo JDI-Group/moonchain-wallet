@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:moonchain_wallet/common/assets.gen.dart';
+import 'package:moonchain_wallet/features/ai_chat/presentation/chat_presenter.dart';
+import 'package:moonchain_wallet/features/ai_chat/presentation/chat_state.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 
 import 'ai_pre_set_button.dart';
 
-class AIPreSetButtons extends StatelessWidget {
+class AIPreSetButtons extends HookConsumerWidget {
   const AIPreSetButtons({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  ProviderBase<ChatPresenter> get presenter => chatPagePageContainer.actions;
+
+  @override
+  ProviderBase<ChatState> get state => chatPagePageContainer.state;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final chatPresenter = ref.watch(presenter);
+    final chatState = ref.watch(state);
+
     return GridView.count(
       shrinkWrap: true, // so it doesn't take the whole screen
       crossAxisCount: 2, // 2 items per row
@@ -16,7 +28,7 @@ class AIPreSetButtons extends StatelessWidget {
       crossAxisSpacing: 10, // horizontal spacing
       childAspectRatio: 138 / 44, // width/height ratio
       padding: const EdgeInsets.all(0),
-      children: generatePreSetConversations(),
+      children: generatePreSetConversations(chatPresenter),
     );
   }
 }
@@ -40,9 +52,12 @@ final presetButtonsProps = [
   },
 ];
 
-List<Widget> generatePreSetConversations() => presetButtonsProps
-    .map(
-      (e) => PreSetConversations(
-          onTap: () {}, title: e['title']!, icon: e['icon']!),
-    )
-    .toList();
+List<Widget> generatePreSetConversations(ChatPresenter chatPresenter) =>
+    presetButtonsProps
+        .map(
+          (e) => PreSetConversations(
+              onTap: () => chatPresenter.handlePresetButtons(e['title']!),
+              title: e['title']!,
+              icon: e['icon']!),
+        )
+        .toList();

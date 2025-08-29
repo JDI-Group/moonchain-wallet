@@ -44,12 +44,17 @@ class LauncherUseCase extends ReactiveUseCase {
 
   /// Launches the given txHash in the chains explorer tx page
   void viewTransaction(String txHash) async {
-    final chainExplorerUrl =
+    final launchUri = getTxExplorerUrl(txHash);
+
+    openUrl(launchUri, LaunchMode.platformDefault);
+  }
+
+  Uri getTxExplorerUrl(String txHash) {
+        final chainExplorerUrl =
         _chainConfigurationUseCase.selectedNetwork.value!.explorerUrl!;
     final txExplorer = Urls.txExplorer(txHash);
     final launchUri = MXCFormatter.mergeUrl(chainExplorerUrl, txExplorer);
-
-    openUrl(launchUri, LaunchMode.platformDefault);
+    return launchUri;
   }
 
   void viewAddress(String address) async {

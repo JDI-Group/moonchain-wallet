@@ -493,5 +493,6 @@
 	"processing": "Processing",
 	"unable_to_send_new_message": "Unable to send new message",
 	"unable_to_create_new_conversation": "Unable to create new conversion",
-	"ask_me_anything": "Ask me anything..."
+	"ask_me_anything": "Ask me anything...",
+	"what_is_iho": "What is the Moonchain Initial Hardware Offering (IHO)?"
 }
