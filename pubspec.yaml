@@ -69,6 +69,7 @@ dependencies:
   flutter_inappwebview: ^6.1.5
   flutter_local_notifications: ^18.0.1
   flutter_mailer: ^2.1.2
+  flutter_markdown: ^0.7.7+1
   flutter_svg: ^2.0.1
   geolocator: ^10.1.0
   google_sign_in: ^6.1.5
