@@ -13,6 +13,8 @@ class ProcessingBubble extends MessageBubbleRaw {
           message: '',
           isRepeatingAnimation: true,
           shouldHaveTypeAnimation: true,
+          replay: true,
+          charDelay: const Duration(milliseconds: 70),
         );
 
   // @override
