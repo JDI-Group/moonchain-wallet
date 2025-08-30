@@ -39,8 +39,8 @@ final presetButtonsProps = [
     "icon": Assets.svg.aiPending,
   },
   {
-    "title": "iho_mining",
-    "icon": AssetsPath.dappsThumbnailV3('iho_mining'),
+    "title": "iho",
+    "icon": AssetsPath.dappsThumbnailV3('iho'),
   },
   {
     "title": "view_portfolio",

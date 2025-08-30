@@ -183,8 +183,6 @@ class _AnimatedTextWidgetState extends State<AnimatedTextWidget>
               ),
         )
       ],
-      // onNextBeforePause: (i, _) => chatPresenter.scrollToBottom(),
-      // onNext: (i, _) => chatPresenter.scrollToBottom(),
       onFinished: () => widget.chatPresenter.scrollToBottom(),
     );
   }

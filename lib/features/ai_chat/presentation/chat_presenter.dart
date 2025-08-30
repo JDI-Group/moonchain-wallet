@@ -1,15 +1,19 @@
 import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:collection/collection.dart';
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:moonchain_wallet/core/src/extensions.dart';
 import 'package:moonchain_wallet/features/ai_chat/ai_chat.dart';
 import 'package:mxc_logic/mxc_logic.dart';
+import '../../dapps/presentation/responsive_layout/dapp_utils.dart';
 import 'chat_state.dart';
 
+
 final chatPagePageContainer =
-    PresenterContainer<ChatPresenter, ChatState>(() => ChatPresenter());
+    PresenterContainer<ChatPresenter, ChatState>(
+        () => ChatPresenter());
 
 class ChatPresenter extends CompletePresenter<ChatState> {
   ChatPresenter() : super(ChatState());
@@ -22,6 +26,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
   late final _chainConfigurationUseCase =
       ref.read(chainConfigurationUseCaseProvider);
   late final _launcherUseCase = ref.read(launcherUseCaseProvider);
+  late final _dappStoreUseCase = ref.read(dappStoreUseCaseProvider);
 
   final messageListScrollController = ScrollController();
   final messageTextController = TextEditingController();
@@ -124,8 +129,8 @@ class ChatPresenter extends CompletePresenter<ChatState> {
         handlePendingSwaps();
         break;
 
-      case "iho_mining":
-        print("Settings selected");
+      case "iho":
+        handleIHOMining();
         break;
 
       case "view_portfolio":
@@ -147,12 +152,50 @@ class ChatPresenter extends CompletePresenter<ChatState> {
       turnIsProcessingOn();
 
       try {
-        final txList = await _mxcTransactionsUseCase
-            .getMXCTransactions(state.account!.address);
+        final newMessageText = translate('what_is_iho')!;
 
-        if (txList != null) {
-          txList.sublist(txList.length - 6);
+        if (conversationId == null) {
+          conversationId =
+              await _chatUseCase.newConversation(state.account!.address);
+          _chatHistoryUseCase.setConversationId(conversationId!);
         }
+
+        final newMessage = AIMessage(
+          role: 'user',
+          content: newMessageText,
+        );
+        _chatHistoryUseCase.addItem(newMessage);
+
+        // turnIsProcessingOff();
+        final messagesStream =
+            _chatUseCase.sendMessage([newMessage], conversationId!);
+        messageTextController.text = '';
+        String? finalResponse;
+        messagesStream.listen(
+          (event) {
+            turnIsProcessingOff();
+            finalResponse = event;
+          },
+          onDone: () {
+            if (finalResponse != null) {
+              final ihoDApp = getIHODapp();
+              if (ihoDApp != null) {
+                StringBuffer buffer = StringBuffer(finalResponse!);
+                buffer.writeln();
+                buffer.writeln("[IHO mining](${ihoDApp.app?.url})");
+                finalResponse = buffer.toString();
+              }
+
+              _chatHistoryUseCase.addItem(
+                AIMessage(role: 'assistant', content: finalResponse ?? ''),
+              );
+            }
+          },
+          onError: (err) {
+            turnIsProcessingOff();
+            addError(translate(err));
+          },
+        );
       } catch (e) {
         addError(e);
         turnIsProcessingOff();
@@ -210,10 +253,11 @@ class ChatPresenter extends CompletePresenter<ChatState> {
               "| ${e.status.name.capitalizeFirstLetter()} (${e.type.name.capitalizeFirstLetter()}) | $amount | $symbol | $timeStamp | [$formattedHash](${getTransactionExplorerUrl(e.hash).toString()}) |");
         }
 
+        final response = buffer.toString();
         turnIsProcessingOff();
         final newMessage = AIMessage(
           role: 'assistant',
-          content: buffer.toString(),
+          content: response,
         );
         _chatHistoryUseCase.addItem(newMessage);
       } catch (e) {
@@ -221,6 +265,26 @@ class ChatPresenter extends CompletePresenter<ChatState> {
         turnIsProcessingOff();
       }
     }
+  }
+
+  Dapp? getIHODapp() {
+    final dapps = _dappStoreUseCase.dapps.value;
+
+    final chainDapps = getChainDapps(dapps);
+
+    final dapp = chainDapps
+      .firstWhereOrNull((e) => e.app?.providerType == ProviderType.native && e.app?.name == "IHO");
+  
+    return dapp;
+
+  }
+
+  List<Dapp> getChainDapps(List<Dapp> allDapps) {
+    List<Dapp> chainDapps = DappUtils.getDappsByChainId(
+      allDapps: allDapps,
+      chainId: state.network!.chainId,
+    );
+    return chainDapps;
   }
 
   void launchUrl(String href) {
@@ -233,6 +297,10 @@ class ChatPresenter extends CompletePresenter<ChatState> {
 
   void removeAllMessages() {
     _chatHistoryUseCase.removeAll();
+  }
+
+  Uri getIHOMiningUrl(String txHash) {
+    return _launcherUseCase.getTxExplorerUrl(txHash);
   }
 
   Uri getTransactionExplorerUrl(String txHash) {
