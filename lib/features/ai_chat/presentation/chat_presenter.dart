@@ -27,6 +27,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
       ref.read(chainConfigurationUseCaseProvider);
   late final _launcherUseCase = ref.read(launcherUseCaseProvider);
   late final _dappStoreUseCase = ref.read(dappStoreUseCaseProvider);
+  late final _tokenContractUseCase = ref.read(tokenContractUseCaseProvider);
 
   final messageListScrollController = ScrollController();
   final messageTextController = TextEditingController();
@@ -134,7 +135,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
         break;
 
       case "view_portfolio":
-        print("Logout selected");
+        handleViewPortfolio();
         break;
 
       case "market_overview":
@@ -145,6 +146,51 @@ class ChatPresenter extends CompletePresenter<ChatState> {
         print("Invalid option");
     }
   }
+
+  void handleViewPortfolio() async {
+    // Need to check If current chain has mining
+    // We can get from previous page which was dapps page
+    if (MXCChains.isMXCChains(state.network!.chainId)) {
+      scrollToBottom();
+      turnIsProcessingOn();
+
+      try {
+        final buffer = StringBuffer();
+
+        buffer.writeln('## 📊 Your Portfolio\n');
+        buffer.writeln('| Token | Amount |');
+        buffer.writeln('|--------|--------|');
+
+        final tokens = _tokenContractUseCase.tokensList.value;
+
+        print(tokens);
+
+        if (tokens.isEmpty) {
+          return;
+        }
+
+        for (Token e in tokens) {
+          final logoUri = e.logoUri ?? 'assets/svg/networks/unknown.svg';
+          final symbol = e.symbol ?? 'UNKNOWN';
+          final balance = e.balance?.toString() ?? 'N/A';
+
+          buffer.writeln(
+              "| ![$symbol]($logoUri) $symbol  | $balance |");
+        }
+
+        final response = buffer.toString();
+        turnIsProcessingOff();
+        final newMessage = AIMessage(
+          role: 'assistant',
+          content: response,
+        );
+        _chatHistoryUseCase.addItem(newMessage);
+      } catch (e) {
+        addError(e);
+        turnIsProcessingOff();
+      }
+    }
+  }  
 
   void handleIHOMining() async {
     if (MXCChains.isMXCChains(state.network!.chainId)) {
@@ -250,7 +296,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
           );
 
           buffer.writeln(
-              "| ${e.status.name.capitalizeFirstLetter()} (${e.type.name.capitalizeFirstLetter()}) | $amount | $symbol | $timeStamp | [$formattedHash](${getTransactionExplorerUrl(e.hash).toString()}) |");
+              "| ${e.status.icon} (${e.type.name.capitalizeFirstLetter()}) | $amount | $symbol | $timeStamp | [$formattedHash](${getTransactionExplorerUrl(e.hash).toString()}) |");
         }
 
         final response = buffer.toString();
