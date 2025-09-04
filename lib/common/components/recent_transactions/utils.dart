@@ -89,8 +89,8 @@ class RecentTransactionsUtils {
           ? null
           : MXCFormatter.convertWeiToEth(e.value!, decimal);
       final timeStamp = e.timeStamp == null
-            ? "Unknown"
-            : MXCFormatter.localTime(e.timeStamp!);
+          ? "Unknown"
+          : MXCFormatter.localTime(e.timeStamp!);
 
       return RecentTrxListItem(
         logoUrl: logoUrl,

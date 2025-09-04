@@ -17,7 +17,6 @@ class MessageBubble extends MessageBubbleRaw {
           isRepeatingAnimation: false,
           shouldHaveTypeAnimation: isLatests,
           replay: false,
-
         );
 
   @override

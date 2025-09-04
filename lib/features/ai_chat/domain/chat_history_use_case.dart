@@ -15,7 +15,6 @@ class ChatHistoryUseCase extends ReactiveUseCase {
   late final ValueStream<String> conversationId =
       reactiveField(_repository.conversationId);
 
-
   List<AIMessage> getMessages() => _repository.items;
 
   void addItem(AIMessage item) {

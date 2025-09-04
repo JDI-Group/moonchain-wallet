@@ -50,7 +50,7 @@ class LauncherUseCase extends ReactiveUseCase {
   }
 
   Uri getTxExplorerUrl(String txHash) {
-        final chainExplorerUrl =
+    final chainExplorerUrl =
         _chainConfigurationUseCase.selectedNetwork.value!.explorerUrl!;
     final txExplorer = Urls.txExplorer(txHash);
     final launchUri = MXCFormatter.mergeUrl(chainExplorerUrl, txExplorer);

@@ -10,10 +10,8 @@ import 'package:mxc_logic/mxc_logic.dart';
 import '../../dapps/presentation/responsive_layout/dapp_utils.dart';
 import 'chat_state.dart';
 
-
 final chatPagePageContainer =
-    PresenterContainer<ChatPresenter, ChatState>(
-        () => ChatPresenter());
+    PresenterContainer<ChatPresenter, ChatState>(() => ChatPresenter());
 
 class ChatPresenter extends CompletePresenter<ChatState> {
   ChatPresenter() : super(ChatState());
@@ -21,6 +19,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
   late final ChatHistoryUseCase _chatHistoryUseCase =
       ref.read(chatHistoryUseCaseProvider);
   late final _chatUseCase = ref.read(chatUseCaseProvider);
+  late final _reporterUseCase = ref.read(reporterUseCaseProvider);
   late final _accountUseCase = ref.read(accountUseCaseProvider);
   late final _mxcTransactionsUseCase = ref.read(mxcTransactionsUseCaseProvider);
   late final _chainConfigurationUseCase =
@@ -139,7 +138,7 @@ class ChatPresenter extends CompletePresenter<ChatState> {
         break;
 
       case "market_overview":
-        print("Logout selected");
+        handleMarketOverview();
         break;
 
       default:
@@ -147,58 +146,13 @@ class ChatPresenter extends CompletePresenter<ChatState> {
     }
   }
 
-  void handleViewPortfolio() async {
-    // Need to check If current chain has mining
-    // We can get from previous page which was dapps page
+  void handleMarketOverview() async {
     if (MXCChains.isMXCChains(state.network!.chainId)) {
       scrollToBottom();
       turnIsProcessingOn();
 
       try {
-        final buffer = StringBuffer();
-
-        buffer.writeln('## 📊 Your Portfolio\n');
-        buffer.writeln('| Token | Amount |');
-        buffer.writeln('|--------|--------|');
-
-        final tokens = _tokenContractUseCase.tokensList.value;
-
-        print(tokens);
-
-        if (tokens.isEmpty) {
-          return;
-        }
-
-        for (Token e in tokens) {
-          final logoUri = e.logoUri ?? 'assets/svg/networks/unknown.svg';
-          final symbol = e.symbol ?? 'UNKNOWN';
-          final balance = e.balance?.toString() ?? 'N/A';
-
-          buffer.writeln(
-              "| ![$symbol]($logoUri) $symbol  | $balance |");
-        }
-
-        final response = buffer.toString();
-        turnIsProcessingOff();
-        final newMessage = AIMessage(
-          role: 'assistant',
-          content: response,
-        );
-        _chatHistoryUseCase.addItem(newMessage);
-      } catch (e) {
-        addError(e);
-        turnIsProcessingOff();
-      }
-    }
-  }  
-
-  void handleIHOMining() async {
-    if (MXCChains.isMXCChains(state.network!.chainId)) {
-      scrollToBottom();
-      turnIsProcessingOn();
-
-      try {
-        final newMessageText = translate('what_is_iho')!;
+        final newMessageText = translate('market_overview')!;
 
         if (conversationId == null) {
           conversationId =
@@ -211,6 +165,92 @@ class ChatPresenter extends CompletePresenter<ChatState> {
           content: newMessageText,
         );
         _chatHistoryUseCase.addItem(newMessage);
+
+        messageTextController.text = '';
+
+        final lastReport = await _reporterUseCase.getLastReportData();
+
+        _chatHistoryUseCase.addItem(
+          AIMessage(role: 'assistant', content: lastReport),
+        );
+        turnIsProcessingOff();
+      } catch (e) {
+        addError(e);
+        turnIsProcessingOff();
+      }
+    }
+  }
+
+  void handleViewPortfolio() async {
+    // Need to check If current chain has mining
+    // We can get from previous page which was dapps page
+    if (MXCChains.isMXCChains(state.network!.chainId)) {
+      scrollToBottom();
+      turnIsProcessingOn();
+
+      try {
+        final newMessageText = translate('view_portfolio')!;
+
+        final newMessage = AIMessage(
+          role: 'user',
+          content: newMessageText,
+        );
+        _chatHistoryUseCase.addItem(newMessage);
+
+        final buffer = StringBuffer();
+
+        buffer.writeln('## 📊 Your Portfolio\n');
+        buffer.writeln('| Token | Amount |');
+        buffer.writeln('|--------|--------|');
+
+        final tokens = _tokenContractUseCase.tokensList.value;
+
+        if (tokens.isEmpty) {
+          return;
+        }
+
+        for (Token e in tokens) {
+          final logoUri = e.logoUri ?? 'assets/svg/networks/unknown.svg';
+          final symbol = e.symbol ?? 'UNKNOWN';
+          final balance = e.balance?.toString() ?? 'N/A';
+
+          buffer.writeln("| ![$symbol]($logoUri) $symbol  | $balance |");
+        }
+
+        final response = buffer.toString();
+        turnIsProcessingOff();
+        final finalResponse = AIMessage(
+          role: 'assistant',
+          content: response,
+        );
+        _chatHistoryUseCase.addItem(finalResponse);
+      } catch (e) {
+        addError(e);
+        turnIsProcessingOff();
+      }
+    }
+  }
+
+  void handleIHOMining() async {
+    if (MXCChains.isMXCChains(state.network!.chainId)) {
+      scrollToBottom();
+      turnIsProcessingOn();
+
+      try {
+        final newMessageText = translate('what_is_iho')!;
+
+        final newMessage = AIMessage(
+          role: 'user',
+          content: newMessageText,
+        );
+        _chatHistoryUseCase.addItem(newMessage);
+
+        if (conversationId == null) {
+          conversationId =
+              await _chatUseCase.newConversation(state.account!.address);
+          _chatHistoryUseCase.setConversationId(conversationId!);
+        }
+
 
         // turnIsProcessingOff();
         final messagesStream =
@@ -257,6 +297,14 @@ class ChatPresenter extends CompletePresenter<ChatState> {
       turnIsProcessingOn();
 
       try {
+        final newMessageText = translate('pending_swaps')!;
+
+        final newMessage = AIMessage(
+          role: 'user',
+          content: newMessageText,
+        );
+        _chatHistoryUseCase.addItem(newMessage);
+
         final buffer = StringBuffer();
 
         buffer.writeln('## 🔗 Transactions\n');
@@ -301,11 +349,11 @@ class ChatPresenter extends CompletePresenter<ChatState> {
 
         final response = buffer.toString();
         turnIsProcessingOff();
-        final newMessage = AIMessage(
+        final finalResponse = AIMessage(
           role: 'assistant',
           content: response,
         );
-        _chatHistoryUseCase.addItem(newMessage);
+        _chatHistoryUseCase.addItem(finalResponse);
       } catch (e) {
         addError(e);
         turnIsProcessingOff();
@@ -318,11 +366,10 @@ class ChatPresenter extends CompletePresenter<ChatState> {
 
     final chainDapps = getChainDapps(dapps);
 
-    final dapp = chainDapps
-      .firstWhereOrNull((e) => e.app?.providerType == ProviderType.native && e.app?.name == "IHO");
-  
-    return dapp;
+    final dapp = chainDapps.firstWhereOrNull((e) =>
+        e.app?.providerType == ProviderType.native && e.app?.name == "IHO");
 
+    return dapp;
   }
 
   List<Dapp> getChainDapps(List<Dapp> allDapps) {

@@ -2,6 +2,7 @@ import 'package:moonchain_wallet/common/common.dart';
 import 'package:moonchain_wallet/common/components/recent_transactions/domain/mxc_transaction_use_case.dart';
 import 'package:moonchain_wallet/features/ai_chat/domain/chat_history_use_case.dart';
 import 'package:moonchain_wallet/features/ai_chat/domain/chat_use_case.dart';
+import 'package:moonchain_wallet/features/ai_chat/domain/reporter_use_case.dart';
 import 'package:moonchain_wallet/features/common/account/log_out_use_case.dart';
 import 'package:moonchain_wallet/features/common/common.dart';
 import 'package:moonchain_wallet/features/dapps/domain/domain.dart';
@@ -213,6 +214,12 @@ final Provider<ChainsUseCase> chainsUseCaseProvider = Provider(
 
 final Provider<ChatUseCase> chatUseCaseProvider = Provider(
   (ref) => ChatUseCase(
+    ref.watch(web3RepositoryProvider),
+  ),
+);
+
+final Provider<ReporterUseCase> reporterUseCaseProvider = Provider(
+  (ref) => ReporterUseCase(
     ref.watch(web3RepositoryProvider),
   ),
 );

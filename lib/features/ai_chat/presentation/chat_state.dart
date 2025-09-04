@@ -12,10 +12,10 @@ class ChatState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-    messages,
-    isProcessing,
-    isTypeAnimation,
-    account,
-    network,
-  ];
+        messages,
+        isProcessing,
+        isTypeAnimation,
+        account,
+        network,
+      ];
 }
