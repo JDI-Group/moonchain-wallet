@@ -130,7 +130,6 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "combined-builds/android/*.aab,combined-builds/iOS/*.ipa"
-          token: ${{ secrets.DART_TOKEN }}
           tag: ${{ steps.generate.outputs.build-number }}
           name: "Release-v${{ steps.generate.outputs.build-number }}-iOS/Android-Visit mxc1usd.com"
           generateReleaseNotes: true
