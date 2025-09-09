@@ -1,6 +1,5 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:moonchain_wallet/common/assets.gen.dart';
-import 'package:moonchain_wallet/common/common.dart';
 import 'package:moonchain_wallet/features/dapps/dapps.dart';
 import 'package:moonchain_wallet/features/dapps/presentation/widgets/ai_button.dart';
 import 'package:flutter/material.dart';
@@ -45,17 +44,9 @@ class HomePage extends HookConsumerWidget {
       left: false,
       right: false,
       maintainBottomViewPadding: true,
-      child: MxcPage(
-        layout: LayoutType.column,
-        useContentPadding: false,
+      child: Scaffold(
         floatingActionButton: const AiButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-        backgroundColor: homeState.bottomNavigationCurrentIndex == 0
-            ? ColorsTheme.of(context).primary
-            : null,
-        useBlackBackground:
-            homeState.bottomNavigationCurrentIndex == 0 ? false : true,
         bottomNavigationBar: SizedBox(
           height: 65,
           child: BottomAppBar(
@@ -125,26 +116,12 @@ class HomePage extends HookConsumerWidget {
             ),
           ),
         ),
-        childrenPadding: EdgeInsets.zero,
-        // childrenPadding: const EdgeInsets.symmetric(
-        //     horizontal: Sizes.spaceSmall, vertical: Sizes.spaceNormal),
-        // useGradientBackground: true,
-        presenter: ref.watch(presenter),
-        // appBar: Column(
-        //   children: [
-        //     ref.watch(state).isEditMode
-        //         ? const EditModeAppBar()
-        //         : const DefaultAppBar(),
-        //   ],
-        // ),
-        children: [
-          Expanded(
-            child: IndexedStack(
-              index: homeState.bottomNavigationCurrentIndex,
-              children: const [DAppsPage(), WalletPage()],
-            ),
+        body: 
+          IndexedStack(
+            index: homeState.bottomNavigationCurrentIndex,
+            children: const [DAppsPage(), WalletPage()],
           ),
-        ],
+        
       ),
     );
   }
