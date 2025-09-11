@@ -24,14 +24,15 @@ class MessageTextfield extends HookConsumerWidget {
     String translate(String key) => FlutterI18n.translate(context, key);
 
     return Container(
+      margin: const EdgeInsets.only(bottom: Sizes.spaceNormal),
       padding: const EdgeInsets.symmetric(
         horizontal: Sizes.spaceNormal,
-        vertical: Sizes.space2XSmall,
+        vertical: 0,
       ),
       decoration: BoxDecoration(
         color: ColorsTheme.of(context).backgroundGrey,
         borderRadius: const BorderRadius.all(
-          Radius.circular(20),
+          Radius.circular(25),
         ),
       ),
       child: Row(
@@ -47,23 +48,26 @@ class MessageTextfield extends HookConsumerWidget {
               borderUnFocusColor: Colors.transparent,
               minLines: 1,
               hint: translate('ask_me_anything'),
+              hasClearButton: false,
+              fontSize: 16,
+              
             ),
           ),
-          // const SizedBox(
-          //   width: Sizes.space3XSmall,
-          // ),
-          // GestureDetector(
-          //   onTap: () {},
-          //   child: SvgPicture.asset(
-          //     Assets.svg.addImage,
-          //     height: 24,
-          //     width: 24,
-          //     colorFilter: ColorFilter.mode(
-          //       ColorsTheme.of(context).white,
-          //       BlendMode.srcIn,
-          //     ),
-          //   ),
-          // ),
+          const SizedBox(
+            width: Sizes.space3XSmall,
+          ),
+          GestureDetector(
+            onTap: () => chatPresenter.removeAllMessages(),
+            child: SvgPicture.asset(
+              Assets.svg.addImage,
+              height: 24,
+              width: 24,
+              colorFilter: ColorFilter.mode(
+                ColorsTheme.of(context).white,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
           const SizedBox(
             width: Sizes.spaceNormal,
           ),
