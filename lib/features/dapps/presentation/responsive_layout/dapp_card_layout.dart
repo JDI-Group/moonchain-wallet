@@ -357,33 +357,38 @@ class MostUsedSectionsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          children: [
-            Container(
-                padding: const EdgeInsets.all(Sizes.spaceNormal),
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: ColorsTheme.of(context, listen: false).backgroundGrey,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 2),
+        child: InkWell(
+          onTap: onTap,
+          child: Column(
+            children: [
+              Container(
+                  padding: const EdgeInsets.all(Sizes.spaceNormal),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: ColorsTheme.of(context, listen: false).backgroundGrey,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
                   ),
-                ),
-                child: DappIcon(
-                  image: icon,
-                  iconSize: 24,
-                  iconColor: Colors.white,
-                )),
-            const SizedBox(height: Sizes.spaceXSmall),
-            Text(
-              title,
-              style: FontTheme.of(context).subtitle1().copyWith(
-                    color: ColorsTheme.of(context).textBlack,
-                    fontWeight: FontWeight.w500,
-                  ),
-            )
-          ],
+                  child: DappIcon(
+                    image: icon,
+                    iconSize: 24,
+                    iconColor: Colors.white,
+                  )),
+              const SizedBox(height: Sizes.spaceXSmall),
+              Text(
+                title,
+                style: FontTheme.of(context).subtitle1().copyWith(
+                      color: ColorsTheme.of(context).textBlack,
+                      fontWeight: FontWeight.w500,
+                    ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              )
+            ],
+          ),
         ),
       ),
     );
