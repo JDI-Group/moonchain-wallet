@@ -28,7 +28,11 @@ class TypingMarkdown extends StatefulWidget {
   _TypingMarkdownState createState() => _TypingMarkdownState();
 }
 
-class _TypingMarkdownState extends State<TypingMarkdown> {
+class _TypingMarkdownState extends State<TypingMarkdown> with AutomaticKeepAliveClientMixin {
+
+    @override
+  bool get wantKeepAlive => true;
+
   String _visibleText = '';
   int _currentIndex = 0;
   Timer? _timer;

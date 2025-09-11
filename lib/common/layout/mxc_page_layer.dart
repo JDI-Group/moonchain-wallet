@@ -39,6 +39,7 @@ class MxcPageLayer extends MxcPage {
     bool useSplashBackground = false,
     bool useGradientBackground = false,
     bool useBlackBackground = false,
+    Brightness? statusBarIconBrightness,
   })  : assert(layout != LayoutType.column2 || footer == null || fixedFooter,
             'layout: column2 and fixedFooter: false isn\'t compatible, pls set fixedFooter: true'),
         super.internal(
@@ -66,6 +67,7 @@ class MxcPageLayer extends MxcPage {
           useSplashBackground: useSplashBackground,
           useBlackBackground: useBlackBackground,
           useGradientBackground: useGradientBackground,
+          statusBarIconBrightness: statusBarIconBrightness,
         );
 
   @override

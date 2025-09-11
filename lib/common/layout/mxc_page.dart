@@ -40,6 +40,7 @@ abstract class MxcPage extends HookConsumerWidget {
     this.useBlackBackground = false,
     this.extendBodyBehindAppBar = false,
     this.useGradientBackground = false,
+    this.statusBarIconBrightness,
   })  : assert(scrollController == null || layout != LayoutType.column),
         super(key: key);
 
@@ -70,6 +71,7 @@ abstract class MxcPage extends HookConsumerWidget {
     bool useBlackBackground,
     bool useGradientBackground,
     bool useAppBar,
+    Brightness? statusBarIconBrightness,
   }) = MxcPageRegular;
 
   const factory MxcPage.layer({
@@ -98,6 +100,7 @@ abstract class MxcPage extends HookConsumerWidget {
     bool useBlackBackground,
     bool useGradientBackground,
     Color? upperBackgroundColor,
+    Brightness? statusBarIconBrightness
   }) = MxcPageLayer;
 
   final Key? scaffoldKey;
@@ -112,6 +115,7 @@ abstract class MxcPage extends HookConsumerWidget {
   final bool useFooterPadding;
   final Presenter? presenter;
 
+  final Brightness? statusBarIconBrightness;
   final LayoutType layout;
   final Future<void> Function()? onRefresh;
   final CrossAxisAlignment crossAxisAlignment;
@@ -256,9 +260,9 @@ abstract class MxcPage extends HookConsumerWidget {
               ? Brightness.dark
               : Brightness.light,
           statusBarIconBrightness:
-              Theme.of(context).brightness == Brightness.dark
+              statusBarIconBrightness ?? (Theme.of(context).brightness == Brightness.dark
                   ? Brightness.light
-                  : Brightness.dark,
+                  : Brightness.dark),
           systemNavigationBarIconBrightness:
               Theme.of(context).brightness == Brightness.dark
                   ? Brightness.dark
