@@ -69,7 +69,7 @@ class AppNavBar extends HookConsumerWidget {
                   style: FontTheme.of(context)
                       .body1
                       .primary()
-                      .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+                      .copyWith(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ],
               if (action == null) ...[
