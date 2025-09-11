@@ -44,7 +44,7 @@ class AccountsDropdown extends HookConsumerWidget {
           Text(
             state.account?.mns ??
                 MXCFormatter.formatWalletAddress(state.account?.address ?? ''),
-            style: FontTheme.of(context).body1().copyWith(
+            style: FontTheme.of(context).subtitle1().copyWith(
                   fontWeight: FontWeight.w500,
                   color: isOnWhite
                       ? Colors.black

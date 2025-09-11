@@ -106,7 +106,7 @@ class DappCardLayout extends HookConsumerWidget {
                           children: [
                             Text(
                               translate('ask_moonchain_ai_anything'),
-                              style: FontTheme.of(context).body1().copyWith(
+                              style: FontTheme.of(context).subtitle1().copyWith(
                                     color:
                                         ColorsTheme.of(context, listen: false)
                                             .backgroundGrey,
@@ -115,8 +115,12 @@ class DappCardLayout extends HookConsumerWidget {
                             const Spacer(),
                             SvgPicture.asset(
                               Assets.svg.aiBlack,
+                              height: 28,
+                              width: 28,
                               colorFilter: const ColorFilter.mode(
-                                  Colors.black, BlendMode.srcIn),
+                                Colors.black,
+                                BlendMode.srcIn,
+                              ),
                             )
                           ],
                         ),
@@ -352,32 +356,35 @@ class MostUsedSectionsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-              padding: const EdgeInsets.all(Sizes.spaceNormal),
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: ColorsTheme.of(context, listen: false).backgroundGrey,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(20),
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          children: [
+            Container(
+                padding: const EdgeInsets.all(Sizes.spaceNormal),
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: ColorsTheme.of(context, listen: false).backgroundGrey,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20),
+                  ),
                 ),
-              ),
-              child: DappIcon(
-                image: icon,
-                iconSize: 24,
-                iconColor: Colors.white,
-              )),
-          const SizedBox(height: Sizes.spaceXSmall),
-          Text(
-            title,
-            style: FontTheme.of(context).body1().copyWith(
-                color: ColorsTheme.of(context).textBlack,
-                fontWeight: FontWeight.w600),
-          )
-        ],
+                child: DappIcon(
+                  image: icon,
+                  iconSize: 24,
+                  iconColor: Colors.white,
+                )),
+            const SizedBox(height: Sizes.spaceXSmall),
+            Text(
+              title,
+              style: FontTheme.of(context).subtitle1().copyWith(
+                    color: ColorsTheme.of(context).textBlack,
+                    fontWeight: FontWeight.w500,
+                  ),
+            )
+          ],
+        ),
       ),
     );
   }
