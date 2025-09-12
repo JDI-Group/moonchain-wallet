@@ -64,83 +64,79 @@ class DappCardLayout extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Flexible(
-              flex: 30,
-              child: Container(
-                padding: const EdgeInsets.only(
-                    left: Sizes.spaceXLarge,
-                    right: Sizes.spaceXLarge,
-                    bottom: Sizes.spaceLarge,
-                    top: Sizes.spaceXSmall),
-                decoration: BoxDecoration(
-                  color: ColorsTheme.of(context).primary,
-                ),
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          route(
-                            const ChatPage(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        key: const Key('AITextField'),
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        height: 56,
-                        decoration: BoxDecoration(
-                            color: ColorsTheme.of(context)
-                                .white
-                                .withValues(alpha: 0.12),
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 2,
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20))),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              translate('ask_moonchain_ai_anything'),
-                              style: FontTheme.of(context).subtitle1().copyWith(
-                                    color:
-                                        ColorsTheme.of(context, listen: false)
-                                            .backgroundGrey,
-                                  ),
-                            ),
-                            const Spacer(),
-                            SvgPicture.asset(
-                              Assets.svg.aiBlack,
-                              height: 28,
-                              width: 28,
-                              colorFilter: const ColorFilter.mode(
-                                Colors.black,
-                                BlendMode.srcIn,
-                              ),
-                            )
-                          ],
+            Container(
+              padding: const EdgeInsets.only(
+                  left: Sizes.spaceXLarge,
+                  right: Sizes.spaceXLarge,
+                  bottom: Sizes.spaceLarge,
+                  top: Sizes.spaceXSmall),
+              decoration: BoxDecoration(
+                color: ColorsTheme.of(context).primary,
+              ),
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        route(
+                          const ChatPage(),
                         ),
+                      );
+                    },
+                    child: Container(
+                      key: const Key('AITextField'),
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      height: 56,
+                      decoration: BoxDecoration(
+                          color: ColorsTheme.of(context)
+                              .white
+                              .withValues(alpha: 0.12),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            translate('ask_moonchain_ai_anything'),
+                            style: FontTheme.of(context).subtitle1().copyWith(
+                                  color: ColorsTheme.of(context, listen: false)
+                                      .backgroundGrey,
+                                ),
+                          ),
+                          const Spacer(),
+                          SvgPicture.asset(
+                            Assets.svg.aiBlack,
+                            height: 28,
+                            width: 28,
+                            colorFilter: const ColorFilter.mode(
+                              Colors.black,
+                              BlendMode.srcIn,
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: Sizes.spaceXLarge,
+                  ),
+                  const SizedBox(
+                    height: Sizes.spaceXLarge,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: getMostUsedButtons(
+                      mostUsedDapps,
+                      context,
+                      state,
+                      actions,
+                      translate,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: getMostUsedButtons(
-                        mostUsedDapps,
-                        context,
-                        state,
-                        actions,
-                        translate,
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             ),
             Flexible(
