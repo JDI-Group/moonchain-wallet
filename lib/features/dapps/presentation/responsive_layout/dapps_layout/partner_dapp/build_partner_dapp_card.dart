@@ -67,11 +67,13 @@ Widget buildPartnerDAppCard(
                 ),
           Text(
             info ?? '',
-            style: FontTheme.of(context).caption1.textWhite60().copyWith(
+            style: FontTheme.of(context).caption1.white().copyWith(
                   fontWeight: FontWeight.w500,
+
                 ),
             textAlign: TextAlign.left,
-            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
         ],
       ),

@@ -21,7 +21,7 @@ Widget buildCard(
     if ((dapp).image != null) {
       image = (dapp).image!;
     } else {
-      actions!.updateBookmarkFavIcon(dapp);
+      actions.updateBookmarkFavIcon(dapp);
     }
   }
 
@@ -58,9 +58,9 @@ Widget buildCard(
                     Positioned(
                       top: -6,
                       right: -6,
-                      child: GestureDetector(
+                      child: InkWell(
                         onTap: () =>
-                            actions!.removeBookmarkDialog(dapp, shatter!),
+                            actions.removeBookmarkDialog(dapp, shatter!),
                         child: SvgPicture.asset(
                           Assets.svg.deleteBookmark,
                         ),
