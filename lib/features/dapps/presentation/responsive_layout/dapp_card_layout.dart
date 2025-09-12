@@ -57,8 +57,8 @@ class DappCardLayout extends HookConsumerWidget {
           child: child,
         );
 
-    return InkWell(
-      onTap: actions.changeEditMode,
+    return GestureDetector(
+      onTap: state.isEditMode ? actions.changeEditMode : null,
       child: constraintWrapperWidget(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -363,7 +363,8 @@ class MostUsedSectionsButton extends StatelessWidget {
                   padding: const EdgeInsets.all(Sizes.spaceNormal),
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
-                    color: ColorsTheme.of(context, listen: false).backgroundGrey,
+                    color:
+                        ColorsTheme.of(context, listen: false).backgroundGrey,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(20),
                     ),
