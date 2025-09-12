@@ -18,6 +18,7 @@ class SeeAllPage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       layout: LayoutType.column,
       useContentPadding: false,
+      useBlackBackground: true,
       childrenPadding: const EdgeInsets.only(
           top: Sizes.spaceNormal,
           right: Sizes.spaceXLarge,
