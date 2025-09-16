@@ -115,9 +115,7 @@ class SplashMNSQueryPresenter extends CompletePresenter<SplashMNSQueryState> {
   }
 
   Future<void> claim(String name) async {
-    final launchUrl = state.network!.chainId == Config.mxcMainnetChainId
-        ? Urls.mainnetMns(name)
-        : Urls.testnetMns(name);
+    final launchUrl = Urls.getMnsUrl(state.network!.chainId, name);
     await navigator
         ?.push(route.featureDialog(OpenDAppPage(url: launchUrl)))
         .then((_) {
