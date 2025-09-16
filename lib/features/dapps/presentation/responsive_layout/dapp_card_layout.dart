@@ -128,6 +128,7 @@ class DappCardLayout extends HookConsumerWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: getMostUsedButtons(
                       mostUsedDapps,
                       context,
@@ -360,20 +361,20 @@ class MostUsedSectionsButton extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                  padding: const EdgeInsets.all(Sizes.spaceNormal),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color:
-                        ColorsTheme.of(context, listen: false).backgroundGrey,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
+                padding: const EdgeInsets.all(Sizes.spaceNormal),
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: ColorsTheme.of(context, listen: false).backgroundGrey,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20),
                   ),
-                  child: DappIcon(
-                    image: icon,
-                    iconSize: 24,
-                    iconColor: Colors.white,
-                  )),
+                ),
+                child: DappIcon(
+                  image: icon,
+                  iconSize: 24,
+                  iconColor: Colors.white,
+                ),
+              ),
               const SizedBox(height: Sizes.spaceXSmall),
               Text(
                 title,
@@ -381,7 +382,9 @@ class MostUsedSectionsButton extends StatelessWidget {
                       color: ColorsTheme.of(context).textBlack,
                       fontWeight: FontWeight.w500,
                     ),
-                maxLines: 1,
+                softWrap: false,
+                textAlign: TextAlign.center,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               )
             ],
