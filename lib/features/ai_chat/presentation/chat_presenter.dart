@@ -102,11 +102,12 @@ class ChatPresenter extends CompletePresenter<ChatState> {
       String? finalResponse;
       messagesStream.listen(
         (event) {
-          turnIsProcessingOff();
+
           finalResponse = event;
         },
         onDone: () {
           if (finalResponse != null) {
+            turnIsProcessingOff();
             _chatHistoryUseCase.addItem(
               AIMessage(role: 'assistant', content: finalResponse ?? ''),
             );
