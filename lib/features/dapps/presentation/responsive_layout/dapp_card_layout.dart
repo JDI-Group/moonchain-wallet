@@ -142,7 +142,6 @@ class DappCardLayout extends HookConsumerWidget {
             ),
             Flexible(
               fit: FlexFit.loose,
-              flex: 70,
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Container(
@@ -158,53 +157,58 @@ class DappCardLayout extends HookConsumerWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
+                        // if (nativeDapps.isNotEmpty)
                         ...buildDAppProviderSection(
                           '${translate('native')} ${translate('dapps')}',
                           nativeDapps,
                           ProviderType.native,
                           NativeDappList(
-                            dapps: nativeDapps.sublist(nativeDapps.length > 4
-                                ? nativeDapps.length - 4
-                                : nativeDapps.length),
+                            dapps: nativeDapps.length > 4
+                                ? nativeDapps.sublist(nativeDapps.length > 4
+                                    ? nativeDapps.length - 4
+                                    : nativeDapps.length)
+                                : nativeDapps,
                             isScrollingLocked: true,
                           ),
                           NativeDappList(dapps: nativeDapps),
                         ),
-                        ...buildDAppProviderSection(
-                          '${translate('partner')} ${translate('dapps')}',
-                          partnerDapps,
-                          ProviderType.thirdParty,
-                          SizedBox(
-                            height: 120,
-                            child: ListView.separated(
+                        if (partnerDapps.isNotEmpty)
+                          ...buildDAppProviderSection(
+                            '${translate('partner')} ${translate('dapps')}',
+                            partnerDapps,
+                            ProviderType.thirdParty,
+                            SizedBox(
+                              height: 120,
+                              child: ListView.separated(
+                                itemCount: partnerDapps.length,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) =>
+                                    PartnerDAppCard(
+                                  index: index,
+                                  dapp: partnerDapps[index],
+                                  horizontallyExpanded: false,
+                                ),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(width: 16),
+                              ),
+                            ),
+                            ListView.separated(
                               itemCount: partnerDapps.length,
-                              scrollDirection: Axis.horizontal,
+                              scrollDirection: Axis.vertical,
                               shrinkWrap: true,
-                              itemBuilder: (context, index) => PartnerDAppCard(
-                                index: index,
-                                dapp: partnerDapps[index],
-                                horizontallyExpanded: false,
+                              itemBuilder: (context, index) => SizedBox(
+                                height: 100,
+                                child: PartnerDAppCard(
+                                  index: index,
+                                  dapp: partnerDapps[index],
+                                  horizontallyExpanded: true,
+                                ),
                               ),
                               separatorBuilder: (context, index) =>
-                                  const SizedBox(width: 16),
+                                  const SizedBox(height: 16),
                             ),
                           ),
-                          ListView.separated(
-                            itemCount: partnerDapps.length,
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) => SizedBox(
-                              height: 100,
-                              child: PartnerDAppCard(
-                                index: index,
-                                dapp: partnerDapps[index],
-                                horizontallyExpanded: true,
-                              ),
-                            ),
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 16),
-                          ),
-                        ),
                         ...buildDAppProviderSection(
                           translate('webhooks'),
                           bookmarksDapps,
