@@ -46,10 +46,10 @@ class ChooseNftPresenter extends CompletePresenter<ChooseNftState> {
   void loadPage() async {
     final nftList = await _nftContractUseCase.getNftsByAddress(
         state.account!.address, state.ipfsGateway!);
-    final domainsList = await _nftContractUseCase.getDomainsByAddress(
-        state.account!.address, state.ipfsGateway!);
+    // final domainsList = await _nftContractUseCase.getDomainsByAddress(
+    //     state.account!.address, state.ipfsGateway!);
 
-    nftList.addAll(domainsList);
+    // nftList.addAll(domainsList);
     _nftUseCase.mergeNewList(nftList);
   }
 

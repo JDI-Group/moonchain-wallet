@@ -1,13 +1,19 @@
 import 'package:collection/collection.dart';
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:moonchain_wallet/features/common/common.dart';
+import 'package:moonchain_wallet/features/settings/settings.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 
 class MXCTransactionsUseCase extends ReactiveUseCase {
-  MXCTransactionsUseCase(this._web3Repository, this._tokenContractUseCase);
+  MXCTransactionsUseCase(
+    this._web3Repository,
+    this._tokenContractUseCase,
+    this._chainConfigurationUseCase,
+  );
 
   final Web3Repository _web3Repository;
   final TokenContractUseCase _tokenContractUseCase;
+  final ChainConfigurationUseCase _chainConfigurationUseCase;
 
   Future<List<TransactionModel>?> getMXCTransactions(
       String walletAddress) async {
@@ -95,7 +101,11 @@ class MXCTransactionsUseCase extends ReactiveUseCase {
   List<TransactionModel> axsTxListFromMxcTxList(
       List<MoonchainTransactionModel> mxcTxList, String walletAddress) {
     return mxcTxList
-        .map((e) => TransactionModel.fromMXCTransaction(e, walletAddress))
+        .map((e) => TransactionModel.fromMXCTransaction(
+              e,
+              walletAddress,
+              _chainConfigurationUseCase.selectedNetwork.value!,
+            ))
         .toList();
   }
 

@@ -131,7 +131,10 @@ class WalletPresenter extends CompletePresenter<WalletState> {
           notify(() => state.txList!.insert(
               0,
               TransactionModel.fromMXCTransaction(
-                  newTx, state.account!.address)));
+                newTx,
+                state.account!.address,
+                state.network!,
+              )));
         }
         final newTxList =
             _mxcTransactionsUseCase.checkPendingTx(state.txList ?? []);
