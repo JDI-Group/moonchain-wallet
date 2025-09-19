@@ -53,21 +53,21 @@ class MessageTextfield extends HookConsumerWidget {
               
             ),
           ),
-          const SizedBox(
-            width: Sizes.space3XSmall,
-          ),
-          GestureDetector(
-            onTap: () => chatPresenter.removeAllMessages(),
-            child: SvgPicture.asset(
-              Assets.svg.addImage,
-              height: 24,
-              width: 24,
-              colorFilter: ColorFilter.mode(
-                ColorsTheme.of(context).white,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
+          // const SizedBox(
+          //   width: Sizes.space3XSmall,
+          // ),
+          // GestureDetector(
+          //   onTap: () => chatPresenter.removeAllMessages(),
+          //   child: SvgPicture.asset(
+          //     Assets.svg.addImage,
+          //     height: 24,
+          //     width: 24,
+          //     colorFilter: ColorFilter.mode(
+          //       ColorsTheme.of(context).white,
+          //       BlendMode.srcIn,
+          //     ),
+          //   ),
+          // ),
           const SizedBox(
             width: Sizes.spaceNormal,
           ),
