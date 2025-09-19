@@ -147,10 +147,13 @@ class MXCWebsocketUseCase extends ReactiveUseCase {
         final newMXCTx = MoonchainTransactionModel.fromJson(
             json.encode(event.payload['transactions'][0]));
 
-        final newTx =
-            TransactionModel.fromMXCTransaction(newMXCTx, account!.address);
+        final newTx = TransactionModel.fromMXCTransaction(
+          newMXCTx,
+          account!.address,
+          _chainConfigurationUseCase.selectedNetwork.value!,
+        );
 
-        if (newTx.token.symbol == Config.mxcName &&
+        if (newTx.token.symbol == _chainConfigurationUseCase.selectedNetwork.value!.symbol &&
             newTx.type == TransactionType.received) {
           final decimal = newTx.token.decimals ?? Config.ethDecimals;
           final formattedValue =

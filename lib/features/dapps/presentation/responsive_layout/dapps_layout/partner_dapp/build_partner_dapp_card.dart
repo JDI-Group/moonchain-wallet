@@ -65,13 +65,24 @@ Widget buildPartnerDAppCard(
               : const SizedBox(
                   height: Sizes.spaceSmall,
                 ),
-          Text(
-            info ?? '',
-            style: FontTheme.of(context).caption1.textWhite60().copyWith(
-                  fontWeight: FontWeight.w500,
+          Row(
+            children: [
+              Flexible(
+                child: Text(
+                  info ?? '',
+                  style: FontTheme.of(context).caption1.white().copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: horizontallyExpanded ? 1 : 2,
                 ),
-            textAlign: TextAlign.left,
-            maxLines: 2,
+              ),
+              if (horizontallyExpanded)
+                const SizedBox(
+                  width: 40,
+                )
+            ],
           ),
         ],
       ),

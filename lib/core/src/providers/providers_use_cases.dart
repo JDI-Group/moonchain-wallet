@@ -287,6 +287,7 @@ final Provider<MXCTransactionsUseCase> mxcTransactionsUseCaseProvider =
   (ref) => MXCTransactionsUseCase(
     ref.watch(web3RepositoryProvider),
     ref.watch(tokenContractUseCaseProvider),
+    ref.watch(chainConfigurationUseCaseProvider),
   ),
 );
 

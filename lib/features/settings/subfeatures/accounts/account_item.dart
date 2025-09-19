@@ -46,12 +46,13 @@ class AccountItem extends StatelessWidget {
                           nCharacters: 10),
                   style: FontTheme.of(context).body1.primary(),
                 ),
-                const SizedBox(height: Sizes.space2XSmall),
+                const SizedBox(height: Sizes.spaceXSmall),
                 if (isCustom)
-                  MxcChipButton(
-                      key: const Key('importedChip'),
-                      onTap: () {},
-                      title: FlutterI18n.translate(context, 'imported'))
+                  Text(
+                    FlutterI18n.translate(context, 'imported'),
+                      key: const Key('importedText'),
+                      style: FontTheme.of(context).subtitle1(),
+                   )
               ],
             ),
             const Spacer(),

@@ -97,8 +97,11 @@ void showSnackBar({
           ? MediaQuery.of(
                 context,
               ).size.height -
-              250
+              285
           : 0,
+      top: SnackBarPosition.top == snackBarPosition
+          ? MediaQuery.of(context).padding.top
+          : 0.0,
     ),
     duration: const Duration(seconds: 4),
     padding: const EdgeInsets.all(0),

@@ -57,91 +57,91 @@ class DappCardLayout extends HookConsumerWidget {
           child: child,
         );
 
-    return InkWell(
-      onTap: actions.changeEditMode,
+    return GestureDetector(
+      onTap: state.isEditMode ? actions.changeEditMode : null,
       child: constraintWrapperWidget(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Flexible(
-              flex: 30,
-              child: Container(
-                padding: const EdgeInsets.only(
-                    left: Sizes.spaceXLarge,
-                    right: Sizes.spaceXLarge,
-                    bottom: Sizes.spaceLarge,
-                    top: Sizes.spaceXSmall),
-                decoration: BoxDecoration(
-                  color: ColorsTheme.of(context).primary,
-                ),
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          route(
-                            const ChatPage(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        key: const Key('AITextField'),
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        height: 56,
-                        decoration: BoxDecoration(
-                            color: ColorsTheme.of(context)
-                                .white
-                                .withValues(alpha: 0.12),
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 2,
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20))),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              translate('ask_moonchain_ai_anything'),
-                              style: FontTheme.of(context).body1().copyWith(
-                                    color:
-                                        ColorsTheme.of(context, listen: false)
-                                            .backgroundGrey,
-                                  ),
-                            ),
-                            const Spacer(),
-                            SvgPicture.asset(
-                              Assets.svg.aiBlack,
-                              colorFilter: const ColorFilter.mode(
-                                  Colors.black, BlendMode.srcIn),
-                            )
-                          ],
+            Container(
+              padding: const EdgeInsets.only(
+                  left: Sizes.spaceXLarge,
+                  right: Sizes.spaceXLarge,
+                  bottom: Sizes.spaceLarge,
+                  top: Sizes.spaceXSmall),
+              decoration: BoxDecoration(
+                color: ColorsTheme.of(context).primary,
+              ),
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        route(
+                          const ChatPage(),
                         ),
+                      );
+                    },
+                    child: Container(
+                      key: const Key('AITextField'),
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      height: 56,
+                      decoration: BoxDecoration(
+                          color: ColorsTheme.of(context)
+                              .white
+                              .withValues(alpha: 0.12),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            translate('ask_moonchain_ai_anything'),
+                            style: FontTheme.of(context).subtitle1().copyWith(
+                                  color: ColorsTheme.of(context, listen: false)
+                                      .backgroundGrey,
+                                ),
+                          ),
+                          const Spacer(),
+                          SvgPicture.asset(
+                            Assets.svg.aiBlack,
+                            height: 28,
+                            width: 28,
+                            colorFilter: const ColorFilter.mode(
+                              Colors.black,
+                              BlendMode.srcIn,
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: Sizes.spaceXLarge,
+                  ),
+                  const SizedBox(
+                    height: Sizes.spaceXLarge,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: getMostUsedButtons(
+                      mostUsedDapps,
+                      context,
+                      state,
+                      actions,
+                      translate,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: getMostUsedButtons(
-                        mostUsedDapps,
-                        context,
-                        state,
-                        actions,
-                        translate,
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             ),
             Flexible(
               fit: FlexFit.loose,
-              flex: 70,
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Container(
@@ -157,53 +157,58 @@ class DappCardLayout extends HookConsumerWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
+                        // if (nativeDapps.isNotEmpty)
                         ...buildDAppProviderSection(
                           '${translate('native')} ${translate('dapps')}',
                           nativeDapps,
                           ProviderType.native,
                           NativeDappList(
-                            dapps: nativeDapps.sublist(nativeDapps.length > 4
-                                ? nativeDapps.length - 4
-                                : nativeDapps.length),
+                            dapps: nativeDapps.length > 4
+                                ? nativeDapps.sublist(nativeDapps.length > 4
+                                    ? nativeDapps.length - 4
+                                    : nativeDapps.length)
+                                : nativeDapps,
                             isScrollingLocked: true,
                           ),
                           NativeDappList(dapps: nativeDapps),
                         ),
-                        ...buildDAppProviderSection(
-                          '${translate('partner')} ${translate('dapps')}',
-                          partnerDapps,
-                          ProviderType.thirdParty,
-                          SizedBox(
-                            height: 120,
-                            child: ListView.separated(
+                        if (partnerDapps.isNotEmpty)
+                          ...buildDAppProviderSection(
+                            '${translate('partner')} ${translate('dapps')}',
+                            partnerDapps,
+                            ProviderType.thirdParty,
+                            SizedBox(
+                              height: 120,
+                              child: ListView.separated(
+                                itemCount: partnerDapps.length,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) =>
+                                    PartnerDAppCard(
+                                  index: index,
+                                  dapp: partnerDapps[index],
+                                  horizontallyExpanded: false,
+                                ),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(width: 16),
+                              ),
+                            ),
+                            ListView.separated(
                               itemCount: partnerDapps.length,
-                              scrollDirection: Axis.horizontal,
+                              scrollDirection: Axis.vertical,
                               shrinkWrap: true,
-                              itemBuilder: (context, index) => PartnerDAppCard(
-                                index: index,
-                                dapp: partnerDapps[index],
-                                horizontallyExpanded: false,
+                              itemBuilder: (context, index) => SizedBox(
+                                height: 100,
+                                child: PartnerDAppCard(
+                                  index: index,
+                                  dapp: partnerDapps[index],
+                                  horizontallyExpanded: true,
+                                ),
                               ),
                               separatorBuilder: (context, index) =>
-                                  const SizedBox(width: 16),
+                                  const SizedBox(height: 16),
                             ),
                           ),
-                          ListView.separated(
-                            itemCount: partnerDapps.length,
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) => SizedBox(
-                              height: 100,
-                              child: PartnerDAppCard(
-                                index: index,
-                                dapp: partnerDapps[index],
-                                horizontallyExpanded: true,
-                              ),
-                            ),
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 16),
-                          ),
-                        ),
                         ...buildDAppProviderSection(
                           translate('webhooks'),
                           bookmarksDapps,
@@ -352,32 +357,43 @@ class MostUsedSectionsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-              padding: const EdgeInsets.all(Sizes.spaceNormal),
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: ColorsTheme.of(context, listen: false).backgroundGrey,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(20),
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 2),
+        child: InkWell(
+          onTap: onTap,
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(Sizes.spaceNormal),
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: ColorsTheme.of(context, listen: false).backgroundGrey,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+                child: DappIcon(
+                  image: icon,
+                  iconSize: 24,
+                  iconColor: Colors.white,
                 ),
               ),
-              child: DappIcon(
-                image: icon,
-                iconSize: 24,
-                iconColor: Colors.white,
-              )),
-          const SizedBox(height: Sizes.spaceXSmall),
-          Text(
-            title,
-            style: FontTheme.of(context).body1().copyWith(
-                color: ColorsTheme.of(context).textBlack,
-                fontWeight: FontWeight.w600),
-          )
-        ],
+              const SizedBox(height: Sizes.spaceXSmall),
+              Text(
+                title,
+                style: FontTheme.of(context).subtitle1().copyWith(
+                      color: ColorsTheme.of(context).textBlack,
+                      fontWeight: FontWeight.w500,
+                    ),
+                softWrap: false,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

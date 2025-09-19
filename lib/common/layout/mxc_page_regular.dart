@@ -34,6 +34,7 @@ class MxcPageRegular extends MxcPage {
     bool useGradientBackground = false,
     bool useBlackBackground = false,
     bool useAppBar = false,
+    Brightness? statusBarIconBrightness,
   }) : super.internal(
           key: key,
           scaffoldKey: scaffoldKey,
@@ -60,6 +61,7 @@ class MxcPageRegular extends MxcPage {
           useSplashBackground: useSplashBackground,
           useBlackBackground: useBlackBackground,
           useGradientBackground: useGradientBackground,
+          statusBarIconBrightness: statusBarIconBrightness,
         );
 
   @override

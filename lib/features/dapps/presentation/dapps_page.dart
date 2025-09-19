@@ -30,11 +30,13 @@ class DAppsPage extends HookConsumerWidget {
       backgroundColor: ColorsTheme.of(context).primary,
       presenter: ref.watch(presenter),
       appBar: const DefaultAppBar(),
+      statusBarIconBrightness: Brightness.dark,
       children: const [
         Expanded(
           child: Align(
-              alignment: AlignmentDirectional.topCenter,
-              child: ResponsiveLayout()),
+            alignment: AlignmentDirectional.topCenter,
+            child: ResponsiveLayout(),
+          ),
         )
       ],
     );

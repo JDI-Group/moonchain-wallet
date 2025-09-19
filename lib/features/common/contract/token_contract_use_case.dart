@@ -99,10 +99,11 @@ class TokenContractUseCase extends ReactiveUseCase {
     final cNetwork = _repository.tokenContract.getCurrentNetwork();
 
     final chainNativeToken = Token(
-        logoUri: result?.logoUri ?? cNetwork.logo,
-        symbol: cNetwork.symbol,
-        name: '${cNetwork.symbol} Token',
-        decimals: Config.ethDecimals);
+      logoUri: result?.logoUri ?? cNetwork.logo,
+      symbol: cNetwork.symbol,
+      name: '${cNetwork.symbol} Token',
+      decimals: Config.ethDecimals,
+    );
 
     // Avoiding multiple native token from being added
     if (tokensList.value.indexWhere((element) => element.address == null) ==

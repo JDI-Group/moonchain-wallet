@@ -25,12 +25,16 @@ class OpenDAppPage extends HookConsumerWidget {
     const rightToLeftPrimaryVelocity = 2000;
     const leftToRightPrimaryVelocity = 3000;
 
-    return Scaffold(
+    return MxcPage(
       backgroundColor: ColorsTheme.of(context).screenBackground,
-      body: SafeArea(
-        child: PresenterHooks(
-          presenter: presenter,
+      childrenPadding: EdgeInsets.zero,
+      layout: LayoutType.column,
+      useContentPadding: false,
+      presenter: presenter,
+      children: [
+        Flexible(
           child: Stack(
+            fit: StackFit.passthrough,
             children: [
               RawGestureDetector(
                 behavior: HitTestBehavior.opaque,
@@ -75,7 +79,7 @@ class OpenDAppPage extends HookConsumerWidget {
                     rpcUrl: state.network?.web3RpcHttpUrl,
                     walletAddress: state.account!.address,
                     isDebug: false,
-                    initialUrlRequest:  URLRequest(
+                    initialUrlRequest: URLRequest(
                       url: WebUri(url),
                     ),
                     onLoadStart: (controller, url) =>
@@ -235,7 +239,7 @@ class OpenDAppPage extends HookConsumerWidget {
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }
