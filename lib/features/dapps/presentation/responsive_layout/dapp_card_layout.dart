@@ -6,8 +6,6 @@ import 'package:moonchain_wallet/features/ai_chat/presentation/chat_page.dart';
 import 'package:moonchain_wallet/features/dapps/presentation/dapps_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:moonchain_wallet/features/dapps/presentation/dapps_state.dart';
-import 'package:moonchain_wallet/features/portfolio/presentation/portfolio_page.dart';
 import 'package:mxc_logic/mxc_logic.dart' show Dapp, ProviderType;
 
 import 'package:mxc_ui/mxc_ui.dart';
@@ -15,6 +13,7 @@ import 'package:mxc_ui/mxc_ui.dart';
 import 'dapp_loading.dart';
 import 'dapp_utils.dart';
 import 'dapps_layout/dapps_layout.dart';
+import 'dapps_layout/most_used_section_button.dart';
 import 'dapps_layout/native_dapp/native_dapp_list.dart';
 
 class DappCardLayout extends HookConsumerWidget {
@@ -234,187 +233,9 @@ class DappCardLayout extends HookConsumerWidget {
                 ),
               ),
             ),
-
-            // ...buildDAppProviderSection(
-            //     '${translate('partner')} ${translate('dapps')}',
-            //     partnerDapps,
-            //     2,
-            //     2,
-            //     mainAxisCount),
-            // ...buildDAppProviderSection(
-            //     translate('bookmark'), bookmarksDapps, 1, 1, mainAxisCount),
           ],
         ),
       ),
-    );
-  }
-}
-
-List<Widget> getMostUsedButtons(
-    List<Dapp> dapps,
-    BuildContext context,
-    DAppsState state,
-    DAppsPagePresenter actions,
-    String Function(String key) translate) {
-  final list = dapps
-      .map(
-        (e) => MostUsedSectionsButton(
-            icon: e.reviewApi!.iconV3!,
-            onTap: () async {
-              final dappUrl = e.app!.url!;
-              if (!state.isEditMode) {
-                await actions.requestPermissions(e);
-                actions.openDapp(
-                  dappUrl,
-                );
-              }
-            },
-            title: e.app?.name ?? e.app?.url ?? ''),
-      )
-      .toList();
-
-  list.insert(
-    0,
-    MostUsedSectionsButton(
-      title: translate('my_x').replaceFirst('{0}', translate('portfolio')),
-      icon: Assets.svg.portfilio,
-      onTap: () {
-        Navigator.of(context).push(
-          route(
-            const PortfolioPage(),
-          ),
-        );
-      },
-    ),
-  );
-  return list;
-}
-// [
-//   // const SizedBox(
-//   //   width: Sizes.space2XSmall,
-//   // ),
-//   // Fixed
-//   MostUsedSectionsButton(
-//     title: translate('my_x').replaceFirst('{0}', translate('portfolio')),
-//     icon: Assets.svg.portfilio,
-//     onTap: () {
-//       Navigator.of(context).push(
-//         route(
-//           const PortfolioPage(),
-//         ),
-//       );
-//     },
-//   ),
-//   // Most used dapps
-//   MostUsedSectionsButton(
-//     title: translate('portfolio'),
-//     icon: Assets.svg.portfilio,
-//     onTap: () {
-//       Navigator.of(context).push(
-//         route(
-//           const PortfolioPage(),
-//         ),
-//       );
-//     },
-//   ),
-//   MostUsedSectionsButton(
-//     title: translate('portfolio'),
-//     icon: Assets.svg.portfilio,
-//     onTap: () {
-//       Navigator.of(context).push(
-//         route(
-//           const PortfolioPage(),
-//         ),
-//       );
-//     },
-//   ),
-//   // Fixed
-//   MostUsedSectionsButton(
-//     title: translate('track_x').replaceFirst('{0}', translate('tokens')),
-//     icon: Assets.svg.token,
-//     onTap: () {
-//       Navigator.of(context).push(
-//         route(
-//           const PortfolioPage(),
-//         ),
-//       );
-//     },
-//   ),
-//   // const SizedBox(
-//   //   width: Sizes.space2XSmall,
-//   // ),
-// ];
-
-class MostUsedSectionsButton extends StatelessWidget {
-  final String title;
-  final String icon;
-  final void Function() onTap;
-  const MostUsedSectionsButton(
-      {super.key,
-      required this.icon,
-      required this.onTap,
-      required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        child: InkWell(
-          onTap: onTap,
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(Sizes.spaceNormal),
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: ColorsTheme.of(context, listen: false).backgroundGrey,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                child: DappIcon(
-                  image: icon,
-                  iconSize: 24,
-                  iconColor: Colors.white,
-                ),
-              ),
-              const SizedBox(height: Sizes.spaceXSmall),
-              Text(
-                title,
-                style: FontTheme.of(context).subtitle1().copyWith(
-                      color: ColorsTheme.of(context).textBlack,
-                      fontWeight: FontWeight.w500,
-                    ),
-                softWrap: false,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class NativeDAppItem extends StatelessWidget {
-  final String assetPath;
-  const NativeDAppItem({super.key, required this.assetPath});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: ColorsTheme.of(context, listen: false).backgroundGrey,
-          ),
-          child: SvgPicture.asset(assetPath),
-        )
-      ],
     );
   }
 }
