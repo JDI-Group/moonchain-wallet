@@ -17,12 +17,13 @@ jobs:
         with:
           submodules: 'recursive'
 
+      # Previous repo run number was 67
       - name: Set Version Code
         run: |
-          echo "Received Number: ${{ github.run_number }}"
-          echo "VERSION_CODE=${{ github.run_number }}" >> $GITHUB_ENV
-          echo "Set VERSION_CODE to: ${{ github.run_number }}"
-          echo "${{ secrets.DEV_ENV_FILE_CONTENT }}" > .env
+          echo "Received Number: $(( ${{ github.run_number }} + 67 ))"
+          echo "VERSION_CODE= $(( ${{ github.run_number }} + 67 ))" >> $GITHUB_ENV
+          echo "Set VERSION_CODE to: $(( ${{ github.run_number }} + 67 ))"
+          echo "$(( ${{ secrets.DEV_ENV_FILE_CONTENT }} + 67 ))" > .env
         shell: bash
 
       - uses: sheenhx/action-flutter-build-android@main
