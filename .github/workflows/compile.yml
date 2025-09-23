@@ -20,9 +20,9 @@ jobs:
       # Previous repo run number was 67
       - name: Set Version Code
         run: |
-          echo "Received Number: $(( ${{ github.run_number }} + 67 ))"
-          echo "VERSION_CODE= $(( ${{ github.run_number }} + 67 ))" >> $GITHUB_ENV
-          echo "Set VERSION_CODE to: $(( ${{ github.run_number }} + 67 ))"
+          echo "Received Number:$(( ${{ github.run_number }} + 67 ))"
+          echo "VERSION_CODE=$(( ${{ github.run_number }} + 67 ))" >> $GITHUB_ENV
+          echo "Set VERSION_CODE to:$(( ${{ github.run_number }} + 67 ))"
           echo "$(( ${{ secrets.DEV_ENV_FILE_CONTENT }} + 67 ))" > .env
         shell: bash
 
