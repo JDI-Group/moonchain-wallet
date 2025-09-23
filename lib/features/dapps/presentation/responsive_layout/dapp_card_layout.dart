@@ -1,11 +1,8 @@
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:moonchain_wallet/common/assets.gen.dart' show Assets;
-import 'package:moonchain_wallet/core/core.dart';
-import 'package:moonchain_wallet/features/ai_chat/presentation/chat_page.dart';
 import 'package:moonchain_wallet/features/dapps/presentation/dapps_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:moonchain_wallet/features/dapps/presentation/responsive_layout/dapps_layout/ai_textfield.dart';
 import 'package:mxc_logic/mxc_logic.dart' show Dapp, ProviderType;
 
 import 'package:mxc_ui/mxc_ui.dart';
@@ -74,54 +71,7 @@ class DappCardLayout extends HookConsumerWidget {
               ),
               child: Column(
                 children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        route(
-                          const ChatPage(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      key: const Key('AITextField'),
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      height: 56,
-                      decoration: BoxDecoration(
-                          color: ColorsTheme.of(context)
-                              .white
-                              .withValues(alpha: 0.12),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 2,
-                          ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20))),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            translate('ask_moonchain_ai_anything'),
-                            style: FontTheme.of(context).subtitle1().copyWith(
-                                  color: ColorsTheme.of(context, listen: false)
-                                      .backgroundGrey,
-                                ),
-                          ),
-                          const Spacer(),
-                          SvgPicture.asset(
-                            Assets.svg.aiBlack,
-                            height: 28,
-                            width: 28,
-                            colorFilter: const ColorFilter.mode(
-                              Colors.black,
-                              BlendMode.srcIn,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                  const AiTextfield(),
                   const SizedBox(
                     height: Sizes.spaceXLarge,
                   ),
