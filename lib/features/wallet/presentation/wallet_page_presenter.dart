@@ -43,7 +43,6 @@ class WalletPresenter extends CompletePresenter<WalletState> {
 
     listen(_accountUserCase.account, (value) {
       if (value != null) {
-        final cAccount = state.account;
         notify(() => state.account = value);
         if (state.network != null) {
           getTransactions();
