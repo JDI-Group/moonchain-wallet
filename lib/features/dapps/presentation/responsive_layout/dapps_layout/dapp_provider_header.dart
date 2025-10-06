@@ -31,9 +31,10 @@ class DAppProviderHeader extends HookConsumerWidget {
       children: [
         Text(
           providerTitle,
-          style: FontTheme.of(context).subtitle2().copyWith(
-              fontWeight: FontWeight.bold,
-              color: ColorsTheme.of(context).textPrimary),
+          style: FontTheme.of(context).body1().copyWith(
+                fontWeight: FontWeight.bold,
+                color: ColorsTheme.of(context).textPrimary,
+              ),
         ),
         const Spacer(),
         InkWell(
