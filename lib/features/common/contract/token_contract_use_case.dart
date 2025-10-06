@@ -135,11 +135,23 @@ class TokenContractUseCase extends ReactiveUseCase {
     update(online, result);
   }
 
+  void resetBalanceAndPrice() async {
+    for (int i = 0; i < tokensList.value.length; i++) {
+      tokensList.value[i] = tokensList.value[i].copyWith(balance: 0.0, balancePrice: 0.0);
+    }
+    update(tokensList, tokensList.value);
+  }
+
   Future<void> getTokensBalance(
     List<Token>? tokenList,
     String walletAddress,
-    bool shouldGetPrice,
-  ) async {
+    bool shouldGetPrice, {
+    bool resetBalance = false,
+  }) async {
+    if (resetBalance) {
+      resetBalanceAndPrice();
+    }
+
     late List<Token> result;
     if (tokenList != null) {
       // Check if tokenList and enwList values are the same

@@ -44,6 +44,7 @@ class PortfolioPresenter extends CompletePresenter<PortfolioState> {
     listen(_accountUserCase.account, (value) {
       if (value != null) {
         notify(() => state.walletAddress = value.address);
+        state.account = value;
         initializePortfolioPage();
       }
     });
@@ -64,6 +65,17 @@ class PortfolioPresenter extends CompletePresenter<PortfolioState> {
   initializePortfolioPage() {
     getNfts();
     getBuyEnabled();
+    getWalletTokensBalance(null, true);
+  }
+
+  void getWalletTokensBalance(
+      List<Token>? tokenList, bool shouldGetPrice) async {
+    _tokenContractUseCase.getTokensBalance(
+      tokenList,
+      state.account!.address,
+      shouldGetPrice,
+      resetBalance: true,
+    );
   }
 
   getNfts() async {

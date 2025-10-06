@@ -149,8 +149,6 @@ class WalletPresenter extends CompletePresenter<WalletState> {
         break;
       // new balance
       case 'balance':
-        final wannseeBalanceEvent =
-            MoonchainBalanceEvenModel.fromJson(event.payload);
         getWalletTokensBalance(null, true);
         break;
       default:
