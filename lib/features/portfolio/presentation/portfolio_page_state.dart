@@ -18,6 +18,8 @@ class PortfolioState with EquatableMixin {
 
   bool buyEnabled = true;
 
+  Account? account;
+
   @override
   List<Object?> get props =>
       [walletBalance, tokensList, walletAddress, switchTokensOrNFTs, nftList];
