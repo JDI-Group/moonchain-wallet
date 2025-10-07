@@ -125,6 +125,7 @@ jobs:
           path: build/ios/iphonesimulator/*.app 
 
   upload-combined:
+    permissions: write-all
     name: Combine and Upload Builds
     needs: [build-apk, build-macos]
     runs-on: ubuntu-latest
