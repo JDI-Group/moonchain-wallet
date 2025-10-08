@@ -35,7 +35,7 @@ class BookMarksGridView extends HookConsumerWidget {
       scrollDirection: Axis.vertical,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
-        // mainAxisSpacing: 8,
+        mainAxisSpacing: 20,
         // crossAxisSpacing: 20,
       ),
       itemCount: itemCount,
@@ -73,7 +73,7 @@ class BookMarksGridView extends HookConsumerWidget {
                       style: FontTheme.of(context)
                           .subtitle2
                           .primary()
-                          .copyWith(fontWeight: FontWeight.w800),
+                          .copyWith(fontWeight: FontWeight.w900),
                       softWrap: false,
                       overflow: TextOverflow.ellipsis,
                     ),
