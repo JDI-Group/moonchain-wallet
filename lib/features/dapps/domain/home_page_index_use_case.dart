@@ -10,5 +10,7 @@ class HomePageIndexUseCase extends ReactiveUseCase {
   late final ValueStream<int> index = reactive(0);
   changeBottomNavigationSubPage(HomePageSubPage page) => changeBottomNavigationIndexTo(page.index);
 
-  changeBottomNavigationIndexTo(int newIndex) => update(index, newIndex);
+  changeBottomNavigationIndexTo(int newIndex) => newIndex == index.value ? null : update(index, newIndex);
+  
+  updateIndex(int newIndex) => update(index, newIndex);
 }

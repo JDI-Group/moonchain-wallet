@@ -2,6 +2,7 @@ import 'package:moonchain_wallet/common/common.dart';
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:moonchain_wallet/features/dapps/dapps.dart';
 import 'package:flutter/material.dart';
+import 'package:moonchain_wallet/features/home/presentation/home_page.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 
 import 'portfolio_page_state.dart';
@@ -20,6 +21,7 @@ class PortfolioPresenter extends CompletePresenter<PortfolioState> {
   late final _chainConfigurationUseCase =
       ref.read(chainConfigurationUseCaseProvider);
   late final _launcherUseCase = ref.read(launcherUseCaseProvider);
+  late final _homePageIndexUseCase = ref.read(homePageIndexUseCaseProvider);
 
   @override
   void initState() {
@@ -78,7 +80,7 @@ class PortfolioPresenter extends CompletePresenter<PortfolioState> {
     );
   }
 
-  getNfts() async {
+  void getNfts() async {
     final nftList = await _nftContractUseCase.getNftsByAddress(
         state.walletAddress!, state.ipfsGateway!);
     // final domainsList = await _nftContractUseCase.getDomainsByAddress(
@@ -86,6 +88,11 @@ class PortfolioPresenter extends CompletePresenter<PortfolioState> {
 
     // nftList.addAll(domainsList);
     _nftUseCase.mergeNewList(nftList);
+  }
+
+  void navigateToDappsPage() {
+    navigator?.pop();
+    _homePageIndexUseCase.changeBottomNavigationSubPage(HomePageSubPage.dapps);
   }
 
   void changeTokensOrNFTsTab(bool toggle) {
