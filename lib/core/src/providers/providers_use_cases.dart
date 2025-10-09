@@ -6,6 +6,7 @@ import 'package:moonchain_wallet/features/ai_chat/domain/reporter_use_case.dart'
 import 'package:moonchain_wallet/features/common/account/log_out_use_case.dart';
 import 'package:moonchain_wallet/features/common/common.dart';
 import 'package:moonchain_wallet/features/dapps/domain/domain.dart';
+import 'package:moonchain_wallet/features/dapps/domain/home_page_index_use_case.dart';
 import 'package:moonchain_wallet/features/errors/network_unavailable/network_unavailable_use_case.dart';
 import 'package:moonchain_wallet/features/portfolio/subfeatures/nft/domain/nfts_use_case.dart';
 import 'package:moonchain_wallet/features/portfolio/subfeatures/token/add_token/domain/domain.dart';
@@ -42,6 +43,10 @@ final Provider<GesturesInstructionUseCase> gesturesInstructionUseCaseProvider =
     Provider(
   (ref) => GesturesInstructionUseCase(
       ref.watch(globalCacheProvider).gesturesInstruction),
+);
+
+final Provider<HomePageIndexUseCase> homePageIndexUseCaseProvider = Provider(
+  (ref) => HomePageIndexUseCase(),
 );
 
 final Provider<DappsOrderUseCase> dappsOrderUseCaseProvider = Provider(
