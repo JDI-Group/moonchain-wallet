@@ -11,15 +11,18 @@ class NativeDappList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       itemCount: dapps.length,
       scrollDirection: Axis.vertical,
       physics: isScrollingLocked ? const NeverScrollableScrollPhysics() : null,
       shrinkWrap: true,
+      padding: const EdgeInsets.only(top: 10),
+      
       itemBuilder: (context, index) => NativeDAppCard(
         index: index,
         dapp: dapps[index],
       ),
+      separatorBuilder: (context, index) => const SizedBox(height: 20),
     );
   }
 }

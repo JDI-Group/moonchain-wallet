@@ -71,7 +71,7 @@ Widget buildPartnerDAppCard(
                 child: Text(
                   info ?? '',
                   style: FontTheme.of(context).caption1.white().copyWith(
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                       ),
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,

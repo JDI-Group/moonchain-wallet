@@ -32,7 +32,7 @@ class DAppProviderHeader extends HookConsumerWidget {
         Text(
           providerTitle,
           style: FontTheme.of(context).body1().copyWith(
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w900,
                 color: ColorsTheme.of(context).textPrimary,
               ),
         ),

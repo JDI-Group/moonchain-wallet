@@ -6,28 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:moonchain_wallet/features/home/home.dart';
 import 'home_state.dart';
 
-class HomePageArguments with EquatableMixin {
-  const HomePageArguments({
-    required this.homePageSubPage,
-  });
 
-  final HomePageSubPage? homePageSubPage;
-
-  @override
-  List<dynamic> get props => [
-        homePageSubPage,
-      ];
-}
-
-final homePagePageContainer = PresenterContainerWithParameter<
+final homePagePageContainer = PresenterContainer<
     HomePagePresenter,
-    HomeState,
-    HomePageArguments>((params) => HomePagePresenter(params.homePageSubPage));
+    HomeState
+    >(() => HomePagePresenter());
 
 class HomePagePresenter extends CompletePresenter<HomeState> {
-  HomePagePresenter(this.initialHomePageSubPage) : super(HomeState()) {
-    changeBottomNavigationIndex(initialHomePageSubPage!.index);
-  }
+  HomePagePresenter() : super(HomeState());
 
   late final _bookmarksUseCase = ref.read(bookmarksUseCaseProvider);
   late final _dappStoreUseCase = ref.read(dappStoreUseCaseProvider);
@@ -37,24 +23,37 @@ class HomePagePresenter extends CompletePresenter<HomeState> {
       ref.read(gesturesInstructionUseCaseProvider);
   late final _accountUseCase = ref.read(accountUseCaseProvider);
   late final _dappsOrderUseCase = ref.read(dappsOrderUseCaseProvider);
+  late final _homePageIndexUseCase = ref.read(homePageIndexUseCaseProvider);
 
-  final HomePageSubPage? initialHomePageSubPage;
   final scrollController = ScrollController();
+  final PageController pageController = PageController(initialPage: 0);
 
   @override
   void initState() {
     super.initState();
 
-    // Future.delayed(const Duration(seconds: 1, ), () {
-    //   if (initialHomePageSubPage != null) {
-    //     changeBottomNavigationIndex(initialHomePageSubPage!.index);
-    //   }
-    // });
+    pageController.addListener(() {
+      final pageIndex = pageController.page!.toInt();
+      notify(
+        () => state.bottomNavigationCurrentIndex = pageIndex
+      );
+      _homePageIndexUseCase.updateIndex(pageIndex);
+    });
+
+    _homePageIndexUseCase.index.listen((index) {
+      if (index != state.bottomNavigationCurrentIndex) {
+        moveToPage(index);
+      }
+    });
   }
 
-  changeBottomNavigationIndex(int index) => notify(
-        () => state.bottomNavigationCurrentIndex = index,
-      );
+  changePage(int index) =>
+      _homePageIndexUseCase.changeBottomNavigationIndexTo(index);
+
+  moveToPage(int index) => pageController.page == null
+      ? null
+      : pageController.animateToPage(index,
+          duration: const Duration(seconds: 1), curve: Curves.easeInOut);
 
   @override
   Future<void> dispose() async {

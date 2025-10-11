@@ -33,17 +33,19 @@ class BookMarksGridView extends HookConsumerWidget {
 
     return GridView.builder(
       scrollDirection: Axis.vertical,
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
-        // mainAxisSpacing: 8,
+        mainAxisSpacing: 16,
+
         // crossAxisSpacing: 20,
       ),
       itemCount: itemCount,
       padding: const EdgeInsets.symmetric(vertical: 10),
-      itemBuilder: (context, index) => index == dapps.length
+      itemBuilder: (context, index) => index == itemCount - 1
           ? InkWell(
-            onTap: actions.addBookmark,
-            child: SizedBox(
+              onTap: actions.addBookmark,
+              child: SizedBox(
                 height: 82,
                 width: 84,
                 child: Column(
@@ -73,14 +75,14 @@ class BookMarksGridView extends HookConsumerWidget {
                       style: FontTheme.of(context)
                           .subtitle2
                           .primary()
-                          .copyWith(fontWeight: FontWeight.w800),
+                          .copyWith(fontWeight: FontWeight.w900),
                       softWrap: false,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
               ),
-          )
+            )
           : BookmarkCard(
               index: index,
               dapp: dapps[index],

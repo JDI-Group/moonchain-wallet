@@ -6,6 +6,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'dart:convert';
 import 'package:mxc_logic/mxc_logic.dart';
 
+import '../../portfolio/presentation/portfolio_page.dart';
 import 'wallet_page_state.dart';
 
 final walletContainer =
@@ -117,6 +118,14 @@ class WalletPresenter extends CompletePresenter<WalletState> {
 
   changeIndex(newIndex) {
     notify(() => state.currentIndex = newIndex);
+  }
+
+  void moveToPortfolio() {
+    navigator!.push(
+      route(
+        const PortfolioPage(),
+      ),
+    );
   }
 
   handleWebSocketEvents(dynamic event) {

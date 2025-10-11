@@ -40,7 +40,7 @@ final presetButtonsProps = [
   },
   {
     "title": "iho",
-    "icon": AssetsPath.dappsThumbnailV3('iho'),
+    "icon": AssetsPath.dappsThumbnailV3('iho_not_filled'),
   },
   {
     "title": "view_portfolio",

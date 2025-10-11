@@ -42,10 +42,7 @@ class ChooseCryptoPage extends HookConsumerWidget {
           key: const ValueKey('appsButton'),
           icon: const Icon(MxcIcons.apps),
           iconSize: 32,
-          onPressed: () =>
-              Navigator.of(context).replaceAll(route(const HomePage(
-            homePageSubPage: HomePageSubPage.dapps,
-          ))),
+          onPressed: () => ref.read(presenter).navigateToDappsPage(),
           color: ColorsTheme.of(context).iconPrimary,
         ),
       ),

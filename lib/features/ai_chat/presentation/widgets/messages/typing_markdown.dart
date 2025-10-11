@@ -12,6 +12,7 @@ class TypingMarkdown extends StatefulWidget {
   final ChatPresenter chatPresenter;
   final bool shouldAnimate;
   final bool replay;
+  final Widget? trailingWidget;
 
   const TypingMarkdown({
     Key? key,
@@ -21,6 +22,7 @@ class TypingMarkdown extends StatefulWidget {
     required this.chatPresenter,
     required this.shouldAnimate,
     required this.replay,
+    required this.trailingWidget,
   })  : charDelay = charDelay ?? const Duration(milliseconds: 40),
         super(key: key);
 
@@ -28,9 +30,9 @@ class TypingMarkdown extends StatefulWidget {
   _TypingMarkdownState createState() => _TypingMarkdownState();
 }
 
-class _TypingMarkdownState extends State<TypingMarkdown> with AutomaticKeepAliveClientMixin {
-
-    @override
+class _TypingMarkdownState extends State<TypingMarkdown>
+    with AutomaticKeepAliveClientMixin {
+  @override
   bool get wantKeepAlive => true;
 
   String _visibleText = '';
@@ -103,69 +105,78 @@ class _TypingMarkdownState extends State<TypingMarkdown> with AutomaticKeepAlive
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: finishAnimation,
-      child: MarkdownBody(
-        data: _visibleText,
-        selectable: false,
-        // styleSheetTheme: MarkdownStyleSheetBaseTheme.material.,
-        shrinkWrap: true,
-        // padding: EdgeInsets.zero,
-        onTapLink: (text, href, title) async {
-          if (href != null) {
-            widget.chatPresenter.launchUrl(href);
-          }
-        },
-        sizedImageBuilder: (config) {
-          final path = config.uri.toString();
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(
+            fit: FlexFit.loose,
+            child: MarkdownBody(
+              data: _visibleText,
+              selectable: false,
+              // styleSheetTheme: MarkdownStyleSheetBaseTheme.material.,
+              shrinkWrap: true,
+              // padding: EdgeInsets.zero,
+              onTapLink: (text, href, title) async {
+                if (href != null) {
+                  widget.chatPresenter.launchUrl(href);
+                }
+              },
+              sizedImageBuilder: (config) {
+                final path = config.uri.toString();
 
-          // Handle local SVG
-          if (path.endsWith(".svg")) {
-            return CircleAvatar(
-              radius: 12,
-              backgroundColor: Colors.transparent,
-              child: path.contains('https')
-                  ? SvgPicture.network(path)
-                  : SvgPicture.asset(path),
-            );
-          }
+                // Handle local SVG
+                if (path.endsWith(".svg")) {
+                  return CircleAvatar(
+                    radius: 12,
+                    backgroundColor: Colors.transparent,
+                    child: path.contains('https')
+                        ? SvgPicture.network(path)
+                        : SvgPicture.asset(path),
+                  );
+                }
 
-          // Handle normal PNG/JPG assets
-          if (path.startsWith("assets/")) {
-            return CircleAvatar(
-              radius: 12,
-              backgroundImage: AssetImage(path),
-              backgroundColor: Colors.transparent,
-            );
-          }
+                // Handle normal PNG/JPG assets
+                if (path.startsWith("assets/")) {
+                  return CircleAvatar(
+                    radius: 12,
+                    backgroundImage: AssetImage(path),
+                    backgroundColor: Colors.transparent,
+                  );
+                }
 
-          // Handle network images
-          return CircleAvatar(
-            radius: 12,
-            backgroundImage: NetworkImage(path),
-            backgroundColor: Colors.transparent,
-          );
-        },
-        styleSheet: MarkdownStyleSheet(
-          h1: FontTheme.of(context).body1().copyWith(
-                color: widget.textColor,
-              ),
-          p: FontTheme.of(context).body1().copyWith(
-                color: widget.textColor,
-              ),
-          // tableCellsDecoration: BoxDecoration(
-          //   color: Colors.grey[100], // background of each cell
-          //   border:
-          //       Border.all(color: Colors.grey), // cell borders
+                // Handle network images
+                return CircleAvatar(
+                  radius: 12,
+                  backgroundImage: NetworkImage(path),
+                  backgroundColor: Colors.transparent,
+                );
+              },
+              styleSheet: MarkdownStyleSheet(
+                h1: FontTheme.of(context).body1().copyWith(
+                      color: widget.textColor,
+                    ),
+                p: FontTheme.of(context).body1().copyWith(
+                      color: widget.textColor,
+                    ),
+                // tableCellsDecoration: BoxDecoration(
+                //   color: Colors.grey[100], // background of each cell
+                //   border:
+                //       Border.all(color: Colors.grey), // cell borders
 
-          // ),
-          tableCellsPadding: const EdgeInsets.all(Sizes.space2XSmall),
-          tableHead: FontTheme.of(context).caption2().copyWith(
-                color: widget.textColor,
-                fontWeight: FontWeight.w700,
+                // ),
+                tableCellsPadding: const EdgeInsets.all(Sizes.space2XSmall),
+                tableHead: FontTheme.of(context).caption2().copyWith(
+                      color: widget.textColor,
+                      fontWeight: FontWeight.w700,
+                    ),
+                tableBody: FontTheme.of(context).caption2().copyWith(
+                      color: widget.textColor,
+                    ),
               ),
-          tableBody: FontTheme.of(context).caption2().copyWith(
-                color: widget.textColor,
-              ),
-        ),
+            ),
+          ),
+          if (widget.trailingWidget != null) widget.trailingWidget!,
+        ],
       ),
     );
   }

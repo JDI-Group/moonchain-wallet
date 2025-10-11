@@ -61,7 +61,6 @@ class MXCWallet extends HookConsumerWidget {
                 return route(
                   const PasscodeRequireWrapperPage(
                     child: HomePage(
-                      homePageSubPage: HomePageSubPage.dapps,
                     ),
                   ),
                 );

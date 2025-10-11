@@ -9,25 +9,26 @@ import 'package:mxc_ui/mxc_ui.dart';
 
 import 'dart:math' as math;
 
+import '../../dapps/presentation/widgets/keep_alive_wrapper.dart';
 import 'home_presenter.dart';
 import 'home_state.dart';
 
 enum HomePageSubPage {
-  dapps,
-  wallet;
+  dapps(0),
+  wallet(1);
+
+  const HomePageSubPage(int index);
 }
 
 class HomePage extends HookConsumerWidget {
-  final HomePageSubPage homePageSubPage;
-  const HomePage({Key? key, required this.homePageSubPage}) : super(key: key);
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  ProviderBase<HomePagePresenter> get presenter => homePagePageContainer
-      .actions(HomePageArguments(homePageSubPage: homePageSubPage));
+  ProviderBase<HomePagePresenter> get presenter =>
+      homePagePageContainer.actions;
 
-  @override
-  ProviderBase<HomeState> get state => homePagePageContainer
-      .state(HomePageArguments(homePageSubPage: homePageSubPage));
+  ProviderBase<HomeState> get state => homePagePageContainer.state;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -63,7 +64,7 @@ class HomePage extends HookConsumerWidget {
               backgroundColor: ColorsTheme.of(context).backgroundGrey,
               fixedColor: ColorsTheme.of(context).backgroundGrey,
               currentIndex: homeState.bottomNavigationCurrentIndex,
-              onTap: homePresenter.changeBottomNavigationIndex,
+              onTap: homePresenter.changePage,
               elevation: 0,
               showSelectedLabels: false,
               showUnselectedLabels: false,
@@ -116,12 +117,17 @@ class HomePage extends HookConsumerWidget {
             ),
           ),
         ),
-        body: 
-          IndexedStack(
-            index: homeState.bottomNavigationCurrentIndex,
-            children: const [DAppsPage(), WalletPage()],
-          ),
-        
+        body: PageView(
+          controller: homePresenter.pageController,
+          children: const [
+            KeepAliveWrapper(
+              child: DAppsPage(),
+            ),
+            KeepAliveWrapper(
+              child: WalletPage(),
+            )
+          ],
+        ),
       ),
     );
   }
