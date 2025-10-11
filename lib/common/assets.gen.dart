@@ -24,6 +24,12 @@ class $AssetsImageGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
+  /// File path: assets/lottie/ai_loading_animation.json
+  String get aiLoadingAnimation => 'assets/lottie/ai_loading_animation.json';
+
+  /// File path: assets/lottie/ai_logo_animation.json
+  String get aiLogoAnimation => 'assets/lottie/ai_logo_animation.json';
+
   /// File path: assets/lottie/axs_logo_animation.json
   String get axsLogoAnimation => 'assets/lottie/axs_logo_animation.json';
 
@@ -34,7 +40,8 @@ class $AssetsLottieGen {
   String get path => 'assets/lottie';
 
   /// List of all assets
-  List<String> get values => [axsLogoAnimation];
+  List<String> get values =>
+      [aiLoadingAnimation, aiLogoAnimation, axsLogoAnimation];
 }
 
 class $AssetsPdfGen {
@@ -217,8 +224,14 @@ class $AssetsSvgNetworksGen {
   /// File path: assets/svg/networks/arbitrum.svg
   String get arbitrum => 'assets/svg/networks/arbitrum.svg';
 
+  /// File path: assets/svg/networks/bnb.svg
+  String get bnb => 'assets/svg/networks/bnb.svg';
+
   /// File path: assets/svg/networks/ethereum.svg
   String get ethereum => 'assets/svg/networks/ethereum.svg';
+
+  /// File path: assets/svg/networks/mch.svg
+  String get mch => 'assets/svg/networks/mch.svg';
 
   /// File path: assets/svg/networks/moonchain.svg
   String get moonchain => 'assets/svg/networks/moonchain.svg';
@@ -233,7 +246,8 @@ class $AssetsSvgNetworksGen {
   String get path => 'assets/svg/networks';
 
   /// List of all assets
-  List<String> get values => [arbitrum, ethereum, moonchain, mxc, unknown];
+  List<String> get values =>
+      [arbitrum, bnb, ethereum, mch, moonchain, mxc, unknown];
 }
 
 class $AssetsSvgSecurityGen {
@@ -301,14 +315,14 @@ class $AssetsSvgSplashGen {
 class Assets {
   const Assets._();
 
-  static const String aEnv = 'assets/.env';
+  static const String aEnv = '.env';
   static const $AssetsImageGen image = $AssetsImageGen();
   static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsPdfGen pdf = $AssetsPdfGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
 
   /// List of all assets
-  static List<String> get values => [aEnv];
+  static List<String> get values => [aEnv, aEnv];
 }
 
 class AssetGenImage {
