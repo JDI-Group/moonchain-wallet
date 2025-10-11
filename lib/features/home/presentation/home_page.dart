@@ -21,16 +21,14 @@ enum HomePageSubPage {
 }
 
 class HomePage extends HookConsumerWidget {
-  final HomePageSubPage homePageSubPage;
-  const HomePage({Key? key, required this.homePageSubPage}) : super(key: key);
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  ProviderBase<HomePagePresenter> get presenter => homePagePageContainer
-      .actions(HomePageArguments(homePageSubPage: homePageSubPage));
+  ProviderBase<HomePagePresenter> get presenter =>
+      homePagePageContainer.actions;
 
-  @override
-  ProviderBase<HomeState> get state => homePagePageContainer
-      .state(HomePageArguments(homePageSubPage: homePageSubPage));
+  ProviderBase<HomeState> get state => homePagePageContainer.state;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:moonchain_wallet/app/app.dart';
 import 'package:moonchain_wallet/core/core.dart';
+import 'package:moonchain_wallet/features/dapps/domain/home_page_index_use_case.dart';
 import 'package:moonchain_wallet/features/security/security.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 
@@ -10,12 +11,14 @@ class MoonchainAppLinksUseCase extends ReactiveUseCase {
   MoonchainAppLinksUseCase(
     this._authUseCase,
     this._passcodeUseCase,
+    this._homePageIndexUseCase,
   ) {
     initializeListeners();
   }
 
   final AuthUseCase _authUseCase;
   final PasscodeUseCase _passcodeUseCase;
+  final HomePageIndexUseCase _homePageIndexUseCase;
 
   BuildContext get currentContext => appNavigatorKey.currentContext!;
   NavigatorState? get navigator => appNavigatorKey.currentState;
@@ -70,7 +73,10 @@ class MoonchainAppLinksUseCase extends ReactiveUseCase {
     print(
         'TEST:isPassCodeScreenShown: ${(!isPassCodeScreenShown && toNavigateWidget != null)}');
     if (!isPassCodeScreenShown && toNavigateWidget != null) {
-      _appLinksRouter.navigateTo(toNavigateWidget!);
+      _appLinksRouter.navigateTo(
+        toNavigateWidget!,
+        _homePageIndexUseCase
+      );
       toNavigateWidget = null;
     }
   }

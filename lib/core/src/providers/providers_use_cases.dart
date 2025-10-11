@@ -277,6 +277,7 @@ final Provider<MoonchainAppLinksUseCase> appLinksUseCaseProvider = Provider(
   (ref) => MoonchainAppLinksUseCase(
     ref.watch(authUseCaseProvider),
     ref.watch(passcodeUseCaseProvider),
+    ref.watch(homePageIndexUseCaseProvider),
   ),
 );
 

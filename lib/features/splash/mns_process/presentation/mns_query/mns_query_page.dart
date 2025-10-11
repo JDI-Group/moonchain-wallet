@@ -31,9 +31,7 @@ class SplashMNSQueryPage extends HookConsumerWidget {
           FlutterI18n.translate(context, 'skip'),
           onTap: () => Navigator.of(context).replaceAll(
             route(
-              const HomePage(
-                homePageSubPage: HomePageSubPage.dapps,
-              ),
+              const HomePage(),
             ),
           ),
         ),

@@ -260,16 +260,10 @@ class SendCryptoPresenter extends CompletePresenter<SendCryptoState> {
         // }
 
         _homePageIndexUseCase.changeBottomNavigationSubPage(HomePageSubPage.wallet);
-        
+
         navigator?.popUntil((route) {
           return route.settings.name?.contains('PasscodeRequireWrapperPage') ?? false;
         },);
-
-        // navigator?.pushReplacement(route(
-        //   const HomePage(
-        //     homePageSubPage: HomePageSubPage.wallet,
-        //   ),
-        // ));
       });
     }
     return null;
