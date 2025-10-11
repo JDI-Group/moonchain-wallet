@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:lottie/lottie.dart';
+import 'package:moonchain_wallet/common/assets.gen.dart';
 import 'package:moonchain_wallet/features/ai_chat/presentation/widgets/gredient.dart';
 import 'package:moonchain_wallet/features/ai_chat/presentation/widgets/messages/message_bubble_raw.dart';
 import 'package:mxc_ui/mxc_ui.dart';
@@ -11,15 +13,29 @@ class ProcessingBubble extends MessageBubbleRaw {
           isSender: false,
           // Will format message
           message: '',
-          isRepeatingAnimation: true,
-          shouldHaveTypeAnimation: true,
-          replay: true,
+          isRepeatingAnimation: false,
+          shouldHaveTypeAnimation: false,
+          replay: false,
           charDelay: const Duration(milliseconds: 70),
         );
 
-  // @override
+  @override
   String changeMessage(BuildContext context, String message) =>
-      "${FlutterI18n.translate(context, 'processing')} ...";
+      FlutterI18n.translate(context, 'processing');
+
+  @override
+  Widget trailingWidget() => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(
+            width: 8,
+          ),
+          Lottie.asset(
+            Assets.lottie.aiLoadingAnimation,
+            height: 20,
+          ),
+        ],
+      );
 
   @override
   Widget border({required Widget child}) => Container(
@@ -45,6 +61,6 @@ class ProcessingBubble extends MessageBubbleRaw {
 
   @override
   Color textColorOnType(BuildContext context) {
-    return ColorsTheme.of(context).white;
+    return const Color(0XFFB6B6B6);
   }
 }

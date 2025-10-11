@@ -57,6 +57,7 @@ abstract class MessageBubbleRaw extends HookConsumerWidget {
               chatPresenter: chatPresenter,
               replay: replay,
               charDelay: charDelay,
+              trailingWidget: trailingWidget(),
             ),
           ),
         ),
@@ -73,6 +74,8 @@ abstract class MessageBubbleRaw extends HookConsumerWidget {
   Color colorOnType(BuildContext context);
 
   Color textColorOnType(BuildContext context);
+
+  Widget? trailingWidget();
 }
 
 class AnimatedTextWidget extends StatefulWidget {
