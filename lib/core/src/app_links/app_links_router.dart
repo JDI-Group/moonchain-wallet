@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:moonchain_wallet/features/dapps/dapps.dart';
+import 'package:moonchain_wallet/features/dapps/domain/home_page_index_use_case.dart';
 import 'package:moonchain_wallet/features/home/presentation/home_page.dart';
 import 'package:moonchain_wallet/features/portfolio/presentation/portfolio_page.dart';
+import 'package:moonchain_wallet/features/wallet/wallet.dart';
 
 class AppLinksRouter {
   AppLinksRouter(this.navigator);
@@ -40,6 +42,11 @@ class AppLinksRouter {
         route(page),
         (route) => false,
       );
+  void popUntil(String page) => navigator?.popUntil(
+        (route) {
+          return route.settings.name?.contains(page) ?? false;
+        },
+      );
 
   // Combine page with It's params
   Widget getPageWithParams(String page, Map<String, List<String>>? params) {
@@ -47,14 +54,10 @@ class AppLinksRouter {
 
     switch ('/$page') {
       case '/':
-        toPushPage = const HomePage(
-          homePageSubPage: HomePageSubPage.dapps,
-        );
+        toPushPage = const HomePage();
         break;
       case '/dapps':
-        toPushPage = const HomePage(
-          homePageSubPage: HomePageSubPage.dapps,
-        );
+        toPushPage = const DAppsPage();
         break;
       case '/openDapp':
         final url = params!['url']![0];
@@ -63,17 +66,13 @@ class AppLinksRouter {
         );
         break;
       case '/wallet':
-        toPushPage = const HomePage(
-          homePageSubPage: HomePageSubPage.wallet,
-        );
+        toPushPage = const WalletPage();
         break;
       case '/portfolio':
         toPushPage = const PortfolioPage();
         break;
       default:
-        toPushPage = const HomePage(
-          homePageSubPage: HomePageSubPage.dapps,
-        );
+        toPushPage = const HomePage();
     }
 
     return toPushPage;
@@ -81,7 +80,8 @@ class AppLinksRouter {
 
   /// This function will do the navigation according to the page widget that
   /// includes the params based on how page specific navigation instruction.
-  void navigateTo(Widget toPushPage) {
+  void navigateTo(
+      Widget toPushPage, HomePageIndexUseCase homePageIndexUseCase) {
     late Function() navigationFunc;
 
     if (toPushPage.runtimeType == OpenDAppPage) {
@@ -91,11 +91,22 @@ class AppLinksRouter {
     } else if (toPushPage.runtimeType == PortfolioPage) {
       navigationFunc = () {
         pushAndReplaceUntil(
-          const HomePage(
-            homePageSubPage: HomePageSubPage.wallet,
-          ),
+          const HomePage(),
         );
-        pushTo(toPushPage);
+      };
+    } else if (toPushPage is HomePage) {
+      navigationFunc = () {};
+    } else if (toPushPage is WalletPage) {
+      navigationFunc = () {
+        popUntil('PasscodeRequireWrapperPage');
+        homePageIndexUseCase
+            .changeBottomNavigationSubPage(HomePageSubPage.wallet);
+      };
+    } else if (toPushPage is DAppsPage) {
+      navigationFunc = () {
+        popUntil('PasscodeRequireWrapperPage');
+        homePageIndexUseCase
+            .changeBottomNavigationSubPage(HomePageSubPage.dapps);
       };
     } else {
       navigationFunc = () {

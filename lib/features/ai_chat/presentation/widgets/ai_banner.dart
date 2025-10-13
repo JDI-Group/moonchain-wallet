@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:moonchain_wallet/common/assets.gen.dart';
 import 'package:mxc_ui/mxc_ui.dart';
 
@@ -30,12 +31,11 @@ class AIBanner extends StatelessWidget {
               shape: BoxShape.circle,
               color: ColorsTheme.of(context).black,
             ),
-            child: SvgPicture.asset(
-              Assets.svg.aiBlack,
+            child: Lottie.asset(
+              Assets.lottie.aiLogoAnimation,
               height: 40,
               width: 40,
-              colorFilter: ColorFilter.mode(
-                  ColorsTheme.of(context).primary, BlendMode.srcIn),
+              repeat: false,
             ),
           ),
           const SizedBox(

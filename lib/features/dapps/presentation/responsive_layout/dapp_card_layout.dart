@@ -155,7 +155,7 @@ class DappCardLayout extends HookConsumerWidget {
                                 ),
                               ),
                               separatorBuilder: (context, index) =>
-                                  const SizedBox(height: 16),
+                                  const SizedBox(height: 20),
                             ),
                           ),
                         ...buildDAppProviderSection(

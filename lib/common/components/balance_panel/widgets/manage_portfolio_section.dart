@@ -1,8 +1,7 @@
-import 'package:moonchain_wallet/core/core.dart';
-import 'package:moonchain_wallet/features/portfolio/presentation/portfolio_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:moonchain_wallet/features/wallet/wallet.dart';
 import 'package:mxc_ui/mxc_ui.dart';
 
 class ManagePortfolioSection extends HookConsumerWidget {
@@ -12,14 +11,10 @@ class ManagePortfolioSection extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final presenter = ref.read(walletContainer.actions);
+
     return InkWell(
-      onTap: () {
-        Navigator.of(context).push(
-          route(
-            const PortfolioPage(),
-          ),
-        );
-      },
+      onTap: presenter.moveToPortfolio,
       child: Row(
         children: [
           Icon(

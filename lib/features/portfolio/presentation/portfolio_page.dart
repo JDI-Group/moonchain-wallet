@@ -35,13 +35,7 @@ class PortfolioPage extends HookConsumerWidget {
           key: const ValueKey('appsButton'),
           icon: const Icon(MxcIcons.apps),
           iconSize: 32,
-          onPressed: () => Navigator.of(context).pushReplacement(
-            route(
-              const HomePage(
-                homePageSubPage: HomePageSubPage.dapps,
-              ),
-            ),
-          ),
+          onPressed: presenter.navigateToDappsPage,
           color: ColorsTheme.of(context).iconPrimary,
         ),
       ),

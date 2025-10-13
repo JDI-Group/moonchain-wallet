@@ -1,5 +1,6 @@
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:moonchain_wallet/features/home/home.dart';
 
 import 'choose_nft_state.dart';
 
@@ -15,6 +16,7 @@ class ChooseNftPresenter extends CompletePresenter<ChooseNftState> {
   late final _nftUseCase = ref.read(nftsUseCaseProvider);
   late final _chainConfigurationUseCase =
       ref.read(chainConfigurationUseCaseProvider);
+  late final _homePageIndexUseCase = ref.read(homePageIndexUseCaseProvider);
 
   late final TextEditingController searchController = TextEditingController();
 
@@ -51,6 +53,16 @@ class ChooseNftPresenter extends CompletePresenter<ChooseNftState> {
 
     // nftList.addAll(domainsList);
     _nftUseCase.mergeNewList(nftList);
+  }
+
+  void navigateToDappsPage() {
+    navigator?.popUntil(
+      (route) {
+        return route.settings.name?.contains('PasscodeRequireWrapperPage') ??
+            false;
+      },
+    );
+    _homePageIndexUseCase.changeBottomNavigationSubPage(HomePageSubPage.dapps);
   }
 
   void fliterNfts(String value) {

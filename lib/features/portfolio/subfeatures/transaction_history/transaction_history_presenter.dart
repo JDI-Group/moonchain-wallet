@@ -1,4 +1,5 @@
 import 'package:moonchain_wallet/core/core.dart';
+import 'package:moonchain_wallet/features/home/home.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 
 import 'transaction_history_state.dart';
@@ -20,6 +21,7 @@ class TransactionHistoryPresenter
   late final _transactionHistoryUseCase =
       ref.read(transactionHistoryUseCaseProvider);
   late final _mxcTransactionsUseCase = ref.read(mxcTransactionsUseCaseProvider);
+  late final _homePageIndexUseCase = ref.read(homePageIndexUseCaseProvider);
 
   @override
   void initState() {
@@ -54,6 +56,16 @@ class TransactionHistoryPresenter
       notify(() => state.tokens = value);
       getTransactions();
     });
+  }
+
+  void navigateToDappsPage() {
+    navigator?.popUntil(
+      (route) {
+        return route.settings.name?.contains('PasscodeRequireWrapperPage') ??
+            false;
+      },
+    );
+    _homePageIndexUseCase.changeBottomNavigationSubPage(HomePageSubPage.dapps);
   }
 
   void getTransactions() async {

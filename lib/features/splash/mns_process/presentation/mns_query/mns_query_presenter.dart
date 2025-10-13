@@ -99,9 +99,11 @@ class SplashMNSQueryPresenter extends CompletePresenter<SplashMNSQueryState> {
               true,
             );
           } else {
-            navigator?.replaceAll(route(const HomePage(
-              homePageSubPage: HomePageSubPage.dapps,
-            )));
+            navigator?.replaceAll(
+              route(
+                const HomePage(),
+              ),
+            );
           }
         }
       } else {
@@ -119,9 +121,11 @@ class SplashMNSQueryPresenter extends CompletePresenter<SplashMNSQueryState> {
     await navigator
         ?.push(route.featureDialog(OpenDAppPage(url: launchUrl)))
         .then((_) {
-      navigator?.replaceAll(route(const HomePage(
-        homePageSubPage: HomePageSubPage.dapps,
-      )));
+      navigator?.replaceAll(
+        route(
+          const HomePage(),
+        ),
+      );
     });
   }
 }

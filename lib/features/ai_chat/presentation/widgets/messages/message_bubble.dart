@@ -54,6 +54,9 @@ class MessageBubble extends MessageBubbleRaw {
   }
 
   @override
+  Widget? trailingWidget()=> null;
+
+  @override
   Widget border({required Widget child}) => Container(
         child: child,
       );

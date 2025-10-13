@@ -79,7 +79,7 @@ Widget buildCard(
               style: FontTheme.of(context)
                   .subtitle2
                   .primary()
-                  .copyWith(fontWeight: FontWeight.w800),
+                  .copyWith(fontWeight: FontWeight.w900),
               softWrap: false,
               overflow: TextOverflow.ellipsis,
             ),

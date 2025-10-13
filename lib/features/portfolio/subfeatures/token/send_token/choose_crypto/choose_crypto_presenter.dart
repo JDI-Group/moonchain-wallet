@@ -1,3 +1,4 @@
+import 'package:moonchain_wallet/features/home/home.dart';
 import 'package:mxc_logic/mxc_logic.dart';
 import 'package:moonchain_wallet/core/core.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class ChooseCryptoPresenter extends CompletePresenter<ChooseCryptoState> {
   late final _tokenContractUseCase = ref.read(tokenContractUseCaseProvider);
   late final _accountUserCase = ref.read(accountUseCaseProvider);
   late final TextEditingController searchController = TextEditingController();
+  late final _homePageIndexUseCase = ref.read(homePageIndexUseCaseProvider);
 
   @override
   void initState() {
@@ -62,5 +64,15 @@ class ChooseCryptoPresenter extends CompletePresenter<ChooseCryptoState> {
         .toList();
 
     notify(() => state.filterTokens = tokens);
+  }
+
+  void navigateToDappsPage() {
+    navigator?.popUntil(
+      (route) {
+        return route.settings.name?.contains('PasscodeRequireWrapperPage') ??
+            false;
+      },
+    );
+    _homePageIndexUseCase.changeBottomNavigationSubPage(HomePageSubPage.dapps);
   }
 }

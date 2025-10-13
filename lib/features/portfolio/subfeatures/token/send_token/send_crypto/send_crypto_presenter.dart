@@ -56,6 +56,7 @@ class SendCryptoPresenter extends CompletePresenter<SendCryptoState> {
   late final _chainConfigurationUseCase =
       ref.read(chainConfigurationUseCaseProvider);
   late final _errorUseCase = ref.read(errorUseCaseProvider);
+  late final _homePageIndexUseCase = ref.read(homePageIndexUseCaseProvider);
 
   late final TextEditingController amountController = TextEditingController();
   late final TextEditingController recipientController =
@@ -239,7 +240,7 @@ class SendCryptoPresenter extends CompletePresenter<SendCryptoState> {
       }
       return res;
     } else if (TransactionProcessType.done == type) {
-      navigator!.pop();
+      // navigator!.pop();
       Future.delayed(const Duration(milliseconds: 200), () {
         // There are two ways to navigate to Send Crypto Page
         // One through QR code
@@ -257,11 +258,12 @@ class SendCryptoPresenter extends CompletePresenter<SendCryptoState> {
         // if (!walletPageFound) {
         //   navigator?.pushReplacement(route(const WalletPage()));
         // }
-        navigator?.pushReplacement(route(
-          const HomePage(
-            homePageSubPage: HomePageSubPage.wallet,
-          ),
-        ));
+
+        _homePageIndexUseCase.changeBottomNavigationSubPage(HomePageSubPage.wallet);
+
+        navigator?.popUntil((route) {
+          return route.settings.name?.contains('PasscodeRequireWrapperPage') ?? false;
+        },);
       });
     }
     return null;

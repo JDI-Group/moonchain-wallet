@@ -6,6 +6,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'dart:convert';
 import 'package:mxc_logic/mxc_logic.dart';
 
+import '../../portfolio/presentation/portfolio_page.dart';
 import 'wallet_page_state.dart';
 
 final walletContainer =
@@ -43,7 +44,6 @@ class WalletPresenter extends CompletePresenter<WalletState> {
 
     listen(_accountUserCase.account, (value) {
       if (value != null) {
-        final cAccount = state.account;
         notify(() => state.account = value);
         if (state.network != null) {
           getTransactions();
@@ -120,6 +120,14 @@ class WalletPresenter extends CompletePresenter<WalletState> {
     notify(() => state.currentIndex = newIndex);
   }
 
+  void moveToPortfolio() {
+    navigator!.push(
+      route(
+        const PortfolioPage(),
+      ),
+    );
+  }
+
   handleWebSocketEvents(dynamic event) {
     if (!mounted) return;
     switch (event.event.value as String) {
@@ -149,8 +157,6 @@ class WalletPresenter extends CompletePresenter<WalletState> {
         break;
       // new balance
       case 'balance':
-        final wannseeBalanceEvent =
-            MoonchainBalanceEvenModel.fromJson(event.payload);
         getWalletTokensBalance(null, true);
         break;
       default:
