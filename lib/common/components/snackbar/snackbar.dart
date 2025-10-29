@@ -1,3 +1,4 @@
+import 'package:moonchain_wallet/app/app.dart';
 import 'package:moonchain_wallet/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:mxc_ui/mxc_ui.dart';
@@ -221,6 +222,7 @@ void showSnackBar({
     behavior: SnackBarBehavior.floating,
   );
 
+  RootScaffoldMessenger.key.currentState?.clearSnackBars();
   ScaffoldMessenger.of(context).clearSnackBars();
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  RootScaffoldMessenger.showSnackBar(snackBar);
 }

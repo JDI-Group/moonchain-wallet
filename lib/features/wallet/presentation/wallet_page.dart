@@ -28,38 +28,39 @@ class WalletPage extends HookConsumerWidget {
             : state.txList!;
 
     return MxcPage(
-        useAppBar: true,
-        presenter: presenter,
-        resizeToAvoidBottomInset: true,
-        useBlackBackground: true,
-        layout: LayoutType.column,
-        useContentPadding: false,
-        appBar: AppNavBar(
-          action: IconButton(
-            key: const ValueKey('settingsButton'),
-            icon: SvgPicture.asset(
-              assets.Assets.svg.settingsSvg,
-              height: 28,
-              width: 28,
-              fit: BoxFit.fill,
-              colorFilter: ColorFilter.mode(
-                  ColorsTheme.of(context).white100, BlendMode.srcIn),
-            ),
-            iconSize: Sizes.space2XLarge,
-            onPressed: () {
-              Navigator.of(context).push(
-                route(
-                  const SettingsPage(),
-                ),
-              );
-            },
-            color: ColorsTheme.of(context).iconPrimary,
+      useAppBar: true,
+      presenter: presenter,
+      resizeToAvoidBottomInset: true,
+      backgroundColor: Colors.black,
+      layout: LayoutType.column,
+      useContentPadding: false,
+      extendBodyBehindAppBar: true,
+      appBar: AppNavBar(
+        action: IconButton(
+          key: const ValueKey('settingsButton'),
+          icon: SvgPicture.asset(
+            assets.Assets.svg.settingsSvg,
+            height: 28,
+            width: 28,
+            fit: BoxFit.fill,
+            colorFilter: ColorFilter.mode(
+                ColorsTheme.of(context).white100, BlendMode.srcIn),
           ),
-          leadingType: LeadingType.walletAddress,
+          iconSize: Sizes.space2XLarge,
+          onPressed: () {
+            Navigator.of(context).push(
+              route(
+                const SettingsPage(),
+              ),
+            );
+          },
+          color: ColorsTheme.of(context).iconPrimary,
         ),
-        children: [
-          Expanded(
-              child: ListView(
+        leadingType: LeadingType.walletAddress,
+      ),
+      children: [
+        Expanded(
+          child: ListView(
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 24, right: 24, left: 24),
@@ -103,7 +104,9 @@ class WalletPage extends HookConsumerWidget {
                 ),
               ),
             ],
-          ))
-        ]);
+          ),
+        ),
+      ],
+    );
   }
 }

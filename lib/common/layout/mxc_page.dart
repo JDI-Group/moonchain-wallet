@@ -272,44 +272,42 @@ abstract class MxcPage extends HookConsumerWidget {
           decoration: BoxDecoration(
             gradient: backgroundGradient,
           ),
-          child: ScaffoldMessenger(
-            child: Scaffold(
-              backgroundColor: resolveBackgroundColor(context),
-              extendBodyBehindAppBar: extendBodyBehindAppBar,
-              drawer: drawer,
-              key: scaffoldKey,
-              resizeToAvoidBottomInset: false,
-              floatingActionButton: floatingActionButton,
-              bottomNavigationBar: buildBottomNavigation(context, ref),
-              floatingActionButtonLocation: floatingActionButtonLocation,
-              body: PresenterHooks(
-                presenter: presenter,
-                child: paintBackground(
-                  context: context,
-                  splashBackgroundVisible: useSplashBackground,
-                  useBlackBackground: useBlackBackground,
-                  gradientBackgroundVisible: useGradientBackground,
-                  child: SafeArea(
-                    bottom: maintainBottomSafeArea,
-                    top: topSafeArea,
-                    child: Column(
-                      children: [
-                        buildAppBar(context, ref),
-                        Expanded(
-                            child: Padding(
-                          padding: childrenPadding ?? EdgeInsets.zero,
-                          child: content(context, ref),
-                        )),
-                        if (placeBottomInsetFiller)
-                          AnimatedSize(
-                            curve: Curves.easeOutQuad,
-                            duration: const Duration(milliseconds: 275),
-                            child: SizedBox(
-                              height: MediaQuery.of(context).viewInsets.bottom,
-                            ),
+          child: Scaffold(
+            backgroundColor: resolveBackgroundColor(context),
+            extendBodyBehindAppBar: extendBodyBehindAppBar,
+            drawer: drawer,
+            key: scaffoldKey,
+            resizeToAvoidBottomInset: false,
+            floatingActionButton: floatingActionButton,
+            bottomNavigationBar: buildBottomNavigation(context, ref),
+            floatingActionButtonLocation: floatingActionButtonLocation,
+            body: PresenterHooks(
+              presenter: presenter,
+              child: paintBackground(
+                context: context,
+                splashBackgroundVisible: useSplashBackground,
+                useBlackBackground: useBlackBackground,
+                gradientBackgroundVisible: useGradientBackground,
+                child: SafeArea(
+                  bottom: maintainBottomSafeArea,
+                  top: topSafeArea,
+                  child: Column(
+                    children: [
+                      buildAppBar(context, ref),
+                      Expanded(
+                          child: Padding(
+                        padding: childrenPadding ?? EdgeInsets.zero,
+                        child: content(context, ref),
+                      )),
+                      if (placeBottomInsetFiller)
+                        AnimatedSize(
+                          curve: Curves.easeOutQuad,
+                          duration: const Duration(milliseconds: 275),
+                          child: SizedBox(
+                            height: MediaQuery.of(context).viewInsets.bottom,
                           ),
-                      ],
-                    ),
+                        ),
+                    ],
                   ),
                 ),
               ),
