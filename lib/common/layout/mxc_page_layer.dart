@@ -84,9 +84,9 @@ class MxcPageLayer extends MxcPage {
       return upperBackgroundColor!;
     }
     if (BottomFlowDialog.maybeOf(context) != null) {
-      return ColorsTheme.of(context).darkBlue;
+      return ColorsTheme.of(context).darkGray;
     }
-    return ColorsTheme.of(context).darkBlue;
+    return ColorsTheme.of(context).darkGray;
   }
 
   @override
