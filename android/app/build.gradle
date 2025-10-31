@@ -62,6 +62,11 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21
+        minSdk 21
+        manifestPlaceholders = [
+            minSdkVersion: "21",
+            applicationName: "android.app.Application"
+        ]
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode System.getenv('VERSION_CODE')?.hashCode()?.abs() ?: 404
         versionName flutterVersionName

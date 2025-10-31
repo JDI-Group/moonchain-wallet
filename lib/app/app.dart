@@ -47,6 +47,7 @@ class MXCWallet extends HookConsumerWidget {
             for (final l in languageState.supportedLanguages) l.toLocale(),
           ],
           navigatorKey: appNavigatorKey,
+          scaffoldMessengerKey: RootScaffoldMessenger.key,
           onGenerateRoute: (_) => null,
           builder: (context, child) {
             child = Navigator(
@@ -93,5 +94,16 @@ class MXCWallet extends HookConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+
+// Global scaffold messenger utility
+class RootScaffoldMessenger {
+  static final GlobalKey<ScaffoldMessengerState> key = 
+      GlobalKey<ScaffoldMessengerState>();
+  
+  static void showSnackBar(SnackBar snackBar) {
+    key.currentState?.showSnackBar(snackBar);
   }
 }

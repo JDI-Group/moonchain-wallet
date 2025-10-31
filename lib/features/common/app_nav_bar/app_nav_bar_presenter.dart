@@ -57,8 +57,9 @@ class AppNavPresenter extends CompletePresenter<AppNavBarState> {
     addMessage(tip);
   }
 
-  void addNewAccount() async {
-    notify(() => state.isLoading = true);
+  Future<void> addNewAccount() async {
+    if (loading) return;
+    loading = true;
 
     try {
       final index = _accountUseCase.findAccountsLastIndex();
@@ -67,8 +68,8 @@ class AppNavPresenter extends CompletePresenter<AppNavBarState> {
       _accountUseCase.addAccount(newAccount, index: index);
       loadCache();
 
-      notify(() => state.isLoading = false);
       navigator!.pop();
+      loading = false;
     } catch (e, s) {
       addError(e, s);
     }
