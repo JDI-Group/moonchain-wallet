@@ -65,7 +65,7 @@ android {
         minSdk 21
         manifestPlaceholders = [
             minSdkVersion: "21",
-            applicationName: "android.app.Application"
+            applicationName: "io.flutter.app.FlutterApplication"
         ]
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode System.getenv('VERSION_CODE')?.hashCode()?.abs() ?: 404
