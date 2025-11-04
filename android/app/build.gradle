@@ -63,7 +63,7 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21
         minSdk 21
-        manifestPlaceholders = [
+        manifestPlaceholders += [
             minSdkVersion: "21",
             applicationName: "io.flutter.app.FlutterApplication"
         ]
