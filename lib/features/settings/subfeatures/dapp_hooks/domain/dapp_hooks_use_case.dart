@@ -170,7 +170,7 @@ class DAppHooksUseCase extends ReactiveUseCase {
 
         final h3 = const H3Factory().load();
 
-        final hexagonBigInt = h3.geoToH3(
+        final hexagonBigInt = h3.geoToCell(
             GeoCoord(
                 lon: currentLocation.longitude, lat: currentLocation.latitude),
             Config.h3Resolution);
