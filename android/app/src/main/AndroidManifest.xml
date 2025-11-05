@@ -52,11 +52,6 @@
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
 
     <application tools:replace="android:label" android:label="MoonBase" android:name="${applicationName}" android:icon="@mipmap/launcher_icon" android:theme="@style/LaunchTheme" android:requestLegacyExternalStorage="true">
-
-
-        <meta-data
-        android:name="flutterEmbedding"
-        android:value="2" />
         
         # This is line is to disable Impeller
         <meta-data
