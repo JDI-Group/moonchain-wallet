@@ -98,10 +98,11 @@ void showSnackBar({
           ? MediaQuery.of(
                 context,
               ).size.height -
-              285
+              350
           : 0,
       top: SnackBarPosition.top == snackBarPosition
-          ? MediaQuery.of(context).padding.top
+          ?  MediaQuery.of(context).viewInsets.bottom + 
+              MediaQuery.of(context).padding.bottom
           : 0.0,
     ),
     duration: const Duration(seconds: 4),
@@ -223,6 +224,5 @@ void showSnackBar({
   );
 
   RootScaffoldMessenger.key.currentState?.clearSnackBars();
-  ScaffoldMessenger.of(context).clearSnackBars();
   RootScaffoldMessenger.showSnackBar(snackBar);
 }
