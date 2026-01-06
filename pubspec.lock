@@ -1165,10 +1165,10 @@ packages:
     dependency: "direct main"
     description:
       name: h3_flutter
-      sha256: "78cd5f179e6d9dd5c9785568f3f74ee7ff059e88c446c7a8768daa9a59cfa8a1"
+      sha256: a33492b925705854468ae09d4b7430f0e1ed68e7ac190ea6b67f3c14adf9fb39
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.7.0"
+    version: "0.7.1"
   h3_web:
     dependency: transitive
     description:
