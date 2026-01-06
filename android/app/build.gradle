@@ -36,10 +36,10 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     namespace "com.moonchain.app"
-    
+    ndkVersion "28.0.10792818"
+
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion "33.0.1"
-    ndkVersion flutter.ndkVersion
 
     lintOptions {
         disable 'InvalidPackage'
